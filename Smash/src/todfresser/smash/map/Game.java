@@ -450,7 +450,7 @@ public class Game implements Runnable{
 				}
 			}
 			if (gs.equals(GameState.Running)){
-				PlayerFunctions.deleteBlocksNearPlayer(Bukkit.getPlayer(id), 0);
+				//PlayerFunctions.deleteBlocksNearPlayer(Bukkit.getPlayer(id), 0);
 			}
 			
 			if (Bukkit.getPlayer(id).getLocation().getY() <= 0){

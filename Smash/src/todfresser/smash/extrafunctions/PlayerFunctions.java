@@ -1,14 +1,8 @@
 package todfresser.smash.extrafunctions;
 
-import java.util.Random;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -24,7 +18,7 @@ import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
 import todfresser.smash.map.Game;
 
 public class PlayerFunctions {
-	public static void deleteBlocksNearPlayer(Player p, int chance){
+	/*public static void deleteBlocksNearPlayer(Player p, int chance){
 		Location l = p.getLocation().add(0, 0.1, 0);
 		Block b;
 		World w = p.getWorld();
@@ -47,7 +41,7 @@ public class PlayerFunctions {
 				}
 			}
 		}
-	}
+	}*/
 	public static void playOutDamage(Game g, Player p, Vector velocity, int damage){
 		g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity);
