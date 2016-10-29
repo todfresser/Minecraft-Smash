@@ -398,7 +398,7 @@ public class Game implements Runnable{
 			            if (rt == 5) type = Type.STAR;  
 			            FireworkEffect effect = FireworkEffect.builder().flicker(r.nextBoolean()).withColor(Color.fromBGR((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255))).withFade(Color.fromBGR((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255))).with(type).trail(r.nextBoolean()).build();
 			            fwm.addEffect(effect);
-			            int rp = r.nextInt(2) + 1;
+			            int rp = 1;
 			            fwm.setPower(rp);
 			            fw.setFireworkMeta(fwm); 
 					}
