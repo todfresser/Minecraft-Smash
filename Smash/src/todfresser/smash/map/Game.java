@@ -518,6 +518,7 @@ public class Game implements Runnable{
 				}
 				for (UUID id : getIngamePlayers()){
 					PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GRAY + "Das Spiel startet in " + ChatColor.GOLD + Integer.toString(counter) + ChatColor.GRAY + " Sekunden");
+					if (counter <= 5) PlayerFunctions.sendTitle(Bukkit.getPlayer(id), 10, 20, 2, ChatColor.RED + Integer.toString(counter), "");
 				}
 				counter--;
 				return;

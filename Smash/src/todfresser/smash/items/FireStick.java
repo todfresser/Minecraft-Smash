@@ -6,6 +6,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.SmashItemData;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
@@ -38,8 +41,21 @@ public class FireStick implements SmashItemData {
 	}
 
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(80);
-		target.sendMessage("§cF§6i§er§ce§6d§e!");
+		PlayerFunctions.playOutDamage(game, target, player, player.getLocation().getDirection().setY(1.5).multiply(0.4), 2);
+		playerdata.registerItemRunnable(new BukkitRunnable() {
+			int i = 3;
+			@Override
+			public void run() {
+				if (i == 0){
+					playerdata.cancelItemRunnable(this);
+					return;
+				}
+				PlayerFunctions.playOutDamage(game, target, player, 2);
+				i--;
+			}
+		}, 19, 20);
 		playerdata.canUseItem = true;
 	}
 

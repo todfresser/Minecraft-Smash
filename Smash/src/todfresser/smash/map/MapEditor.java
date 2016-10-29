@@ -8,9 +8,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -21,7 +23,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.MapEditorItems.EditorInventoryType;
-import todfresser.smash.signs.SignJ;
 
 public class MapEditor implements Listener{
 	public static List<MapEditorData> editors = new ArrayList<>();
@@ -189,38 +190,39 @@ public class MapEditor implements Listener{
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onNewSign(SignChangeEvent e){
 		for (MapEditorData data : editors){
 			if (data.SpielerID.equals(e.getPlayer().getUniqueId())){
+				Sign s = (Sign) e.getBlock().getState();
 				if (e.getLine(0).equals("leave")){
-					SignJ s = new SignJ(e.getBlock().getLocation());
-					s.write(ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]",
-							ChatColor.BLUE + "Spiel", 
-							ChatColor.BLUE + "verlassen",
-							ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]");
+					s.setLine(0, "");
+					s.setLine(1, ChatColor.BLUE + "Spiel");
+					s.setLine(2, ChatColor.BLUE + "verlassen");
+					s.setLine(3, "");
+					s.update();
 					e.setCancelled(true);
 					data.leavesign = s.getLocation();
 					MapEditorItems.setInventory(data, EditorInventoryType.COMMANDSIGNS);
 					return;
 				}
 				if (e.getLine(0).equals("lives")){
-					SignJ s = new SignJ(e.getBlock().getLocation());
-					s.write(ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]",
-							ChatColor.BLUE + "Lebensanzahl", 
-							ChatColor.BLUE + "verändern",
-							ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]");
+					s.setLine(0, "");
+					s.setLine(1, ChatColor.BLUE + "Lebensanzahl");
+					s.setLine(2, ChatColor.BLUE + "verändern");
+					s.setLine(3, "");
+					s.update();
 					e.setCancelled(true);
 					data.livesign = s.getLocation();
 					MapEditorItems.setInventory(data, EditorInventoryType.COMMANDSIGNS);
 					return;
 				}
 				if (e.getLine(0).equals("items")){
-					SignJ s = new SignJ(e.getBlock().getLocation());
-					s.write(ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]",
-							ChatColor.BLUE + "Items", 
-							ChatColor.BLUE + "deaktivieren",
-							ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]");
+					s.setLine(0, "");
+					s.setLine(1, ChatColor.BLUE + "Items");
+					s.setLine(2, ChatColor.BLUE + "deaktivieren");
+					s.setLine(3, "");
+					s.update();
 					e.setCancelled(true);
 					data.itemsign = s.getLocation();
 					MapEditorItems.setInventory(data, EditorInventoryType.COMMANDSIGNS);
