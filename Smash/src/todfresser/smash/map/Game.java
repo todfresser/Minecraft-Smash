@@ -292,7 +292,7 @@ public class Game implements Runnable{
 		}
 		//updateSign(); !!!!!!!
 	}
-	public void removePlayer(Player p, boolean remove){
+	public void removePlayer(Player p, boolean removefromList){
 		if (players.containsKey(p.getUniqueId())){
 			p.getInventory().clear();
 			p.getInventory().setArmorContents(null);
@@ -312,10 +312,10 @@ public class Game implements Runnable{
 			players.get(p.getUniqueId()).cancelAllItemRunnables();
 			//
 			if (gs.equals(GameState.Ending)) Statistics.update(p.getUniqueId(), getPlayerData(p));
-			if (remove) players.remove(p.getUniqueId());
+			if (removefromList) players.remove(p.getUniqueId());
 			p.teleport(m.getLeavePoint());
 			PlayerFunctions.removeScoreboard(p);
-			PlayerFunctions.sendDamageScoreboard(this);
+			if (removefromList) PlayerFunctions.sendDamageScoreboard(this);
 			
 			for(PotionEffect effect : p.getActivePotionEffects()){
 			    p.removePotionEffect(effect.getType());
@@ -362,34 +362,6 @@ public class Game implements Runnable{
     	}
     	for (UUID id : players.keySet()){
     		removePlayer(Bukkit.getPlayer(id), false);
-    		/*p = Bukkit.getPlayer(id);
-			p.getInventory().clear();
-			p.getInventory().setArmorContents(null);
-			//
-			p.setGameMode(players.get(p.getUniqueId()).getpreviousGameMode());
-			if (p.getGameMode().equals(GameMode.SURVIVAL) || p.getGameMode().equals(GameMode.ADVENTURE)){
-				p.setAllowFlight(false);
-			}else p.setAllowFlight(true);
-			players.get(p.getUniqueId()).cancelAllItemRunnables();
-			PlayerInventory inv = players.get(p.getUniqueId()).getpreviousInventory();
-			for (int i = 0; i < inv.getSize(); i++){
-				if (inv.getItem(i) != null && !inv.getItem(i).getType().equals(Material.AIR)){
-					p.getInventory().setItem(i, inv.getItem(i));
-				}
-			}
-			//p.getInventory().setContents(inv.getContents());
-			//p.getInventory().setArmorContents(inv.getArmorContents());
-			//
-			PlayerFunctions.removeScoreboard(p);
-			p.setFoodLevel(20);
-			p.setMaxHealth(20);
-			p.setHealth(20);
-			p.setExp(0f);
-			p.setLevel(0);
-			p.teleport(m.getLeavePoint());
-			for(PotionEffect effect : p.getActivePotionEffects()){
-			    p.removePotionEffect(effect.getType());
-			}*/
     	}
     	players.clear();
     	SignManager.removeGamefromSign(this);
