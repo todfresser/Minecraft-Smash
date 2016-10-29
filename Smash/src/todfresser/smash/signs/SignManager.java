@@ -32,6 +32,8 @@ import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
 import todfresser.smash.map.Map;
+import todfresser.smash.map.MapEditor;
+import todfresser.smash.map.MapEditorData;
 
 public class SignManager implements Listener{
 	public static ArrayList<SignJ> signs = new ArrayList<>();
@@ -121,7 +123,7 @@ public class SignManager implements Listener{
 	
 	public static void save(){
 		if (signs.size() > 0){
-			File file = new File("plugins/Smash", "Signs.list");
+			File file = new File("plugins/Smash", "Signs.txt");
 			String newLine = System.getProperty("line.separator");
 			if (file.exists()){
 				file.delete();
@@ -148,8 +150,8 @@ public class SignManager implements Listener{
 	
 	@EventHandler
 	public void onNewSign(SignChangeEvent e){
-		for (Game g : Game.getrunningGames()){
-			if (g.getWorld().getName().equals(e.getBlock().getWorld().getName())){
+		for (MapEditorData data : MapEditor.editors){
+			if (data.SpielerID.equals(e.getPlayer().getUniqueId())){
 				e.setCancelled(true);
 				return;
 			}

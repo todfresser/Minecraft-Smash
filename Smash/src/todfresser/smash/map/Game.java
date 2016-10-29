@@ -29,6 +29,7 @@ import net.minecraft.server.v1_10_R1.Material;
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.main.Smash;
+import todfresser.smash.main.Statistics;
 import todfresser.smash.map.events.FlyToggleEvent;
 import todfresser.smash.signs.SignManager;
 
@@ -174,6 +175,8 @@ public class Game implements Runnable{
 			p.setCustomNameVisible(false);
 			return;
 		}
+		UUID id = getPlayerData(p).getLastDamager();
+		if (id!= null) getPlayerData(id).addKill(); 
 		if (players.get(p.getUniqueId()).getLives() <= 1){
 			players.get(p.getUniqueId()).resetDamage();
 			players.get(p.getUniqueId()).setSpectator();
@@ -289,7 +292,7 @@ public class Game implements Runnable{
 		}
 		//updateSign(); !!!!!!!
 	}
-	public void removePlayer(Player p){
+	public void removePlayer(Player p, boolean remove){
 		if (players.containsKey(p.getUniqueId())){
 			p.getInventory().clear();
 			p.getInventory().setArmorContents(null);
@@ -308,7 +311,8 @@ public class Game implements Runnable{
 			//p.getInventory().setArmorContents(inv.getArmorContents());
 			players.get(p.getUniqueId()).cancelAllItemRunnables();
 			//
-			players.remove(p.getUniqueId());
+			if (gs.equals(GameState.Ending)) Statistics.update(p.getUniqueId(), getPlayerData(p));
+			if (remove) players.remove(p.getUniqueId());
 			p.teleport(m.getLeavePoint());
 			PlayerFunctions.removeScoreboard(p);
 			PlayerFunctions.sendDamageScoreboard(this);
@@ -350,7 +354,6 @@ public class Game implements Runnable{
     
     public void delete(){
     	Bukkit.getScheduler().cancelTask(taskID);
-    	Player p;
     	for (int i = 0; i < runningGames.size(); i++){
     		if (runningGames.get(i).getWorld().getName().equals(w.getName())){
     			runningGames.remove(i);
@@ -358,7 +361,8 @@ public class Game implements Runnable{
     		}
     	}
     	for (UUID id : players.keySet()){
-    		p = Bukkit.getPlayer(id);
+    		removePlayer(Bukkit.getPlayer(id), false);
+    		/*p = Bukkit.getPlayer(id);
 			p.getInventory().clear();
 			p.getInventory().setArmorContents(null);
 			//
@@ -385,10 +389,9 @@ public class Game implements Runnable{
 			p.teleport(m.getLeavePoint());
 			for(PotionEffect effect : p.getActivePotionEffects()){
 			    p.removePotionEffect(effect.getType());
-			}
+			}*/
     	}
     	players.clear();
-    	p = null;
     	SignManager.removeGamefromSign(this);
     	runningGames.remove(this);
     	m.deleteWorld(w);
@@ -405,6 +408,7 @@ public class Game implements Runnable{
 				sendlocalMessage(ChatColor.WHITE + "Ausgeteilter Schaden: " + ChatColor.GOLD + getPlayerData(id).getDamageDone());
 				sendlocalMessage(ChatColor.WHITE + "Erhaltener Schaden: " + ChatColor.GOLD + getPlayerData(id).getTotalDamge());
 				sendlocalMessage(ChatColor.GOLD + "<<" + ChatColor.BLUE + "-----------------------" + ChatColor.GOLD + ">>");
+				Statistics.addWin(id);
 				Player p = Bukkit.getPlayer(id);
 				getPlayerData(id).registerItemRunnable(new BukkitRunnable() {
 					
@@ -518,6 +522,7 @@ public class Game implements Runnable{
 				}
 				for (UUID id : getIngamePlayers()){
 					PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GRAY + "Das Spiel startet in " + ChatColor.GOLD + Integer.toString(counter) + ChatColor.GRAY + " Sekunden");
+					if (counter <= 5) PlayerFunctions.sendTitle(Bukkit.getPlayer(id), 10, 20, 2, ChatColor.RED + Integer.toString(counter), "");
 				}
 				counter--;
 				return;

@@ -12,7 +12,7 @@ public class PlayerQuit implements Listener{
 	public void onQuit(PlayerQuitEvent e){
 		for (Game g : Game.getrunningGames()){
 			if (g.containsPlayer(e.getPlayer())){
-				g.removePlayer(e.getPlayer());
+				g.removePlayer(e.getPlayer(), true);
 				return;
 			}
 		}

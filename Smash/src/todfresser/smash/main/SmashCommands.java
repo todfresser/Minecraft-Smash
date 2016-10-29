@@ -52,6 +52,27 @@ public class SmashCommands implements CommandExecutor{
 				}
 				return true;
 			}
+			
+			if (args[0].equalsIgnoreCase("stats")){
+				if (args.length == 1) {
+					p.sendMessage(ChatColor.GOLD+"<<"+ ChatColor.BLUE+"------------------------"+ChatColor.GOLD+">>");
+					p.sendMessage("§6>§9Gespielte Spiele: §6"+Integer.toString(Statistics.getPlayedGames(p.getUniqueId())));
+					p.sendMessage("§6>§9Gewonnene Spiele: §6" + Integer.toString(Statistics.getTotalWins(p.getUniqueId())));
+					p.sendMessage("§6>§9Getötete Spieler: §6" + Integer.toString(Statistics.getKills(p.getUniqueId())));
+					p.sendMessage("§6>§9Tode: §6" + Integer.toString(Statistics.getDeaths(p.getUniqueId())));
+					p.sendMessage("§6>§9Schaden ausgeteilt: §6" + Integer.toString(Statistics.getDamageDone(p.getUniqueId())));
+					p.sendMessage("§6>§9Erhaltener Schaden: §6" + Integer.toString(Statistics.getTotalDamage(p.getUniqueId())));
+					p.sendMessage(ChatColor.GOLD+"<<"+ ChatColor.BLUE+"------------------------"+ChatColor.GOLD+">>");
+					return true;
+				}else if (args[1].equalsIgnoreCase("reset")) {
+					Statistics.delete(p.getUniqueId());
+					return true;
+				}
+			}
+			
+			
+			
+			
 			if (args[0].equalsIgnoreCase("edit")){
 				if (p.hasPermission("SMASH.admin") == false){
 					p.sendMessage(Smash.pr + st);
@@ -97,7 +118,7 @@ public class SmashCommands implements CommandExecutor{
 							p.sendMessage(Smash.pr + "Du hast das Spiel verlassen.");
 						}
 						g.removePlayer(p.getUniqueId(), false);*/
-						g.removePlayer(p);
+						g.removePlayer(p, true);
 						p.sendMessage(Smash.pr + "Du hast das Spiel verlassen.");
 						return true;
 					}

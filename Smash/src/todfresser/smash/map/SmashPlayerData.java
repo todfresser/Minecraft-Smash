@@ -3,6 +3,7 @@ package todfresser.smash.map;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -131,6 +132,10 @@ public class SmashPlayerData {
 	private int damage;
 	private int damagedone;
 	private int totaldamage;
+	private int kills;
+	private int deaths;
+	
+	private UUID lastDamager;
 	
 	public SmashPlayerData(PlayerInventory PreviousInv, GameMode PreviusGameMode, int startlives){
 		type = PlayerType.Ingame;
@@ -141,10 +146,30 @@ public class SmashPlayerData {
 		damagedone = 0;
 		totaldamage = 0;
 		itemID = 0;
+		deaths = 0;
+		kills = 0;
+	}
+	
+	public UUID getLastDamager() {
+		return lastDamager;
+	}
+	public void setLastDamager(UUID lastDamager) {
+		this.lastDamager = lastDamager;
+	}
+	public int getDeaths(){
+		return deaths;
+	}
+	
+	public int getKills(){
+		return kills;
 	}
 	
 	public PlayerType getType() {
 		return type;
+	}
+	
+	public void addKill(){
+		kills++;
 	}
 	
 	public PlayerInventory getpreviousInventory(){
@@ -203,5 +228,6 @@ public class SmashPlayerData {
 	public void resetDamage(){
 		this.damage = 0;
 		this.lives--;
+		deaths++;
 	}
 }

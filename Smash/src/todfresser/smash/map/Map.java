@@ -206,6 +206,7 @@ public class Map {
 		sb2 = null;
 		
 		if (first){
+			Bukkit.getWorld(worldtoCopy).save();
 			maps.add(this);
 		}
 		

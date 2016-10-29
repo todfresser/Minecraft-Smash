@@ -13,6 +13,7 @@ import org.bukkit.util.Vector;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent;
 import net.minecraft.server.v1_10_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_10_R1.PlayerConnection;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
 import todfresser.smash.map.Game;
@@ -62,6 +63,30 @@ public class PlayerFunctions {
 		if (damage > 0) g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
+	
+	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle)
+	  {
+	    PlayerConnection connection = ((CraftPlayer)player).getHandle().playerConnection;
+	    
+	    PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, null, fadeIn.intValue(), stay.intValue(), fadeOut.intValue());
+	    connection.sendPacket(packetPlayOutTimes);
+	    if (subtitle != null)
+	    {
+	      subtitle = subtitle.replaceAll("%player%", player.getDisplayName());
+	      subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
+	      IChatBaseComponent titleSub = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
+	      PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, titleSub);
+	      connection.sendPacket(packetPlayOutSubTitle);
+	    }
+	    if (title != null)
+	    {
+	      title = title.replaceAll("%player%", player.getDisplayName());
+	      title = ChatColor.translateAlternateColorCodes('&', title);
+	      IChatBaseComponent titleMain = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + title + "\"}");
+	      PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, titleMain);
+	      connection.sendPacket(packetPlayOutTitle);
+	    }
+	  }
 	
 	public static void sendActionBar(Player p, String message){
 		if(message == null) message = "";
