@@ -11,11 +11,11 @@ import todfresser.smash.map.SmashPlayerData;
 
 public interface SmashItemData {
 	
-	public String getDisplayName();
-	public Material getType();
+	public String getDisplayName(); //Name of the Item
+	public Material getType();      //Type from the Item
 	public List<String> getLore();
 	public int getmaxItemUses();
-	public int getSpawnChance();
+	public int getSpawnChance();  //Chance from 0 (very rare) to 50 (very common)
 	
 	public boolean hasOnRightClickEvent();
 	public boolean hasOnPlayerHitPlayerEvent();
