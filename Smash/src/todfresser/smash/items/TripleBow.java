@@ -86,7 +86,7 @@ public class TripleBow implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 30;
+		return 20;
 	}
 	
 }

@@ -75,7 +75,7 @@ public class ItemManager {
 		if (itemdata.size() < 1) return;
 		HashMap<Integer, Integer> itemIDs = new HashMap<>();
 		for (int id : allowedItems){
-			for (int quantity = 0; quantity <= getItemData(id).getSpawnChance() && quantity <= 100; quantity++){
+			for (int quantity = 0; quantity <= getItemData(id).getSpawnChance() && quantity <= 50; quantity++){
 				itemIDs.put(itemIDs.size(), id);
 			}
 		}

@@ -85,7 +85,7 @@ public class SpeedItem implements SmashItemData{
 	//Chance from 0 (very rare) to 50 (very common)
 	@Override
 	public int getSpawnChance() {
-		return 50;
+		return 25;
 	}
 
 }
