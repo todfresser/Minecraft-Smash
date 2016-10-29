@@ -27,6 +27,7 @@ public class SmashCommands implements CommandExecutor{
 		if (cmd.getName().equalsIgnoreCase("smash") || cmd.getName().equalsIgnoreCase("sm")){
 			if (args.length == 0){
 				p.sendMessage(Smash.pr + st);
+				p.sendMessage(Smash.pr + "/smash stats Zeige deine Stats an.");
 				p.sendMessage(Smash.pr + "/smash leave  Verlassen eines Spiels.");
 				p.sendMessage(Smash.pr + "/smash maps Anzeigen aller Maps.");
 				p.sendMessage(Smash.pr + "/smash games Anzeigen aller laufenden Spiele.");
