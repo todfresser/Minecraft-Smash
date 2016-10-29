@@ -1,0 +1,60 @@
+package todfresser.smash.items;
+
+import java.util.List;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.util.Vector;
+
+import todfresser.smash.extrafunctions.PlayerFunctions;
+import todfresser.smash.map.Game;
+import todfresser.smash.map.SmashPlayerData;
+
+public class Smasher implements SmashItemData {
+	public String getDisplayName() {
+		return "§6Smasher";
+	}
+
+	public List<String> getLore() {
+		return null;
+	}
+
+	public Material getType() {
+		return Material.DIAMOND_AXE;
+	}
+
+	public int getmaxItemUses() {
+		return 1;
+	}
+
+	public boolean hasOnPlayerHitPlayerEvent() {
+		return true;
+	}
+
+	public boolean hasOnPlayerShootBowEvent() {
+		return false;
+	}
+
+	public boolean hasOnRightClickEvent() {
+		return false;
+	}
+
+	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		PlayerFunctions.playOutDamage(game, target, player, player.getLocation().getDirection().setY(6.5D).multiply(10), 100);
+		PlayerFunctions.playOutDamage(game, player, new Vector(0, 1, 0), 0);
+		player.sendMessage("§6Get Smashed");
+		target.sendMessage("§6Get Smashed");
+		playerdata.canUseItem = true;
+	}
+
+	public void onPlayerShootBowEvent(SmashPlayerData arg0, Player arg1, float arg2, Game arg3) {
+	}
+
+	public void onRightClickEvent(SmashPlayerData arg0, Action arg1, Player arg2, Game arg3) {
+	}
+
+	@Override
+	public int getSpawnChance() {
+		return 0;
+	}
+}

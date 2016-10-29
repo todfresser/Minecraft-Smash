@@ -43,24 +43,24 @@ public class PlayerFunctions {
 		}
 	}*/
 	public static void playOutDamage(Game g, Player p, Vector velocity, int damage){
-		g.getPlayerData(p).addDamage((int) damage);
+		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity);
-		PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, int damage){
-		g.getPlayerData(p).addDamage((int) damage);
+		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		g.getPlayerData(damager).addDamageDone((int) damage);
-		PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
 	public static void playOutDamage(Game g, Player p, int damage){
-		g.getPlayerData(p).addDamage((int) damage);
-		PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
+		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, Vector velocity, int damage){
-		g.getPlayerData(p).addDamage((int) damage);
+		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity);
-		g.getPlayerData(damager).addDamageDone((int) damage);
-		PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		if (damage > 0) g.getPlayerData(damager).addDamageDone((int) damage);
+		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
 	
 	public static void sendActionBar(Player p, String message){

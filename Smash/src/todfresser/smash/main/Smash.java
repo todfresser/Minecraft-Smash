@@ -9,7 +9,9 @@ import multiworld.MultiWorldPlugin;
 import multiworld.api.MultiWorldWorldData;
 import multiworld.api.flag.FlagName;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
+import todfresser.smash.items.FireStick;
 import todfresser.smash.items.ItemManager;
+import todfresser.smash.items.Smasher;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.TripleBow;
 import todfresser.smash.map.Map;
@@ -72,6 +74,8 @@ public class Smash extends JavaPlugin{
 		
 		ItemManager.registerItem(new SpeedItem());
 		ItemManager.registerItem(new TripleBow());
+		ItemManager.registerItem(new Smasher());
+		ItemManager.registerItem(new FireStick());
 		
 		instance = this;
 		this.getCommand("smash").setExecutor(new SmashCommands());

@@ -398,8 +398,8 @@ public class Game implements Runnable{
     	sendlocalMessage("");
     	sendlocalMessage("");
     	sendlocalMessage("");
-    	sendlocalMessage(ChatColor.GOLD + "<<" + ChatColor.BLUE + "-----------------------" + ChatColor.GOLD + ">>");
     	if (getIngamePlayers().size() == 1){
+        	sendlocalMessage(ChatColor.GOLD + "<<" + ChatColor.BLUE + "-----------------------" + ChatColor.GOLD + ">>");
 			for (UUID id : getIngamePlayers()){
 				sendlocalMessage(ChatColor.GOLD + "" + ChatColor.BOLD + Bukkit.getPlayer(id).getName() + ChatColor.WHITE + " hat das Spiel gewonnen.");
 				sendlocalMessage(ChatColor.WHITE + "Ausgeteilter Schaden: " + ChatColor.GOLD + getPlayerData(id).getDamageDone());
@@ -428,12 +428,19 @@ public class Game implements Runnable{
 					}
 				}, 0, 30);          
 			}
+			for (UUID id : getSpectators()){
+				Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Deine Werte zum Vergleich:");
+				Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Ausgeteilter Schaden: " + ChatColor.GOLD + getPlayerData(id).getDamageDone());
+				Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Erhaltener Schaden: " + ChatColor.GOLD + getPlayerData(id).getTotalDamge());
+			}
+		}else{
+			for (UUID id : getSpectators()){
+				Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Deine Werte:");
+				Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Ausgeteilter Schaden: " + ChatColor.GOLD + getPlayerData(id).getDamageDone());
+				Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Erhaltener Schaden: " + ChatColor.GOLD + getPlayerData(id).getTotalDamge());
+			}
 		}
-		for (UUID id : getSpectators()){
-			Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Deine Werte zum Vergleich:");
-			Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Ausgeteilter Schaden: " + ChatColor.GOLD + getPlayerData(id).getDamageDone());
-			Bukkit.getPlayer(id).sendMessage(ChatColor.GRAY + "Erhaltener Schaden: " + ChatColor.GOLD + getPlayerData(id).getTotalDamge());
-		}
+    	
     }
     
     
