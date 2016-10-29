@@ -1,0 +1,21 @@
+name: Smash
+author: Todfresser
+version: 1.0
+main: todfresser.smash.main.Smash
+commands:
+  smash:
+    description: Zeigt dir alle Befehle von Smash.
+    usage:
+    aliases: sm
+permissions:
+  SMASH.*:
+    description: Gibt Zugriff auf alle Befehle.
+    children:
+      SMASH.admin: true
+      SMASH.basic: true
+  SMASH.admin:
+    description: Erlaubt dir ein Spiel zu erstellen.
+    default: op
+  SMASH.basic:
+    description: Gibt dir die Grund-Rechte.
+    default: true
