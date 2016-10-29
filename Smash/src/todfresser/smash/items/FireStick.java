@@ -44,7 +44,7 @@ public class FireStick implements SmashItemData {
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(80);
 		PlayerFunctions.playOutDamage(game, target, player, player.getLocation().getDirection().multiply(0.5).setY(1), 2);
-		PlayerFunctions.playOutDamage(game, target, player, player.getLocation().getDirection().setY(1.5).multiply(0.4), 2);
+		//PlayerFunctions.playOutDamage(game, target, player, player.getLocation().getDirection().setY(1.5).multiply(0.4), 2);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int i = 3;
 			@Override
