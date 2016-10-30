@@ -111,9 +111,10 @@ public class MapEditor implements Listener{
 			
 			
 			if (i.getDisplayName().equals(ChatColor.WHITE + "Löschen")){
-				((Player) e.getWhoClicked()).closeInventory();
-				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Map löschen: /smash delete " + (d.playerspawns.size()*3 - d.itemspawns.size()));
-				cantClick.remove(e.getWhoClicked().getUniqueId());
+				Map.getMapfromString(d.name).delete();
+				MapEditorItems.setInventory(d, EditorInventoryType.SAVEDELETE);
+				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das Löschen rückgängig zu machen,");
+				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "klicke erneut auf Erstellen!");
 				return;
 			}
 				

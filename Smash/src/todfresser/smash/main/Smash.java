@@ -1,7 +1,6 @@
 package todfresser.smash.main;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,6 +13,7 @@ import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.Smasher;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.TripleBow;
+import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
 import todfresser.smash.map.MapEditor;
 import todfresser.smash.map.events.BlockBreak;
@@ -46,9 +46,8 @@ public class Smash extends JavaPlugin{
 		/*if (getServer().getPluginManager().getPlugin("MultiWorld") != null){
 			getServer().getConsoleSender().sendMessage(org.bukkit.ChatColor.DARK_GREEN + "[Smash] Das Plugin Multiworld wurde gefunden!");
 		}*/
-		
 		saveDefaultConfig();
-		pr = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Prefix"));
+		pr = SM.Prefix.toString();
 		
 		if (!DynamicClassFunctions.setPackages()) {
 			System.out.println("NMS/OBC package could not be detected, using " + DynamicClassFunctions.nmsPackage + " and " + DynamicClassFunctions.obcPackage);
@@ -78,6 +77,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new FireStick());
 		
 		instance = this;
+		Map.deleteAllWorlds();
 		this.getCommand("smash").setExecutor(new SmashCommands());
 		
 		Map.deleteAllWorlds();
@@ -89,8 +89,11 @@ public class Smash extends JavaPlugin{
 	
 	@Override
 	public void onDisable(){
-		Map.deleteAllWorlds();
 		SignManager.save();
+		for (Game g : Game.getrunningGames()){
+			g.delete(false);
+		}
+		Game.getrunningGames().clear();
 	}
 	
 	public static void unloadMultiWorldWorld(World w){

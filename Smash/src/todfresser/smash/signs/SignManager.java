@@ -93,7 +93,7 @@ public class SignManager implements Listener{
 	}
 	
 	public static void loadSigns(){
-		File file = new File("plugins/Smash", "Signs.list");
+		File file = new File("plugins/Smash", "Signs.txt");
 		if (file.exists()){
 			FileReader fr = null;
 			try{

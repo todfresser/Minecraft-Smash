@@ -330,7 +330,7 @@ public class Game implements Runnable{
 				sendlocalMessage(Smash.pr + ChatColor.RED + p.getName() + ChatColor.GRAY + " hat das Spiel verlassen.");
 			}
 			if (players.size() <= 0){
-				delete();
+				delete(true);
 				return;
 			}
 			if (players.size() == 1){
@@ -352,20 +352,22 @@ public class Game implements Runnable{
     	}
 	}
     
-    public void delete(){
+    public void delete(boolean deletefromList){
     	Bukkit.getScheduler().cancelTask(taskID);
-    	for (int i = 0; i < runningGames.size(); i++){
-    		if (runningGames.get(i).getWorld().getName().equals(w.getName())){
-    			runningGames.remove(i);
-    			continue;
+    	/*if (deletefromList) {
+    		for (int i = 0; i < runningGames.size(); i++){
+        		if (runningGames.get(i).getWorld().getName().equals(w.getName())){
+        			runningGames.remove(i);
+        			continue;
+        		}
     		}
-    	}
+    	}*/
     	for (UUID id : players.keySet()){
     		removePlayer(Bukkit.getPlayer(id), false);
     	}
     	players.clear();
     	SignManager.removeGamefromSign(this);
-    	runningGames.remove(this);
+    	if (deletefromList) runningGames.remove(this);
     	m.deleteWorld(w);
     }
     
@@ -514,7 +516,7 @@ public class Game implements Runnable{
 			}
 			if (gs == GameState.Ending){
 				if (counter <=0){
-					delete();
+					delete(true);
 					return;
 				}
 				//

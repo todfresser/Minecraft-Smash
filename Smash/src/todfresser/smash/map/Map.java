@@ -19,6 +19,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
+import todfresser.smash.main.Smash;
 
 public class Map {
 	private final String name;
@@ -28,20 +29,27 @@ public class Map {
 	private static ArrayList<Map> maps = new ArrayList<>();
 	
 	public static void deleteAllWorlds(){
-		File file;
 		String wn;
 		for (World w : Bukkit.getWorlds()){
 			if (w.getName().startsWith("Smash_Map_")){
-				file = w.getWorldFolder();
 				wn = w.getName();
-				try{
-					DynamicClassFunctions.bindRegionFiles();
-					DynamicClassFunctions.forceUnloadWorld(w);
-					DynamicClassFunctions.clearWorldReference(wn);
-					FileUtils.deleteDirectory(file);
-				} catch (IOException e) {
-					System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollständig gelöscht werden!");
-					e.printStackTrace();
+				DynamicClassFunctions.bindRegionFiles();
+				DynamicClassFunctions.forceUnloadWorld(w);
+				DynamicClassFunctions.clearWorldReference(wn);
+			}
+		}
+		File folder = Smash.getInstance().getServer().getWorldContainer();
+		if (folder.list().length != 0){
+			String[] fileNames = folder.list();
+			for(int i = 0; i < fileNames.length; i++){
+				if (fileNames[i].startsWith("Smash_Map_")){
+					File file = new File(fileNames[i]);
+					try {
+						FileUtils.deleteDirectory(file);
+						System.out.println("[Smash] Die Welt " + fileNames[i].replace(".yml", "") + " wurde gelöscht!");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -56,6 +64,17 @@ public class Map {
 		}else{
 			cfg = null;
 		}
+	}
+	
+	public void delete(){
+		maps.remove(this);
+		for (Game g : Game.getrunningGames()){
+			if (g.getMap().getName().equals(name)){
+				g.delete(true);
+			}
+		}
+		File file = new File("plugins/Smash/Maps", name + ".yml");
+		file.delete();
 	}
 	
 	public static Map getMapfromString(String name){

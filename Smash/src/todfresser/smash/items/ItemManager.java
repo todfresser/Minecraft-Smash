@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -32,6 +33,7 @@ public class ItemManager {
 	public static ItemStack getStandardItem(int itemdataID){
 		ItemStack i = new ItemStack(itemdata.get(itemdataID).getType());
 		ItemMeta m = i.getItemMeta();
+		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(itemdata.get(itemdataID).getDisplayName());
 		m.setLore(itemdata.get(itemdataID).getLore());
 		i.setItemMeta(m);
@@ -42,6 +44,7 @@ public class ItemManager {
 		for (int id : itemdata.keySet()){
 			ItemStack i = new ItemStack(itemdata.get(id).getType());
 			ItemMeta m = i.getItemMeta();
+			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 			m.setDisplayName(itemdata.get(id).getDisplayName());
 			List<String> lore = new ArrayList<>();
 			if (allowedItems.contains(id)){
@@ -56,6 +59,7 @@ public class ItemManager {
 	public static ItemStack getStandardDeactivationItem(SmashItemData d, boolean allowed){
 		ItemStack i = new ItemStack(d.getType());
 		ItemMeta m = i.getItemMeta();
+		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(d.getDisplayName());
 		List<String> lore = new ArrayList<>();
 		if (allowed){

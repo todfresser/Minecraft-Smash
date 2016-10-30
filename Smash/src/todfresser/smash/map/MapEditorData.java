@@ -71,7 +71,7 @@ public class MapEditorData {
 			m = Map.getMapfromString(name);
 			for (Game g : Game.getrunningGames()){
 				if (g.getMap().getName().equals(name)){
-					g.delete();
+					g.delete(true);
 				}
 			}
 		}else m = new Map(name);

@@ -24,7 +24,6 @@ public class SignJ {
 	}
 	
 	public SignJ(Location l){
-		System.out.println("Schild");
 		this.s = (Sign) l.getBlock().getState();
 		SignManager.signs.add(this);
 	}
