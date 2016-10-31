@@ -73,7 +73,7 @@ public class DamageEvent implements Listener{
 						g.getPlayerData(p).setLastDamager(damager.getUniqueId());
 						if (!g.getPlayerData(damager).OnPlayerHitPlayer(damager, p, g)){
 							//PlayerFunctions.playOutDamage(g, p, damager, damager.getLocation().getDirection().setY(0.4).multiply(g.getPlayerData(p).getDamage()/200 + 0.9 + e.getDamage()/5), 1);
-							PlayerFunctions.playOutDamage(g, p, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), g.getPlayerData(p), 0.45), 1);
+							PlayerFunctions.playOutDamage(g, p, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45), 1);
 						}
 						return;
 					}
