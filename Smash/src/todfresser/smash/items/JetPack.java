@@ -2,6 +2,7 @@ package todfresser.smash.items;
 
 import java.util.List;
 
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -14,12 +15,12 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public String getDisplayName() {
-		return "$fJ§7e§ft§7P§fa§7c$fk";
+		return "§fJ§7e§ft§7P§fa§7c§fk";
 	}
 
 	@Override
 	public Material getType() {
-		return Material.ELYTRA;
+		return Material.IRON_HOE;
 	}
 
 	@Override
@@ -54,7 +55,8 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
+		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 4).multiply(0.2f));
+		whoclicked.getLocation().getWorld().spigot().playEffect(whoclicked.getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
 		playerdata.canUseItem = true;
 	}
 
