@@ -55,6 +55,7 @@ public class JetPack implements SmashItemData{
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
 		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
+		playerdata.canUseItem = true;
 	}
 
 	@Override
