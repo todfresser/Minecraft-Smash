@@ -39,7 +39,7 @@ public class SmashCommands implements CommandExecutor{
 					for (Game g : Game.getrunningGames()){
 						if (g.containsPlayer(p)){
 							g.start(10);
-							p.sendMessage(SM.Command_Start.toString());
+							p.sendMessage(Smash.pr + SM.Command_Start.toString());
 							return true;
 						}
 					}
@@ -64,7 +64,7 @@ public class SmashCommands implements CommandExecutor{
 					return true;
 				}else if (args[1].equalsIgnoreCase("reset")) {
 					Statistics.delete(p.getUniqueId());
-					p.sendMessage(SM.Command_Stats_Reset.toString());
+					p.sendMessage(Smash.pr + SM.Command_Stats_Reset);
 					return true;
 				}
 			}

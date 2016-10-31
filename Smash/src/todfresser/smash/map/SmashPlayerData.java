@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
+
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.SmashItemData;
 import todfresser.smash.main.Smash;
@@ -134,6 +136,8 @@ public class SmashPlayerData {
 	private int totaldamage;
 	private int kills;
 	private int deaths;
+	
+	public Vector direction;
 	
 	private UUID lastDamager;
 	

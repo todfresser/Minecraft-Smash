@@ -3,8 +3,12 @@ package todfresser.smash.extrafunctions;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -16,37 +20,91 @@ import net.minecraft.server.v1_10_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_10_R1.PlayerConnection;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
+import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
+import todfresser.smash.map.SmashPlayerData;
 
 public class PlayerFunctions {
-	/*public static void deleteBlocksNearPlayer(Player p, int chance){
-		Location l = p.getLocation().add(0, 0.1, 0);
+	public static void deleteBlocksNearPlayer(Player p, SmashPlayerData data){
+		Vector v = data.direction;
+		System.out.println("VectorX: " + v.getBlockX());
+		System.out.println("VectorZ: " + v.getBlockZ());
+		int playerX = p.getLocation().getBlockX();
+		int playerZ = p.getLocation().getBlockZ();
 		Block b;
 		World w = p.getWorld();
-		Random r = new Random();
-		for (int x = -1; x <= 1; x++){
-			for (int z = -1; z <= 1; z++){
-				b = w.getBlockAt(l.getBlockX() + x, l.getBlockY(), l.getBlockZ() + z);
-				if (!b.getType().equals(Material.AIR)){
-					if (r.nextInt(chance + 1) == 1){
-						b.setType(Material.AIR);
-						w.spigot().playEffect(b.getLocation(), Effect.TILE_BREAK, 2, 2, 0.1f, 0.1f, 0.1f, 1, 5, 20);
-					}
-				}
-				b = w.getBlockAt(l.getBlockX() + x, l.getBlockY() + 1, l.getBlockZ() + z);
-				if (!b.getType().equals(Material.AIR)){
-					if (r.nextInt(chance + 1) == 1){
-						b.setType(Material.AIR);
-						w.spigot().playEffect(b.getLocation(), Effect.TILE_BREAK, 2, 2, 0.1f, 0.1f, 0.1f, 1, 5, 20);
-					}
-				}
+		int x, x2 = 0, x3 = 0, z, z2 = 0, z3 = 0, y;
+		if (v.getX() < -0.1){
+			x = -1; 
+		}else if (v.getX() > 0.1){
+			x = 1;
+		}else x = 0;
+		y = p.getLocation().getBlockY();
+		if (v.getZ() < -0.1){
+			z = -1;
+			if (x == 0){
+				z2 = z;
+				z3 = z;
+				x2 = -1;
+				x3 = 1;
+				System.out.println("z=-1, x=0");
+			}
+			if (x != 0){
+				z2 = -1;
+				z3 = 0;
+				x2 = 0;
+				x3 = x;
+				System.out.println("z=-1, x!=0");
+			}
+		}else if (v.getZ() > 0.1){
+			z = 1;
+			if (x == 0){
+				z2 = z;
+				z3 = z;
+				x2 = -1;
+				x3 = 1;
+				System.out.println("z=1, x=0");
+			}
+			if (x != 0){
+				z2 = 1;
+				z3 = 0;
+				x2 = 0;
+				x3 = x;
+				System.out.println("z=1, x!=0");
+			}
+		}else{
+			z = 0;
+			if (x == 0) return;
+			if (x != 0){
+				z2 = 1;
+				z3 = -1;
+				x2 = x;
+				x3 = x;
+				System.out.println("z=0, x!=0");
 			}
 		}
-	}*/
+		for (int i = 0; i < 3; i++){
+			b = w.getBlockAt(x + playerX, y + i, z + playerZ);
+			if (!b.getType().equals(Material.AIR)) b.setType(Material.AIR);
+			b = w.getBlockAt(x2 + playerX, y + i, z2 + playerZ);
+			if (!b.getType().equals(Material.AIR)) b.setType(Material.AIR);
+			b = w.getBlockAt(x3 + playerX, y + i, z3 + playerZ);
+			if (!b.getType().equals(Material.AIR)) b.setType(Material.AIR);
+		}
+		
+	}
 	public static void playOutDamage(Game g, Player p, Vector velocity, int damage){
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				g.getPlayerData(p).direction = velocity;
+				
+			}
+		}.runTaskLater(Smash.getInstance(), 4);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, int damage){
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
@@ -62,6 +120,14 @@ public class PlayerFunctions {
 		p.setVelocity(velocity);
 		if (damage > 0) g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				g.getPlayerData(p).direction = velocity;
+				
+			}
+		}.runTaskLater(Smash.getInstance(), 4);
 	}
 	
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle)

@@ -9,6 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
+import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.items.SmashItemData;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
@@ -43,7 +44,7 @@ public class FireStick implements SmashItemData {
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(80);
-		PlayerFunctions.playOutDamage(game, target, player, player.getLocation().getDirection().setY(1), 2);
+		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), game.getPlayerData(target), 0.5), 2);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int i = 3;
 			@Override

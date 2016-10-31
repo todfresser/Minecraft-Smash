@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.util.Vector;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
+import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
 
@@ -33,7 +34,7 @@ public class FlyToggleEvent implements Listener{
 							e.getPlayer().setFoodLevel(e.getPlayer().getFoodLevel() - 5);
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.BLOCK_SAND_BREAK, 10, 10);
 							e.getPlayer().getLocation().getWorld().spigot().playEffect(e.getPlayer().getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
-							e.getPlayer().setVelocity(e.getPlayer().getLocation().getDirection().multiply(1.6D).setY(0.6D));
+							e.getPlayer().setVelocity(VectorFunctions.getStandardJumpVector(e.getPlayer().getLocation()));
 							e.setCancelled(true);
 							e.getPlayer().setFlying(false);
 							e.getPlayer().setAllowFlight(false);

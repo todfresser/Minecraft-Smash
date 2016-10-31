@@ -66,7 +66,7 @@ public class Game implements Runnable{
 		gs = GameState.Lobby;
 		allowedItems = new ArrayList<>(ItemManager.getAllItemDataIDs());
 		runningGames.add(this);
-		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Smash.getInstance(), this, 2, 2);
+		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Smash.getInstance(), this, 1, 1);
 		updateSigns();
 	}
 	
@@ -97,6 +97,7 @@ public class Game implements Runnable{
 	public void setGameState(GameState gamestate){
 		if (gamestate.equals(this.gs)) return;
 		try{
+			SignManager.update(this);
 			this.gs = gamestate;
 			if (gamestate.equals(GameState.Ending)){
 				sendPlayerGameStats();
@@ -316,6 +317,7 @@ public class Game implements Runnable{
 			p.teleport(m.getLeavePoint());
 			PlayerFunctions.removeScoreboard(p);
 			if (removefromList) PlayerFunctions.sendDamageScoreboard(this);
+			if (removefromList) SignManager.update(this);
 			
 			for(PotionEffect effect : p.getActivePotionEffects()){
 			    p.removePotionEffect(effect.getType());
@@ -426,13 +428,17 @@ public class Game implements Runnable{
 	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
-		i++;
 		for (UUID id: getIngamePlayers()){
 			if (Bukkit.getPlayer(id).isOnGround()){
 				if (gs.equals(GameState.Running) || gs.equals(GameState.Ending)){
 					if (Bukkit.getPlayer(id).getAllowFlight() == false) Bukkit.getPlayer(id).setAllowFlight(true);
 					if (FlyToggleEvent.cantSmash.contains(id)) FlyToggleEvent.cantSmash.remove(id);
+					
+					if (getPlayerData(id).direction != null) getPlayerData(id).direction = null;
+					
 				}
+			}else if (getPlayerData(id).direction != null){
+				PlayerFunctions.deleteBlocksNearPlayer(Bukkit.getPlayer(id), getPlayerData(id));
 			}
 			if (gs.equals(GameState.Running)){
 				//PlayerFunctions.deleteBlocksNearPlayer(Bukkit.getPlayer(id), 0);
@@ -442,7 +448,7 @@ public class Game implements Runnable{
 				this.respawnPlayer(Bukkit.getPlayer(id));
 			}
 		}
-		if (i == 6 || i == 1){
+		if (i == 2 || i == 12 ){
 			for (UUID id: getIngamePlayers()){
 				if (Bukkit.getPlayer(id).getFoodLevel() != 20){
 					Bukkit.getPlayer(id).setFoodLevel(Bukkit.getPlayer(id).getFoodLevel()+1);
@@ -450,9 +456,8 @@ public class Game implements Runnable{
 			}
 		}
 		
-		if (i >= 10){
+		if (i == 20){
 			i = 0;
-			SignManager.update(this);
 			
 			if (gs == GameState.Lobby){
 				for (UUID id : getIngamePlayers()){
@@ -508,7 +513,7 @@ public class Game implements Runnable{
 					return;
 				}
 				//
-				ItemManager.spawnRandomItem(m.getItemSpawns(w), allowedItems);
+				if ((double) (counter / 5) == (int)(counter / 5)) ItemManager.spawnRandomItem(m.getItemSpawns(w), allowedItems);
 				
 				
 				counter--;
@@ -526,6 +531,6 @@ public class Game implements Runnable{
 				counter--;
 				return;
 			}
-		}
+		}else i++;
 	}
 }
