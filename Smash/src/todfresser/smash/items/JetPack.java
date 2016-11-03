@@ -55,7 +55,7 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 4).multiply(0.2f));
+		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
 		whoclicked.getLocation().getWorld().spigot().playEffect(whoclicked.getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
 		playerdata.canUseItem = true;
 	}

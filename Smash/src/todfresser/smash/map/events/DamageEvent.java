@@ -56,7 +56,7 @@ public class DamageEvent implements Listener{
 						arrow.remove();
 						return;
 					}
-					PlayerFunctions.playOutDamage(g, p, damager, arrow.getVelocity().setY(0.3).multiply(2.0f), 5);
+					PlayerFunctions.playOutDamage(g, p, damager, arrow.getVelocity().setY(0.3).multiply(1.3f), 5);
 					arrow.remove();
 					return;
 				}

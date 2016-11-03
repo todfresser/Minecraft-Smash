@@ -8,9 +8,11 @@ import multiworld.MultiWorldPlugin;
 import multiworld.api.MultiWorldWorldData;
 import multiworld.api.flag.FlagName;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
+import todfresser.smash.items.BlackHole;
 import todfresser.smash.items.FireStick;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.JetPack;
+import todfresser.smash.items.MagicStaff;
 import todfresser.smash.items.Smasher;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.TripleBow;
@@ -77,6 +79,8 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new Smasher());
 		ItemManager.registerItem(new FireStick());
 		ItemManager.registerItem(new JetPack());
+		ItemManager.registerItem(new MagicStaff());
+		ItemManager.registerItem(new BlackHole());
 		
 		instance = this;
 		Map.deleteAllWorlds();
