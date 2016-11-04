@@ -282,6 +282,7 @@ public class Game implements Runnable{
 				p.setCustomNameVisible(false);
 				p.setAllowFlight(false);
 				p.setFlying(false);
+				SignManager.update(this);
 				
 				sendlocalMessage(Smash.pr + ChatColor.RED + p.getName() + ChatColor.GRAY + " hat das Spiel betreten.");
 				if (players.size() > 1) start(30);

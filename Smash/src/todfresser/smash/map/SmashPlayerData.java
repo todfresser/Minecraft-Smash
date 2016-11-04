@@ -90,6 +90,7 @@ public class SmashPlayerData {
 					ItemUsesLeft--;
 					if (ItemUsesLeft <= 0) removeItems(whoclicked);
 				}
+				whoclicked.updateInventory();
 				return true;
 			}
 		}
@@ -105,6 +106,7 @@ public class SmashPlayerData {
 					ItemUsesLeft--;
 					if (ItemUsesLeft <= 0) removeItems(p);
 				}
+				p.updateInventory();
 				return true;
 			}
 		}
@@ -120,6 +122,7 @@ public class SmashPlayerData {
 					ItemUsesLeft--;
 					if (ItemUsesLeft <= 0) removeItems(p);
 				}
+				p.updateInventory();
 				return;
 			}
 		}

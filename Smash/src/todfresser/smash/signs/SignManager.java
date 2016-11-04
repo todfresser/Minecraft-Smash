@@ -202,15 +202,17 @@ public class SignManager implements Listener{
 				}
 				for (Game g : Game.getrunningGames()){
 					if (g.getIngamePlayers().contains(e.getPlayer().getUniqueId())){
-						e.setCancelled(true);
-						if (e.getClickedBlock().getLocation().equals(g.getMap().getleaveSign(g.getWorld()).getLocation())){
-							e.getPlayer().performCommand("sm leave");
-						}
-						if (e.getClickedBlock().getLocation().equals(g.getMap().getItemSign(g.getWorld()).getLocation())){
-							e.getPlayer().openInventory(getItemSignInventory(g));
-						}
-						if (e.getClickedBlock().getLocation().equals(g.getMap().getLiveSign(g.getWorld()).getLocation())){
-							e.getPlayer().openInventory(getLiveSignInventory(g));
+						if (g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Lobby)){
+							e.setCancelled(true);
+							if (e.getClickedBlock().getLocation().equals(g.getMap().getleaveSign(g.getWorld()).getLocation())){
+								e.getPlayer().performCommand("sm leave");
+							}
+							if (e.getClickedBlock().getLocation().equals(g.getMap().getItemSign(g.getWorld()).getLocation())){
+								e.getPlayer().openInventory(getItemSignInventory(g));
+							}
+							if (e.getClickedBlock().getLocation().equals(g.getMap().getLiveSign(g.getWorld()).getLocation())){
+								e.getPlayer().openInventory(getLiveSignInventory(g));
+							}
 						}
 						return;
 					}

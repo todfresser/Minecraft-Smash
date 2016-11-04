@@ -11,7 +11,6 @@ public class VectorFunctions {
 		double x = Math.sin(pitch) * Math.cos(yaw);
 		double y = Math.cos(pitch);
 		double z = Math.sin(pitch) * Math.sin(yaw);
-		System.out.println("VectorGiven: " + x + ", " + y + "," + z);
 		return new Vector(x, y, z).setY(extraY);
 	}
 	
@@ -25,6 +24,6 @@ public class VectorFunctions {
 	}
 	
 	public static Vector getVectorbetweenLocations(Location from, Location to){
-		return to.toVector().subtract(from.toVector());
+		return to.toVector().subtract(from.toVector()).normalize();
 	}
 }

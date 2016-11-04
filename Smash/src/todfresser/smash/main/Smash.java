@@ -10,11 +10,14 @@ import multiworld.api.flag.FlagName;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
 import todfresser.smash.items.BlackHole;
 import todfresser.smash.items.FireStick;
+import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.JetPack;
 import todfresser.smash.items.MagicStaff;
+import todfresser.smash.items.RocketLauncher;
 import todfresser.smash.items.Smasher;
 import todfresser.smash.items.SpeedItem;
+import todfresser.smash.items.Steak;
 import todfresser.smash.items.TripleBow;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
@@ -49,7 +52,7 @@ public class Smash extends JavaPlugin{
 		/*if (getServer().getPluginManager().getPlugin("MultiWorld") != null){
 			getServer().getConsoleSender().sendMessage(org.bukkit.ChatColor.DARK_GREEN + "[Smash] Das Plugin Multiworld wurde gefunden!");
 		}*/
-		saveDefaultConfig();
+		//saveDefaultConfig();
 		pr = SM.Prefix.toString();
 		
 		if (!DynamicClassFunctions.setPackages()) {
@@ -78,9 +81,12 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new TripleBow());
 		ItemManager.registerItem(new Smasher());
 		ItemManager.registerItem(new FireStick());
+		ItemManager.registerItem(new RocketLauncher());
 		ItemManager.registerItem(new JetPack());
 		ItemManager.registerItem(new MagicStaff());
 		ItemManager.registerItem(new BlackHole());
+		ItemManager.registerItem(new Steak());
+		ItemManager.registerItem(new GoldenApple());
 		
 		instance = this;
 		Map.deleteAllWorlds();

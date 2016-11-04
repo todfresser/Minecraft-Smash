@@ -49,7 +49,7 @@ public class BlackHole implements SmashItemData{
 	@Override
 	public int getSpawnChance() {
 		
-		return 10;
+		return 12;
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class BlackHole implements SmashItemData{
 					for (Entity e : entitys){
 						if (e instanceof Player){
 							if (game.getIngamePlayers().contains(e.getUniqueId())){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(Math.random()*180 - 90 , 5), 5);
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(Math.random()*180 - 90 , 2).multiply(3), 5);
 							}
 						}else if (!e.isDead()){
 							e.setVelocity(VectorFunctions.getStandardVector(Math.random()*180 - 90 , 5));
@@ -115,23 +115,23 @@ public class BlackHole implements SmashItemData{
 								if (!block.getType().equals(Material.AIR)){
 									if (block.getLocation().distance(blackhole.getLocation()) < distance){
 										b = block;
-										blocks++;
 										distance = block.getLocation().distance(blackhole.getLocation());
 									}
 								}
 							}
 						}
 					}
-				}
-				if (b != null){
-					FallingBlock falling = blackhole.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-					falling.setGravity(false);
-					falling.setHurtEntities(false);
-					falling.setInvulnerable(true);
-					falling.setDropItem(false);
-					b.setType(Material.AIR);
-					entitys.add(falling);
-					b = null;
+					blocks++;
+					if (b != null){
+						FallingBlock falling = blackhole.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+						falling.setGravity(false);
+						falling.setHurtEntities(false);
+						falling.setInvulnerable(true);
+						falling.setDropItem(false);
+						b.setType(Material.AIR);
+						entitys.add(falling);
+						b = null;
+					}
 				}
 				it = entitys.iterator();
 				while (it.hasNext()){
@@ -139,10 +139,10 @@ public class BlackHole implements SmashItemData{
 					if (e instanceof Player){
 						if (game.getIngamePlayers().contains(e.getUniqueId())){
 							if (e.getLocation().distance(blackhole.getLocation()) < 10 || e.getLocation().getY() > 1){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize(), 1);
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)), 1);
 							}
 						}
-					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());
+					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)));
 				}
 				/*for (Entity e : entitys){
 					if (e instanceof Player){
