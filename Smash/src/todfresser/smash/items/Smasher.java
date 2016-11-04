@@ -50,7 +50,7 @@ public class Smasher implements SmashItemData {
 	
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 4.5D).multiply(6), 100);
+		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 3D), 100);
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§6Get Smashed", "");
 		PlayerFunctions.playOutDamage(game, player, new Vector(0, 1, 0), 0);
 		PlayerFunctions.sendTitle(player, 1, 25, 10, "§6Get Smashed", "");

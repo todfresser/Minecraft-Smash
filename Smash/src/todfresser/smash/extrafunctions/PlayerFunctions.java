@@ -27,8 +27,6 @@ import todfresser.smash.map.SmashPlayerData;
 public class PlayerFunctions {
 	public static void deleteBlocksNearPlayer(Player p, SmashPlayerData data){
 		Vector v = data.direction;
-		System.out.println("VectorX: " + v.getBlockX());
-		System.out.println("VectorZ: " + v.getBlockZ());
 		int playerX = p.getLocation().getBlockX();
 		int playerZ = p.getLocation().getBlockZ();
 		Block b;
@@ -47,14 +45,12 @@ public class PlayerFunctions {
 				z3 = z;
 				x2 = -1;
 				x3 = 1;
-				System.out.println("z=-1, x=0");
 			}
 			if (x != 0){
 				z2 = -1;
 				z3 = 0;
 				x2 = 0;
 				x3 = x;
-				System.out.println("z=-1, x!=0");
 			}
 		}else if (v.getZ() > 0.1){
 			z = 1;
@@ -63,14 +59,12 @@ public class PlayerFunctions {
 				z3 = z;
 				x2 = -1;
 				x3 = 1;
-				System.out.println("z=1, x=0");
 			}
 			if (x != 0){
 				z2 = 1;
 				z3 = 0;
 				x2 = 0;
 				x3 = x;
-				System.out.println("z=1, x!=0");
 			}
 		}else{
 			z = 0;
@@ -80,7 +74,6 @@ public class PlayerFunctions {
 				z3 = -1;
 				x2 = x;
 				x3 = x;
-				System.out.println("z=0, x!=0");
 			}
 		}
 		for (int i = 0; i < 3; i++){

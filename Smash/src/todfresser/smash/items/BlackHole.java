@@ -107,7 +107,7 @@ public class BlackHole implements SmashItemData{
 				}
 				double distance = 5;
 				Block b = null;
-				if (blocks < 20){
+				if (blocks < 35){
 					for (int x = -5; x <=5; x++){
 						for (int y = -5; y <=5; y++){
 							for (int z = -5; z <=5; z++){

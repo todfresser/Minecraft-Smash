@@ -78,7 +78,7 @@ public class RocketLauncher implements SmashItemData{
 					double py = direction.getY() * t;
 					double pz = direction.getZ() * t;
 					loc.add(px, py, pz);
-					loc.getWorld().spigot().playEffect(loc, Effect.FLAME, 0, 0, 0.1f, 0.1f, 0.1f, 0, 8, 40);
+					loc.getWorld().spigot().playEffect(loc, Effect.EXPLOSION, 0, 0, 0.1f, 0.1f, 0.1f, 0.001f, 3, 40);
 					if (!loc.getBlock().getType().equals(Material.AIR)){
 						List<Entity> entitys = new ArrayList<>();
 						for (Entity e : loc.getWorld().getNearbyEntities(loc, 3, 3, 3)){
