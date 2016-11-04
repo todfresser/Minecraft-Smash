@@ -1,13 +1,13 @@
 package todfresser.smash.items;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -76,6 +76,7 @@ public class BlackHole implements SmashItemData{
 	    blackhole.setVelocity(player.getLocation().getDirection().multiply(1.2D));
 	    playerdata.registerItemRunnable(new BukkitRunnable() {
 		    List<Entity> entitys = new ArrayList<>();
+		    Iterator<Entity> it;
 	    	//Location l = null;
 			int i = 50;
 			int blocks = 0;
@@ -86,8 +87,14 @@ public class BlackHole implements SmashItemData{
 				if (i == 50) blackhole.remove();
 				if (i <= 0){
 					for (Entity e : entitys){
-						e.setVelocity(VectorFunctions.getStandardVector(Math.random()*180 - 90 , 5));
-						if (!e.getType().equals(EntityType.PLAYER) && !e.isDead()) e.remove();
+						if (e instanceof Player){
+							if (game.getIngamePlayers().contains(e.getUniqueId())){
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(Math.random()*180 - 90 , 5), 5);
+							}
+						}else if (!e.isDead()){
+							e.setVelocity(VectorFunctions.getStandardVector(Math.random()*180 - 90 , 5));
+							e.remove();
+						}
 					}
 					entitys.clear();
 					playerdata.cancelItemRunnable(this);
@@ -126,13 +133,24 @@ public class BlackHole implements SmashItemData{
 					entitys.add(falling);
 					b = null;
 				}
-				for (Entity e : entitys){
+				it = entitys.iterator();
+				while (it.hasNext()){
+					Entity e = it.next();
+					if (e instanceof Player){
+						if (game.getIngamePlayers().contains(e.getUniqueId())){
+							if (e.getLocation().distance(blackhole.getLocation()) < 10 || e.getLocation().getY() > 1){
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize(), 1);
+							}
+						}
+					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());
+				}
+				/*for (Entity e : entitys){
 					if (e instanceof Player){
 						if (e.getLocation().distance(blackhole.getLocation()) < 10 || e.getLocation().getY() > 1){
 							PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + 0.5, blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize(), 1);
 						}else entitys.remove(e);
 					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + 0.5, blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());
-				}
+				}*/
 				
 				i--;
 			}

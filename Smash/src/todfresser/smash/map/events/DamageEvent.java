@@ -27,13 +27,11 @@ public class DamageEvent implements Listener{
 					if (e.getCause().equals(DamageCause.VOID)) return;
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
 					if (e.getCause().equals(DamageCause.FALL)) return;
-					if (e.getCause().equals(DamageCause.FIRE_TICK)){
-						e.setDamage(0);
-						e.setCancelled(false);
-						return;
-					}
+					e.setDamage(0);
+					e.setCancelled(false);
+					return;
 					//
-					e.setCancelled(true);
+					//e.setCancelled(true);
 				}
 			}
 		}
