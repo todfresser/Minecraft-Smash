@@ -135,7 +135,7 @@ public class RocketLauncher implements SmashItemData{
 								playerdata.cancelItemRunnable(this);
 								return;
 							}
-						}, 50, 0);
+						}, 30, 0);
 						playerdata.cancelItemRunnable(this);
 						return;
 					}

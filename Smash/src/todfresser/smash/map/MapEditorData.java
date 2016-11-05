@@ -27,6 +27,7 @@ public class MapEditorData {
 	public Location leavesign;
 	public Location itemsign;
 	public Location livesign;
+	public int type;
 	
 	private Inventory setupInventory(){
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.GRAY + "Map: " + ChatColor.GOLD + name);
@@ -40,6 +41,7 @@ public class MapEditorData {
 		this.SpielerID = id;
 		this.name = name;
 		this.exists = false;
+		this.type = 395;
 		this.worldtoCopy = Bukkit.getPlayer(id).getWorld().getName();
 		this.Inv = setupInventory();
 		this.playerspawns = new ArrayList<>();
@@ -51,6 +53,7 @@ public class MapEditorData {
 		this.SpielerID = id;
 		this.name = m.getName();
 		this.exists = true;
+		this.type = m.getTypeID();
 		this.Inv = setupInventory();
 		World w = Bukkit.getWorld(m.getWorldtoCopy().getName());
 		this.spectatorspawn = m.getSpectatorSpawnPoint(w);
@@ -75,7 +78,7 @@ public class MapEditorData {
 				}
 			}
 		}else m = new Map(name);
-		m.create(worldtoCopy, time, spectatorspawn, lobbyspawnpoint, leavepoint, playerspawns, itemspawns, leavesign.toVector(), itemsign.toVector(), livesign.toVector());
+		m.create(worldtoCopy, time, type, spectatorspawn, lobbyspawnpoint, leavepoint, playerspawns, itemspawns, leavesign.toVector(), itemsign.toVector(), livesign.toVector());
 	}
 	
 }

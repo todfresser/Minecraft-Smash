@@ -478,6 +478,7 @@ public class Game implements Runnable{
 					Random r = new Random();
 					for (UUID id : getIngamePlayers()){
 						p = Bukkit.getPlayer(id);
+						PlayerFunctions.sendTitle(p, 1, 1, 1, "", "");
 						PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GOLD + "Viel Glück");
 						p.getInventory().clear();
 						p.getInventory().setArmorContents(null);

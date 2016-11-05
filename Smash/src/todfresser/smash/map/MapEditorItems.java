@@ -29,13 +29,13 @@ public class MapEditorItems {
 		i.setItem(6, ITEMSPAWNS(d.itemspawns));
 		i.setItem(7, SIGNS(d.leavesign, d.livesign, d.itemsign));
 		i.setItem(8, EmptySpace_GRAY());
-		
 		clear(i);
+		updateIcon(i, d.type);
 		if (type.equals(EditorInventoryType.SAVEDELETE)){
 			i.setItem(0, DELETE(d.exists));
 			i.setItem(1, CANCEL());
 			i.setItem(2, CREATE(d.exists));
-			for (int in = 9; in< 18; in++){
+			for (int in = 10; in< 18; in++){
 				i.setItem(in, EmptySpace());
 			}
 			return;
@@ -71,7 +71,22 @@ public class MapEditorItems {
 			inv.setItem(i, EmptySpace_GRAY());
 		}
 	}
+	public static void updateIcon(Inventory inv, int type){
+		inv.setItem(9, CHANGEICON(type));
+	}
 	
+	@SuppressWarnings("deprecation")
+	public static ItemStack CHANGEICON(int ItemID){
+		ItemStack i = new ItemStack(ItemID, 1);
+		ItemMeta meta = i.getItemMeta();
+		List<String> l = new ArrayList<>();
+		meta.setDisplayName(ChatColor.WHITE + "Icon");
+		l.add(ChatColor.RED + "Klicke um das Icon gegen das Item");
+		l.add(ChatColor.RED + "in deiner Hand auszutauschen.");
+		meta.setLore(l);
+		i.setItemMeta(meta);
+		return i;
+	}
 	
 	public static ItemStack SPECTATORSPAWN(Location loc){
 		ItemStack i = new ItemStack(Material.WATCH, 1);

@@ -27,8 +27,10 @@ import todfresser.smash.map.events.ChatEvent;
 import todfresser.smash.map.events.CommandReprocess;
 import todfresser.smash.map.events.DamageEvent;
 import todfresser.smash.map.events.DropItem;
+import todfresser.smash.map.events.DropPotionEvent;
 import todfresser.smash.map.events.FlyToggleEvent;
 import todfresser.smash.map.events.InteractEvent;
+import todfresser.smash.map.events.PhysikEvent;
 import todfresser.smash.map.events.PickupItemEvent;
 import todfresser.smash.map.events.RegenerationEvents;
 import todfresser.smash.map.events.SwapHandItem;
@@ -76,6 +78,8 @@ public class Smash extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new SwapHandItem(), this);
 		getServer().getPluginManager().registerEvents(new CommandReprocess(), this);
 		getServer().getPluginManager().registerEvents(new ChatEvent(), this);
+		getServer().getPluginManager().registerEvents(new DropPotionEvent(), this);
+		getServer().getPluginManager().registerEvents(new PhysikEvent(), this);
 		
 		ItemManager.registerItem(new SpeedItem());
 		ItemManager.registerItem(new TripleBow());

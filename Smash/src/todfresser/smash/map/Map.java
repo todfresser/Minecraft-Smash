@@ -66,6 +66,10 @@ public class Map {
 		}
 	}
 	
+	public int getTypeID(){
+		return cfg.getInt("material");
+	}
+	
 	public void delete(){
 		maps.remove(this);
 		for (Game g : Game.getrunningGames()){
@@ -171,7 +175,7 @@ public class Map {
 		return locs;
 	}
 
-	public void create(String worldtoCopy, int time, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, Vector leavesign, Vector itemsign, Vector livesign){
+	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, Vector leavesign, Vector itemsign, Vector livesign){
 		File file = new File("plugins/Smash/Maps", name + ".yml");
 		String signS = null;
 		
@@ -194,6 +198,7 @@ public class Map {
 		cfg.set("World_to_Copy", worldtoCopy);
 		cfg.set("Time", time);
 		cfg.set("maxplayers", spawnpoints.size());
+		cfg.set("material", itemID);
 		
 		cfg.set("spectatorspawn", spectatorspawn.getX() + "," + spectatorspawn.getY() + "," + spectatorspawn.getZ() + "," + spectatorspawn.getYaw());
 		cfg.set("lobbyspawnpoint", lobbyspawnpoint.getX() + "," + lobbyspawnpoint.getY() + "," + lobbyspawnpoint.getZ() + "," + lobbyspawnpoint.getYaw());

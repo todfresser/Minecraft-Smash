@@ -213,7 +213,7 @@ public class SignManager implements Listener{
 							if (e.getClickedBlock().getLocation().equals(g.getMap().getLiveSign(g.getWorld()).getLocation())){
 								e.getPlayer().openInventory(getLiveSignInventory(g));
 							}
-						}
+						}else return;
 						return;
 					}
 				}
@@ -249,7 +249,7 @@ public class SignManager implements Listener{
 			Player p = (Player) e.getWhoClicked();
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(p)){
-					if (e.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY) || g.getGameState().equals(GameState.Running)){
+					if (e.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY) || g.getGameState().equals(GameState.Running) || g.getGameState().equals(GameState.Ending)){
 						e.setCancelled(true);
 						return;
 					}
@@ -346,8 +346,9 @@ public class SignManager implements Listener{
 		}*/
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ItemStack MaptoItemStack(Map m){
-		ItemStack item = new ItemStack(Material.EMPTY_MAP);
+		ItemStack item = new ItemStack(m.getTypeID(), 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.BLUE + ">>" + ChatColor.GOLD + m.getName() + ChatColor.BLUE + "<<");
 		List<String> lore = new ArrayList<>();

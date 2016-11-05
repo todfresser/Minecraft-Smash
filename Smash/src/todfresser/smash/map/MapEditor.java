@@ -21,6 +21,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import net.minecraft.server.v1_10_R1.Material;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.MapEditorItems.EditorInventoryType;
 
@@ -75,6 +76,7 @@ public class MapEditor implements Listener{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onClick(InventoryClickEvent e){
 		if (!e.getWhoClicked().getType().equals(EntityType.PLAYER)) return;
@@ -188,7 +190,12 @@ public class MapEditor implements Listener{
 				MapEditorItems.setInventory(d, EditorInventoryType.GLOBALSPAWNS);
 				return;
 			}
-			
+			if (i.getDisplayName().equals(MapEditorItems.CHANGEICON(d.type).getItemMeta().getDisplayName())){
+				if (e.getWhoClicked().getInventory().getItemInMainHand() != null && !e.getWhoClicked().getInventory().getItemInMainHand().getType().equals(Material.AIR)){
+					d.type = e.getWhoClicked().getInventory().getItemInMainHand().getTypeId();
+					MapEditorItems.updateIcon(d.Inv, d.type);
+				}
+			}
 		}
 	}
 	
