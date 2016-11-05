@@ -32,7 +32,7 @@ public class JetPack implements SmashItemData{
 	public int getmaxItemUses() {
 		return 3;
 	}
-
+	
 	@Override
 	public int getSpawnChance() {
 		return 20;
