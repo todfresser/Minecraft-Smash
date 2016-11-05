@@ -9,9 +9,9 @@ public class VectorFunctions {
 		double pitch = (90 * Math.PI) / 180;
 		double yaw = ((EntityYaw + 90) * Math.PI) / 180;
 		double x = Math.sin(pitch) * Math.cos(yaw);
-		double y = Math.cos(pitch);
+		double y = extraY;
 		double z = Math.sin(pitch) * Math.sin(yaw);
-		return new Vector(x, y, z).setY(extraY);
+		return new Vector(x, y, z);
 	}
 	
 	public static Vector getStandardJumpVector(Location PlayerLocation){

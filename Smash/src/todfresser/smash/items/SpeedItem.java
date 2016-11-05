@@ -1,6 +1,5 @@
 package todfresser.smash.items;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -28,9 +27,7 @@ public class SpeedItem implements SmashItemData{
 
 	@Override
 	public List<String> getLore() {
-		List<String> lore = new ArrayList<>();
-		lore.add("<Rechts Klicken>");
-		return lore;
+		return null;
 	}
 
 	@Override

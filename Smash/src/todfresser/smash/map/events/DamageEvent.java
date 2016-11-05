@@ -27,8 +27,7 @@ public class DamageEvent implements Listener{
 					if (e.getCause().equals(DamageCause.VOID)) return;
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
 					if (e.getCause().equals(DamageCause.FALL)) return;
-					e.setDamage(0);
-					e.setCancelled(false);
+					e.setCancelled(true);
 					return;
 				}
 			}
@@ -64,11 +63,11 @@ public class DamageEvent implements Listener{
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(p)){
 					e.setDamage(0);
+					e.setCancelled(true);
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
 					if (g.containsPlayer(damager)){
 						g.getPlayerData(p).setLastDamager(damager.getUniqueId());
 						if (!g.getPlayerData(damager).OnPlayerHitPlayer(damager, p, g)){
-							//PlayerFunctions.playOutDamage(g, p, damager, damager.getLocation().getDirection().setY(0.4).multiply(g.getPlayerData(p).getDamage()/200 + 0.9 + e.getDamage()/5), 1);
 							PlayerFunctions.playOutDamage(g, p, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45), 1);
 						}
 						return;

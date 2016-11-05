@@ -15,8 +15,10 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.util.Vector;
 
 import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_10_R1.EntityPlayer;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent;
 import net.minecraft.server.v1_10_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_10_R1.PacketPlayOutEntityStatus;
 import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_10_R1.PlayerConnection;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
@@ -87,6 +89,7 @@ public class PlayerFunctions {
 		
 	}
 	public static void playOutDamage(Game g, Player p, Vector velocity, int damage){
+		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity.multiply(g.getPlayerData(p).getDamage()/200 + 0.9));
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
@@ -100,15 +103,18 @@ public class PlayerFunctions {
 		}.runTaskLater(Smash.getInstance(), 4);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, int damage){
+		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
 	public static void playOutDamage(Game g, Player p, int damage){
+		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, Vector velocity, int damage){
+		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity.multiply(g.getPlayerData(p).getDamage()/200 + 0.9));
 		if (damage > 0) g.getPlayerData(damager).addDamageDone((int) damage);
@@ -146,6 +152,15 @@ public class PlayerFunctions {
 	      connection.sendPacket(packetPlayOutTitle);
 	    }
 	  }
+	
+	public static void playDamageAnimation(Player target, Game g){
+		EntityPlayer player = ((CraftPlayer) target).getHandle();
+		PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(player, (byte) 2);
+		for (UUID id : g.getAllPlayers()){
+			EntityPlayer p = ((CraftPlayer) Bukkit.getPlayer(id)).getHandle();
+			p.playerConnection.sendPacket(status);
+		}
+	}
 	
 	public static void sendActionBar(Player p, String message){
 		if(message == null) message = "";
