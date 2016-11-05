@@ -52,6 +52,11 @@ public class TripleBow implements SmashItemData{
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	@Override
+	public boolean hasOnHookEvent() {
+		return false;
+	}
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
@@ -87,6 +92,12 @@ public class TripleBow implements SmashItemData{
 	@Override
 	public int getSpawnChance() {
 		return 20;
+	}
+
+	@Override
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

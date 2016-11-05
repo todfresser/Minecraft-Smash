@@ -6,20 +6,20 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 
-import todfresser.smash.extrafunctions.PlayerFunctions;
+import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
-public class Steak implements SmashItemData{
+public class Hook implements SmashItemData{
 
 	@Override
 	public String getDisplayName() {
-		return "§6Steak";
+		return "§fHook";
 	}
 
 	@Override
 	public Material getType() {
-		return Material.COOKED_BEEF;
+		return Material.FISHING_ROD;
 	}
 
 	@Override
@@ -29,17 +29,17 @@ public class Steak implements SmashItemData{
 
 	@Override
 	public int getmaxItemUses() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public int getSpawnChance() {
-		return 22;
+		return 10;
 	}
 
 	@Override
 	public boolean hasOnRightClickEvent() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -54,14 +54,11 @@ public class Steak implements SmashItemData{
 	
 	@Override
 	public boolean hasOnHookEvent() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-		playerdata.removeDamage(10);
-		PlayerFunctions.updateDamageManually(whoclicked.getUniqueId(), game);
-		playerdata.canUseItem = true;
 	}
 
 	@Override
@@ -69,13 +66,13 @@ public class Steak implements SmashItemData{
 	}
 
 	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {	
+	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
 	}
 
 	@Override
 	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		// TODO Auto-generated method stub
-		
+		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target.getLocation()));
+		playerdata.canUseItem = true;
 	}
-	
+
 }

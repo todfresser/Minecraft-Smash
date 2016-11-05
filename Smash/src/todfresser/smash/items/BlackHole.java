@@ -69,6 +69,11 @@ public class BlackHole implements SmashItemData{
 		
 		return false;
 	}
+	
+	@Override
+	public boolean hasOnHookEvent() {
+		return false;
+	}
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player player, Game game) {
@@ -168,6 +173,12 @@ public class BlackHole implements SmashItemData{
 	@Override
 	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
 		
+		
+	}
+
+	@Override
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		// TODO Auto-generated method stub
 		
 	}
 	

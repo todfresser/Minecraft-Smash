@@ -20,6 +20,12 @@ public class InteractEvent implements Listener{
 					if (g.getGameState().equals(GameState.Running)){
 						if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 							g.getPlayerData(e.getPlayer()).OnInteract(e.getAction(), e.getPlayer(), g);
+							if (e.getItem().getType().equals(Material.FISHING_ROD)){
+								if (g.getPlayerData(e.getPlayer()).canUseItem == true){
+									e.setCancelled(false);
+									return;
+								}
+							}
 							if (e.getItem().getType().equals(Material.BOW)){
 								if (g.getPlayerData(e.getPlayer()).canUseItem == true){
 									e.getPlayer().getInventory().setItem(10, new ItemStack(Material.ARROW));

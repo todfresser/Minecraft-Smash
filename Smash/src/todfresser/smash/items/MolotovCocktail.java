@@ -60,6 +60,11 @@ public class MolotovCocktail implements SmashItemData{
 	public boolean hasOnRightClickEvent() {
 		return true;
 	}
+	
+	@Override
+	public boolean hasOnHookEvent() {
+		return false;
+	}
 
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData arg0, Player arg1, Player arg2, Game arg3) {
@@ -111,5 +116,11 @@ playerdata.canUseItem = true;
 	
 	
 	
+	}
+
+	@Override
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		// TODO Auto-generated method stub
+		
 	}
 }

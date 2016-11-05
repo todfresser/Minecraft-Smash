@@ -49,6 +49,11 @@ public class Smasher implements SmashItemData {
 	}
 	
 	@Override
+	public boolean hasOnHookEvent() {
+		return false;
+	}
+	
+	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 3).multiply(2), 100);
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§6Get Smashed", "");
@@ -68,5 +73,11 @@ public class Smasher implements SmashItemData {
 	@Override
 	public int getSpawnChance() {
 		return 0;
+	}
+
+	@Override
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		// TODO Auto-generated method stub
+		
 	}
 }

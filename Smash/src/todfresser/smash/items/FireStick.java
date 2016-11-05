@@ -40,6 +40,11 @@ public class FireStick implements SmashItemData {
 	public boolean hasOnPlayerShootBowEvent() {
 		return false;
 	}
+	
+	@Override
+	public boolean hasOnHookEvent() {
+		return false;
+	}
 
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
@@ -73,5 +78,11 @@ public class FireStick implements SmashItemData {
 	@Override
 	public int getSpawnChance() {
 		return 27;
+	}
+
+	@Override
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -53,6 +53,11 @@ public class IronSword implements SmashItemData{
 	public boolean hasOnRightClickEvent() {
 		return false;
 	}
+	
+	@Override
+	public boolean hasOnHookEvent() {
+		return false;
+	}
 
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player damager, Player target, Game game) {
@@ -68,5 +73,11 @@ public class IronSword implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData arg0, Action arg1, Player arg2, Game arg3) {		
+	}
+
+	@Override
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -20,13 +20,11 @@ public class ItemManager {
 	private static HashMap<Integer, SmashItemData> itemdata = new HashMap<>();
 	
 	public static void registerItem(SmashItemData item){
-		if (!itemdata.containsValue(item)){
-			itemdata.put(itemdata.size()+1, item);
+		for (SmashItemData data : itemdata.values()){
+			if (data.getDisplayName().equals(item.getDisplayName())) return;
 		}
+		itemdata.put(itemdata.size()+1, item);
 	}
-	/*public static Collection<SmashItemData> getAllItemDataTypes(){
-		return itemdata.values();
-	}*/
 	public static Collection<Integer> getAllItemDataIDs(){
 		return itemdata.keySet();
 	}

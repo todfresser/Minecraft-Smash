@@ -128,6 +128,22 @@ public class SmashPlayerData {
 		}
 		return;
 	}
+	public boolean OnHookPlayerEvent(Player p, Player target, Game game){
+		if (hasItem()){
+			SmashItemData data = ItemManager.getItemData(itemID);
+			if (data.hasOnHookEvent()){
+				if (canUseItem == true){
+					canUseItem = false;
+					data.onHookPlayerEvent(this, p, target, game);
+					ItemUsesLeft--;
+					if (ItemUsesLeft <= 0) removeItems(p);
+				}
+				p.updateInventory();
+				return true;
+			}
+		}
+		return false;
+	}
 	//Ende von ItemInHand
 	
 	

@@ -20,11 +20,14 @@ public interface SmashItemData {
 	public boolean hasOnRightClickEvent();
 	public boolean hasOnPlayerHitPlayerEvent();
 	public boolean hasOnPlayerShootBowEvent();
+	public boolean hasOnHookEvent();
 	
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game);
 	
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
 	
 	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game);
+	
+	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
 	
 }
