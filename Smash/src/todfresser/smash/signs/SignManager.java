@@ -47,7 +47,7 @@ public class SignManager implements Listener{
 		
 	}
 	private static Inventory getItemSignInventory(Game g){
-		Inventory inv = Bukkit.createInventory(null, 9*((int)(ItemManager.getAllItemDataIDs().size()/9) + 1), ChatColor.GOLD + "Items");
+		Inventory inv = Bukkit.createInventory(null, 9*((int)((ItemManager.getAllItemDataIDs().size()-1)/9) + 1), ChatColor.GOLD + "Items");
 		for (ItemStack item : ItemManager.getStandardDeactivationItems(g.getAllowedItemIDs())){
 			inv.addItem(item);
 		}
