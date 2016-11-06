@@ -44,7 +44,7 @@ public class RocketLauncher implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 6;
+		return 8;
 	}
 
 	@Override

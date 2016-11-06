@@ -26,7 +26,7 @@ public class GoldenSword implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 24;
+		return 50;
 	}
 
 	@Override

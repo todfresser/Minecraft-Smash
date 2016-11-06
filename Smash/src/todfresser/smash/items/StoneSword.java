@@ -26,7 +26,7 @@ public class StoneSword implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 18;
+		return 30;
 	}
 
 	@Override

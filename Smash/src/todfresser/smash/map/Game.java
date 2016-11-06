@@ -98,8 +98,8 @@ public class Game implements Runnable{
 	public void setGameState(GameState gamestate){
 		if (gamestate.equals(this.gs)) return;
 		try{
-			SignManager.update(this);
 			this.gs = gamestate;
+			SignManager.update(this);
 			if (gamestate.equals(GameState.Ending)){
 				sendPlayerGameStats();
 				counter = 15;

@@ -34,7 +34,7 @@ public class Steak implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 22;
+		return 30;
 	}
 
 	@Override

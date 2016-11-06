@@ -31,7 +31,7 @@ public class BlackHole implements SmashItemData{
 	@Override
 	public Material getType() {
 		
-		return Material.COAL;
+		return Material.FLINT;
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class BlackHole implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player player, Game game) {
-		Item blackhole = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.COAL));
+		Item blackhole = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.FLINT));
 	    blackhole.setVelocity(player.getLocation().getDirection().multiply(1.2D));
 	    playerdata.registerItemRunnable(new BukkitRunnable() {
 		    List<Entity> entitys = new ArrayList<>();

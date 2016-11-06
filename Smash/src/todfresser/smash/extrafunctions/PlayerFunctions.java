@@ -91,7 +91,7 @@ public class PlayerFunctions {
 	public static void playOutDamage(Game g, Player p, Vector velocity, int damage){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
-		p.setVelocity(velocity.multiply(g.getPlayerData(p).getDamage()/200 + 0.9));
+		p.setVelocity(velocity.multiply(((double)g.getPlayerData(p).getDamage()/200) + 0.9));
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 		new BukkitRunnable() {
 			
@@ -116,7 +116,7 @@ public class PlayerFunctions {
 	public static void playOutDamage(Game g, Player p, Player damager, Vector velocity, int damage){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
-		p.setVelocity(velocity.multiply(g.getPlayerData(p).getDamage()/200 + 0.9));
+		p.setVelocity(velocity.multiply(((double)g.getPlayerData(p).getDamage()/200) + 0.9));
 		if (damage > 0) g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 		new BukkitRunnable() {

@@ -43,7 +43,7 @@ public class MagicStaff implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 22;
+		return 20;
 	}
 
 	@Override

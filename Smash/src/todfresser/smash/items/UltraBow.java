@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
-public class TripleBow implements SmashItemData{
+public class UltraBow implements SmashItemData{
 
 	@Override
 	public String getDisplayName() {
@@ -91,7 +91,7 @@ public class TripleBow implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 20;
+		return 8;
 	}
 
 	@Override

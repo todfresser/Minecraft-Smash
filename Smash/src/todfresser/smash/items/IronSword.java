@@ -26,7 +26,7 @@ public class IronSword implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 16;
+		return 20;
 	}
 
 	@Override

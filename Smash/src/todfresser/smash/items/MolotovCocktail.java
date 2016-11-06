@@ -32,13 +32,13 @@ public class MolotovCocktail implements SmashItemData{
 	@Override
 	public int getSpawnChance() {
 
-		return 10;
+		return 15;
 	}
 
 	@Override
 	public Material getType() {
 
-		return Material.EXP_BOTTLE;
+		return Material.POTION;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class MolotovCocktail implements SmashItemData{
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action click, Player player, Game game) {
 		
-		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.EXP_BOTTLE));	
+		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.POTION));	
 		
 		grenade.setVelocity(player.getLocation().getDirection().multiply(1.5D));
 

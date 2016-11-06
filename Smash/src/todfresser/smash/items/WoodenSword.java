@@ -26,7 +26,7 @@ public class WoodenSword implements SmashItemData{
 
 	@Override
 	public int getSpawnChance() {
-		return 21;
+		return 40;
 	}
 
 	@Override

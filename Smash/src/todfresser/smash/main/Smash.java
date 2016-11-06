@@ -14,7 +14,7 @@ import todfresser.smash.items.FireStick;
 import todfresser.smash.items.Freezer;
 import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.GoldenSword;
-import todfresser.smash.items.Hook;
+import todfresser.smash.items.Grenade;
 import todfresser.smash.items.IronSword;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.JetPack;
@@ -22,10 +22,11 @@ import todfresser.smash.items.MagicStaff;
 import todfresser.smash.items.MolotovCocktail;
 import todfresser.smash.items.RocketLauncher;
 import todfresser.smash.items.Smasher;
+import todfresser.smash.items.SmokeGrenade;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.Steak;
 import todfresser.smash.items.StoneSword;
-import todfresser.smash.items.TripleBow;
+import todfresser.smash.items.UltraBow;
 import todfresser.smash.items.WoodenSword;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
@@ -94,7 +95,7 @@ public class Smash extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new WeatherChange(), this);
 		
 		ItemManager.registerItem(new SpeedItem());
-		ItemManager.registerItem(new TripleBow());
+		ItemManager.registerItem(new UltraBow());
 		ItemManager.registerItem(new Smasher());
 		ItemManager.registerItem(new FireStick());
 		ItemManager.registerItem(new RocketLauncher());
@@ -109,8 +110,10 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new IronSword());
 		ItemManager.registerItem(new DiamondSword());
 		ItemManager.registerItem(new MolotovCocktail());
-		ItemManager.registerItem(new Hook());
+		//ItemManager.registerItem(new Hook());
 		ItemManager.registerItem(new Freezer());
+		ItemManager.registerItem(new Grenade());
+		ItemManager.registerItem(new SmokeGrenade());
 		
 		instance = this;
 		Map.deleteAllWorlds();
