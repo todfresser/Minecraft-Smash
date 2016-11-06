@@ -303,6 +303,8 @@ public class Map {
 			w.setGameRuleValue("showDeathMessages", "false");
 			w.setTime(cfg.getInt("Time"));
 			w.setWeatherDuration(0);
+			w.setStorm(false);
+			w.setThundering(false);
 			
 			return w;
 		}catch(Exception e){

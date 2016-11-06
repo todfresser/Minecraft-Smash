@@ -96,8 +96,8 @@ public class MolotovCocktail implements SmashItemData{
 				grenade.getWorld().spigot().playEffect(grenade.getLocation(), Effect.FLAME, 0, 0, 2, 2, 2, 0, 300, 100);
 				for (Entity e: grenade.getNearbyEntities(4, 4, 4)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
-					PlayerFunctions.playOutDamage(game, player,player, VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.4), 1);
-					player.setFireTicks(20);
+						PlayerFunctions.playOutDamage(game, (Player) e,player, VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.4), 1);
+						e.setFireTicks(20);
 					}
 				
 			}

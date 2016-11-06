@@ -11,6 +11,7 @@ import todfresser.smash.extrafunctions.DynamicClassFunctions;
 import todfresser.smash.items.BlackHole;
 import todfresser.smash.items.DiamondSword;
 import todfresser.smash.items.FireStick;
+import todfresser.smash.items.Freezer;
 import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.GoldenSword;
 import todfresser.smash.items.Hook;
@@ -42,6 +43,7 @@ import todfresser.smash.map.events.PhysikEvent;
 import todfresser.smash.map.events.PickupItemEvent;
 import todfresser.smash.map.events.RegenerationEvents;
 import todfresser.smash.map.events.SwapHandItem;
+import todfresser.smash.map.events.WeatherChange;
 import todfresser.smash.map.events.PlayerQuit;
 import todfresser.smash.map.events.PlayerShootBow;
 import todfresser.smash.signs.SignManager;
@@ -89,6 +91,7 @@ public class Smash extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new DropPotionEvent(), this);
 		getServer().getPluginManager().registerEvents(new PhysikEvent(), this);
 		getServer().getPluginManager().registerEvents(new HookEvent(), this);
+		getServer().getPluginManager().registerEvents(new WeatherChange(), this);
 		
 		ItemManager.registerItem(new SpeedItem());
 		ItemManager.registerItem(new TripleBow());
@@ -107,6 +110,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new DiamondSword());
 		ItemManager.registerItem(new MolotovCocktail());
 		ItemManager.registerItem(new Hook());
+		ItemManager.registerItem(new Freezer());
 		
 		instance = this;
 		Map.deleteAllWorlds();

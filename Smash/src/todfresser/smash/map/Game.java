@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -189,6 +190,9 @@ public class Game implements Runnable{
 			}
 			p.setGameMode(GameMode.SPECTATOR);
 			p.setHealth(lives*2);
+			for (PotionEffect effect : p.getActivePotionEffects()){
+				p.removePotionEffect(effect.getType());
+			}
 			p.teleport(m.getSpectatorSpawnPoint(w));
 			PlayerFunctions.sendDamageScoreboard(this);
 			PlayerFunctions.updateDamageManually(p.getUniqueId(), this);
@@ -203,6 +207,9 @@ public class Game implements Runnable{
 			p.setGameMode(GameMode.SURVIVAL);
 			p.setFoodLevel(20);
 			p.setHealth(players.get(p.getUniqueId()).getHealth());
+			for (PotionEffect effect : p.getActivePotionEffects()){
+				p.removePotionEffect(effect.getType());
+			}
 			p.setAllowFlight(true);
 			PlayerFunctions.sendDamageScoreboard(this);
 			PlayerFunctions.updateDamageManually(p.getUniqueId(), this);
@@ -451,7 +458,11 @@ public class Game implements Runnable{
 		}
 		if (i == 2 || i == 12 ){
 			for (UUID id: getIngamePlayers()){
-				if (Bukkit.getPlayer(id).getFoodLevel() != 20){
+				if (Bukkit.getPlayer(id).hasPotionEffect(PotionEffectType.HUNGER)){
+					if (Bukkit.getPlayer(id).getFoodLevel() > 1){
+						Bukkit.getPlayer(id).setFoodLevel(Bukkit.getPlayer(id).getFoodLevel()-2);
+					}
+				}else if (Bukkit.getPlayer(id).getFoodLevel() != 20){
 					Bukkit.getPlayer(id).setFoodLevel(Bukkit.getPlayer(id).getFoodLevel()+1);
 				}
 			}
