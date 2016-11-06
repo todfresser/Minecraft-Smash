@@ -87,7 +87,7 @@ public class Freezer implements SmashItemData{
 						if (target.hasPotionEffect(PotionEffectType.HUNGER)) target.removePotionEffect(PotionEffectType.HUNGER);
 						if (target.hasPotionEffect(PotionEffectType.SLOW)) target.removePotionEffect(PotionEffectType.SLOW);
 						target.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 90, 0, false, false));
-						target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 170, 2, false, false));
+						target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 170, 3, false, false));
 					}
 				}
 			}else {
