@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -20,8 +21,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.minecraft.server.v1_10_R1.Material;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.MapEditorItems.EditorInventoryType;
 
@@ -191,7 +190,7 @@ public class MapEditor implements Listener{
 				return;
 			}
 			if (i.getDisplayName().equals(MapEditorItems.CHANGEICON(d.type).getItemMeta().getDisplayName())){
-				if (e.getWhoClicked().getInventory().getItemInMainHand() != null && !e.getWhoClicked().getInventory().getItemInMainHand().getType().equals(Material.AIR)){
+				if ((e.getWhoClicked().getInventory().getItemInMainHand() != null) && (!e.getWhoClicked().getInventory().getItemInMainHand().getType().equals(Material.AIR))){
 					d.type = e.getWhoClicked().getInventory().getItemInMainHand().getTypeId();
 					MapEditorItems.updateIcon(d.Inv, d.type);
 				}
