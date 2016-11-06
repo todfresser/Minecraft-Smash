@@ -14,7 +14,7 @@ public class SmashCommands implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if ((sender instanceof Player) == false){
+		if (!(sender instanceof Player)){
 			System.out.println("[Smash] Du musst ein Spieler sein!");
 			return true;
 		}
