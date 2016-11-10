@@ -15,7 +15,6 @@ import todfresser.smash.items.Freezer;
 import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.GoldenSword;
 import todfresser.smash.items.Grenade;
-import todfresser.smash.items.Hook;
 import todfresser.smash.items.IronSword;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.JetPack;
