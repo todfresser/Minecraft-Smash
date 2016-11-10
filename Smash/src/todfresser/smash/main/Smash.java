@@ -15,6 +15,7 @@ import todfresser.smash.items.Freezer;
 import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.GoldenSword;
 import todfresser.smash.items.Grenade;
+import todfresser.smash.items.Hook;
 import todfresser.smash.items.IronSword;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.JetPack;
@@ -47,6 +48,7 @@ import todfresser.smash.map.events.SwapHandItem;
 import todfresser.smash.map.events.WeatherChange;
 import todfresser.smash.map.events.PlayerQuit;
 import todfresser.smash.map.events.PlayerShootBow;
+import todfresser.smash.map.events.ProjectileThrowEvent;
 import todfresser.smash.signs.SignManager;
 
 public class Smash extends JavaPlugin{
@@ -93,6 +95,7 @@ public class Smash extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new PhysikEvent(), this);
 		getServer().getPluginManager().registerEvents(new HookEvent(), this);
 		getServer().getPluginManager().registerEvents(new WeatherChange(), this);
+		getServer().getPluginManager().registerEvents(new ProjectileThrowEvent(), this);
 		
 		ItemManager.registerItem(new SpeedItem());
 		ItemManager.registerItem(new UltraBow());

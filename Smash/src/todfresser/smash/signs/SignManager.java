@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -48,11 +50,15 @@ public class SignManager implements Listener{
 	}
 	private static Inventory getItemSignInventory(Game g){
 		Inventory inv = Bukkit.createInventory(null, 9*((int)((ItemManager.getAllItemDataIDs().size()-1)/9) + 1), ChatColor.GOLD + "Items");
-		for (ItemStack item : ItemManager.getStandardDeactivationItems(g.getAllowedItemIDs())){
-			inv.addItem(item);
-		}
+		addItemstoItemInventory(inv, g.getAllowedItemIDs());
 		return inv;
 		
+	}
+	private static void addItemstoItemInventory(Inventory inv, Collection<Integer> allowedItems){
+		inv.clear();
+		for (ItemStack item : ItemManager.getStandardDeactivationItems(allowedItems)){
+			inv.addItem(item);
+		}
 	}
 	
 	private static ItemStack LIVEITEM(int lives, boolean current){
@@ -271,13 +277,32 @@ public class SignManager implements Listener{
 							for (int id : ItemManager.getAllItemDataIDs()){
 								if (ItemManager.getItemData(id).getDisplayName().equals(e.getCurrentItem().getItemMeta().getDisplayName())){
 									if (g.getAllowedItemIDs().contains(id)){
-										if (g.getAllowedItemIDs().size() > 1){
+										if (e.getClick().equals(ClickType.RIGHT)){
+											g.getAllowedItemIDs().clear();
+											addItemstoItemInventory(e.getClickedInventory(), g.getAllowedItemIDs());
+											p.updateInventory();
+										}
+										if (e.getClick().equals(ClickType.LEFT)){
 											g.getAllowedItemIDs().remove(id);
 											e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardDeactivationItem(ItemManager.getItemData(id), false));
+											p.updateInventory();
 										}
+										return;
 									}else{
-										g.getAllowedItemIDs().add(id);
-										e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardDeactivationItem(ItemManager.getItemData(id), true));
+										if (e.getClick().equals(ClickType.RIGHT)){
+											for (int ID : ItemManager.getAllItemDataIDs()){
+												if (!g.getAllowedItemIDs().contains(ID)){
+													g.getAllowedItemIDs().add(ID);
+												}
+											}
+											addItemstoItemInventory(e.getClickedInventory(), g.getAllowedItemIDs());
+											p.updateInventory();
+										}
+										if (e.getClick().equals(ClickType.LEFT)){
+											g.getAllowedItemIDs().add(id);
+											e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardDeactivationItem(ItemManager.getItemData(id), true));
+											p.updateInventory();
+										}
 									}
 									return;
 								}

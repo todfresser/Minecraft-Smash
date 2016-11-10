@@ -526,7 +526,7 @@ public class Game implements Runnable{
 					return;
 				}
 				//
-				if ((double) (counter / 5) == (int)(counter / 5)) ItemManager.spawnRandomItem(m.getItemSpawns(w), allowedItems);
+				if (((double) (counter / 10) == (int)(counter / 10)) && getAllowedItemIDs().size() > 0) ItemManager.spawnRandomItem(m.getItemSpawns(w), allowedItems);
 				
 				
 				counter--;

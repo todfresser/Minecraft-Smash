@@ -2,6 +2,7 @@ package todfresser.smash.items;
 
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -29,12 +30,12 @@ public class Hook implements SmashItemData{
 
 	@Override
 	public int getmaxItemUses() {
-		return 2;
+		return 1;
 	}
 
 	@Override
 	public int getSpawnChance() {
-		return 10;
+		return 11;
 	}
 
 	@Override
@@ -70,9 +71,16 @@ public class Hook implements SmashItemData{
 	}
 
 	@Override
-	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target.getLocation()));
+	public byte getSubID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
+		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target));
 		playerdata.canUseItem = true;
+		
 	}
 
 }

@@ -31,7 +31,7 @@ public class BlackHole implements SmashItemData{
 	@Override
 	public Material getType() {
 		
-		return Material.FLINT;
+		return Material.COAL;
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class BlackHole implements SmashItemData{
 								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)), 1);
 							}
 						}
-					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)));
+					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());
 				}
 				/*for (Entity e : entitys){
 					if (e instanceof Player){
@@ -177,7 +177,13 @@ public class BlackHole implements SmashItemData{
 	}
 
 	@Override
-	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+	public byte getSubID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
 		// TODO Auto-generated method stub
 		
 	}

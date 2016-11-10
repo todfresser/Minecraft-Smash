@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.PlayerInventory;
@@ -128,13 +129,13 @@ public class SmashPlayerData {
 		}
 		return;
 	}
-	public boolean OnHookPlayerEvent(Player p, Player target, Game game){
+	public boolean OnHookPlayerEvent(Player p, Location target, Game game){
 		if (hasItem()){
 			SmashItemData data = ItemManager.getItemData(itemID);
 			if (data.hasOnHookEvent()){
 				if (canUseItem == true){
 					canUseItem = false;
-					data.onHookPlayerEvent(this, p, target, game);
+					data.onHookEvent(this, p, target, game);
 					ItemUsesLeft--;
 					if (ItemUsesLeft <= 0) removeItems(p);
 				}

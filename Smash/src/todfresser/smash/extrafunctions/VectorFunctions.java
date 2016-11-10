@@ -24,6 +24,6 @@ public class VectorFunctions {
 	}
 	
 	public static Vector getVectorbetweenLocations(Location from, Location to){
-		return to.toVector().subtract(from.toVector()).normalize().multiply(2);
+		return to.toVector().subtract(from.toVector());
 	}
 }

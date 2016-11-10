@@ -29,7 +29,7 @@ public class ItemManager {
 		return itemdata.keySet();
 	}
 	public static ItemStack getStandardItem(int itemdataID){
-		ItemStack i = new ItemStack(itemdata.get(itemdataID).getType());
+		ItemStack i = new ItemStack(itemdata.get(itemdataID).getType(), 1, itemdata.get(itemdataID).getSubID());
 		ItemMeta m = i.getItemMeta();
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(itemdata.get(itemdataID).getDisplayName());
@@ -40,7 +40,7 @@ public class ItemManager {
 	public static List<ItemStack> getStandardDeactivationItems(Collection<Integer> allowedItems){
 		List<ItemStack> items = new ArrayList<>();
 		for (int id : itemdata.keySet()){
-			ItemStack i = new ItemStack(itemdata.get(id).getType());
+			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1, itemdata.get(id).getSubID());
 			ItemMeta m = i.getItemMeta();
 			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 			m.setDisplayName(itemdata.get(id).getDisplayName());
@@ -55,7 +55,7 @@ public class ItemManager {
 		return items;
 	}
 	public static ItemStack getStandardDeactivationItem(SmashItemData d, boolean allowed){
-		ItemStack i = new ItemStack(d.getType());
+		ItemStack i = new ItemStack(d.getType(), 1, d.getSubID());
 		ItemMeta m = i.getItemMeta();
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(d.getDisplayName());

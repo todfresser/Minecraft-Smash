@@ -3,6 +3,7 @@ package todfresser.smash.items;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -10,7 +11,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
-import todfresser.smash.items.SmashItemData;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
@@ -81,7 +81,13 @@ public class FireStick implements SmashItemData {
 	}
 
 	@Override
-	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+	public byte getSubID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
 		// TODO Auto-generated method stub
 		
 	}

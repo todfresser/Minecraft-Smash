@@ -3,6 +3,7 @@ package todfresser.smash.items;
 import java.util.List;
 
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -108,7 +109,15 @@ public class Freezer implements SmashItemData{
 	}
 
 	@Override
-	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+	public byte getSubID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

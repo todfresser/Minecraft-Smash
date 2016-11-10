@@ -52,6 +52,7 @@ public class FlyToggleEvent implements Listener{
 	@EventHandler
 	public void onSneak(PlayerToggleSneakEvent e){
 		if (e.getPlayer().getGameMode().equals(GameMode.SURVIVAL)){
+			if (e.isSneaking()) return;
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(e.getPlayer())){
 					if (g.getGameState().equals(GameState.Running) || g.getGameState().equals(GameState.Ending)){

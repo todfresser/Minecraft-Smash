@@ -127,7 +127,13 @@ public class MagicStaff implements SmashItemData{
 	}
 
 	@Override
-	public void onHookPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+	public byte getSubID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
 		// TODO Auto-generated method stub
 		
 	}
