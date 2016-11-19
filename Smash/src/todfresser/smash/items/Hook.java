@@ -78,7 +78,7 @@ public class Hook implements SmashItemData{
 
 	@Override
 	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target));
+		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target).multiply(0.5f));
 		playerdata.canUseItem = true;
 		
 	}

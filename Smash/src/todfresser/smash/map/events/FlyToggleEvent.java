@@ -38,6 +38,7 @@ public class FlyToggleEvent implements Listener{
 							e.setCancelled(true);
 							e.getPlayer().setFlying(false);
 							e.getPlayer().setAllowFlight(false);
+							e.getPlayer().setExp(0f);
 							return;
 						}
 					}

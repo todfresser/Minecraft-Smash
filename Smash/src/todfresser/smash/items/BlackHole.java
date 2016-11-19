@@ -77,7 +77,7 @@ public class BlackHole implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player player, Game game) {
-		Item blackhole = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.FLINT));
+		Item blackhole = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.COAL));
 	    blackhole.setVelocity(player.getLocation().getDirection().multiply(1.2D));
 	    playerdata.registerItemRunnable(new BukkitRunnable() {
 		    List<Entity> entitys = new ArrayList<>();
@@ -144,7 +144,7 @@ public class BlackHole implements SmashItemData{
 					if (e instanceof Player){
 						if (game.getIngamePlayers().contains(e.getUniqueId())){
 							if (e.getLocation().distance(blackhole.getLocation()) < 10 || e.getLocation().getY() > 1){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)), 1);
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize(), 1);
 							}
 						}
 					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());

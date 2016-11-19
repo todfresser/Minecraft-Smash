@@ -1,5 +1,8 @@
 package todfresser.smash.main;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -53,14 +56,18 @@ public class SmashCommands implements CommandExecutor{
 			
 			if (args[0].equalsIgnoreCase("stats")){
 				if (args.length == 1) {
+					int kills = Statistics.getKills(p.getUniqueId());
+					int deaths = Statistics.getDeaths(p.getUniqueId());
 					p.sendMessage(SM.Command_Stats_1.toString());
 					p.sendMessage(SM.Command_Stats_2 + Integer.toString(Statistics.getPlayedGames(p.getUniqueId())));
 					p.sendMessage(SM.Command_Stats_3 + Integer.toString(Statistics.getTotalWins(p.getUniqueId())));
-					p.sendMessage(SM.Command_Stats_4 + Integer.toString(Statistics.getKills(p.getUniqueId())));
-					p.sendMessage(SM.Command_Stats_5 + Integer.toString(Statistics.getDeaths(p.getUniqueId())));
-					p.sendMessage(SM.Command_Stats_6 + Integer.toString(Statistics.getDamageDone(p.getUniqueId())));
-					p.sendMessage(SM.Command_Stats_7 + Integer.toString(Statistics.getTotalDamage(p.getUniqueId())));
-					p.sendMessage(SM.Command_Stats_8.toString());
+					p.sendMessage(SM.Command_Stats_4 + Integer.toString(kills));
+					p.sendMessage(SM.Command_Stats_5 + Integer.toString(deaths));
+					double kd = BigDecimal.valueOf((double)kills / (double)deaths).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
+					p.sendMessage(SM.Command_Stats_6 + Double.toString(kd));
+					p.sendMessage(SM.Command_Stats_7 + Integer.toString(Statistics.getDamageDone(p.getUniqueId())));
+					p.sendMessage(SM.Command_Stats_8 + Integer.toString(Statistics.getTotalDamage(p.getUniqueId())));
+					p.sendMessage(SM.Command_Stats_9.toString());
 					return true;
 				}else if (args[1].equalsIgnoreCase("reset")) {
 					Statistics.delete(p.getUniqueId());

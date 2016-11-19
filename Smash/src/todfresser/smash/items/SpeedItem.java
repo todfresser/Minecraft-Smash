@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
@@ -59,9 +58,9 @@ public class SpeedItem implements SmashItemData{
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
 		//if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) return;
-		//if (whoclicked.getPotionEffect(PotionEffectType.SPEED) != null) whoclicked.removePotionEffect(PotionEffectType.SPEED); 
-		whoclicked.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-		playerdata.registerItemRunnable(new BukkitRunnable() {
+		if (whoclicked.getPotionEffect(PotionEffectType.SPEED) != null) whoclicked.removePotionEffect(PotionEffectType.SPEED);
+		whoclicked.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 8*20, 1));
+		/*playerdata.registerItemRunnable(new BukkitRunnable() {
 			
 			@Override
 			public void run() {
@@ -69,7 +68,8 @@ public class SpeedItem implements SmashItemData{
 				playerdata.canUseItem = true;
 				playerdata.cancelItemRunnable(this);
 			}
-		}, 6*20, 0);
+		}, 6*20, 0);*/
+		playerdata.canUseItem = true;
 		
 	}
 

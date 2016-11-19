@@ -14,7 +14,9 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -25,8 +27,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
-
-import net.minecraft.server.v1_10_R1.Material;
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.main.Smash;
@@ -172,7 +172,7 @@ public class Game implements Runnable{
 			
 			p.setFoodLevel(20);
 			p.setHealth(lives*2);
-			p.setExp(0f);
+			p.setExp(1f);
 			p.setLevel(0);
 			p.setCustomNameVisible(false);
 			return;
@@ -211,6 +211,7 @@ public class Game implements Runnable{
 				p.removePotionEffect(effect.getType());
 			}
 			p.setAllowFlight(true);
+			p.setExp(1f);
 			PlayerFunctions.sendDamageScoreboard(this);
 			PlayerFunctions.updateDamageManually(p.getUniqueId(), this);
 			return;
@@ -246,8 +247,41 @@ public class Game implements Runnable{
 	
 	public Location getrandomSpawnLocation(){
 		Random r = new Random();
-		Location l;
-		for (int integer = 0; integer < m.getPlayerSpawns(w).size()*4; integer++){
+		Location l = null;
+		double distance = -1;
+		for (Location loc : m.getPlayerSpawns(w)){
+			for (UUID id : getIngamePlayers()){
+				if (Bukkit.getPlayer(id).getLocation().distance(loc) > distance){
+					distance = Bukkit.getPlayer(id).getLocation().distance(loc);
+					l = loc;
+				}
+			}
+		}
+		if (l == null) l = m.getPlayerSpawns(w).get(r.nextInt(m.getPlayerSpawns(w).size()));
+		int y = (int) l.getBlockY();
+		while( y > 0){
+			if (w.getBlockAt(l.getBlockX(), y, l.getBlockZ()).getType().equals(Material.AIR) == false){
+				l.setY(y + 1);
+				return l;
+			}
+			y--;
+		}
+		Block b = w.getBlockAt(l.getBlockX(), l.getBlockY() - 1, l.getBlockZ());
+		if (b.getType().equals(Material.AIR)){
+			b.setType(Material.STAINED_GLASS);
+			new BukkitRunnable() {
+				
+				@Override
+				public void run() {
+					if (gs.equals(GameState.Ending)) return;
+					if (b == null || b.getType() != Material.STAINED_GLASS) return;
+					b.setType(Material.AIR);
+				}
+			}.runTaskLater(Smash.getInstance(), 80);
+		}
+		return l;
+		
+		/*for (int integer = 0; integer < m.getPlayerSpawns(w).size()*4; integer++){
 			l = m.getPlayerSpawns(w).get(r.nextInt(m.getPlayerSpawns(w).size() - 1));
 			int y = (int) l.getY();
 			while( y > 0){
@@ -259,6 +293,7 @@ public class Game implements Runnable{
 			}
 		}
 		return m.getPlayerSpawns(w).get(r.nextInt(m.getPlayerSpawns(w).size() - 1));
+		*/
 		
 	}
 	
@@ -439,7 +474,19 @@ public class Game implements Runnable{
 		for (UUID id: getIngamePlayers()){
 			if (Bukkit.getPlayer(id).isOnGround()){
 				if (gs.equals(GameState.Running) || gs.equals(GameState.Ending)){
-					if (Bukkit.getPlayer(id).getAllowFlight() == false) Bukkit.getPlayer(id).setAllowFlight(true);
+					/*if (Bukkit.getPlayer(id).getAllowFlight() == false){
+						Bukkit.getPlayer(id).setAllowFlight(true);
+						if (Bukkit.getPlayer(id).getFoodLevel() >= 5) Bukkit.getPlayer(id).setExp(1f);
+					}*/
+					if (Bukkit.getPlayer(id).getFoodLevel() >= 5){
+						if (Bukkit.getPlayer(id).getExp() < 1f){
+							Bukkit.getPlayer(id).setAllowFlight(true);
+							Bukkit.getPlayer(id).setExp(1f);
+						}
+					} else if (Bukkit.getPlayer(id).getExp() > 0f){
+						Bukkit.getPlayer(id).setExp(0f);
+						Bukkit.getPlayer(id).setAllowFlight(false);
+					}
 					if (FlyToggleEvent.cantSmash.contains(id)) FlyToggleEvent.cantSmash.remove(id);
 					
 					if (getPlayerData(id).direction != null) getPlayerData(id).direction = null;
@@ -448,10 +495,6 @@ public class Game implements Runnable{
 			}else if (getPlayerData(id).direction != null){
 				PlayerFunctions.deleteBlocksNearPlayer(Bukkit.getPlayer(id), getPlayerData(id));
 			}
-			if (gs.equals(GameState.Running)){
-				//PlayerFunctions.deleteBlocksNearPlayer(Bukkit.getPlayer(id), 0);
-			}
-			
 			if (Bukkit.getPlayer(id).getLocation().getY() <= 0){
 				this.respawnPlayer(Bukkit.getPlayer(id));
 			}
@@ -503,7 +546,7 @@ public class Game implements Runnable{
 						p.setFoodLevel(20);
 						p.setMaxHealth(lives*2);
 						p.setHealth(lives*2);
-						p.setExp(0f);
+						p.setExp(1f);
 						p.setLevel(0);
 						p.setCustomNameVisible(false);
 						p.setAllowFlight(true);
