@@ -3,8 +3,6 @@ package todfresser.smash.map.events;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -14,11 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.util.Vector;
-
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
+import todfresser.smash.particles.ParticleEffect;
 
 public class FlyToggleEvent implements Listener{
 	
@@ -32,8 +30,10 @@ public class FlyToggleEvent implements Listener{
 					if (g.getGameState().equals(GameState.Running) || g.getGameState().equals(GameState.Ending)){
 						if (e.getPlayer().getFoodLevel() >= 5){
 							e.getPlayer().setFoodLevel(e.getPlayer().getFoodLevel() - 5);
-							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.BLOCK_SAND_BREAK, 10, 10);
-							e.getPlayer().getLocation().getWorld().spigot().playEffect(e.getPlayer().getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
+							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_SAND_BREAK, 10, 10);
+							//e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.BLOCK_SAND_BREAK, 10, 10);
+							ParticleEffect.FLAME.display(0.4f, 0.0f, 0.4f, 0.1f, 4, e.getPlayer().getLocation(), 20);
+							//e.getPlayer().getLocation().getWorld().spigot().playEffect(e.getPlayer().getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
 							e.getPlayer().setVelocity(VectorFunctions.getStandardJumpVector(e.getPlayer().getLocation()));
 							e.setCancelled(true);
 							e.getPlayer().setFlying(false);

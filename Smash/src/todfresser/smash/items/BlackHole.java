@@ -84,7 +84,7 @@ public class BlackHole implements SmashItemData{
 		    Iterator<Entity> it;
 	    	//Location l = null;
 			int i = 50;
-			int blocks = 0;
+			//int blocks = 0;
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
@@ -110,34 +110,34 @@ public class BlackHole implements SmashItemData{
 						if (!entitys.contains(e)) entitys.add(e);
 					}
 				}
-				double distance = 5;
-				Block b = null;
-				if (blocks < 35){
-					for (int x = -5; x <=5; x++){
-						for (int y = -5; y <=5; y++){
-							for (int z = -5; z <=5; z++){
-								Block block = blackhole.getLocation().getWorld().getBlockAt(blackhole.getLocation().getBlockX() + x, blackhole.getLocation().getBlockY() + y, blackhole.getLocation().getBlockZ() + z);
-								if (!block.getType().equals(Material.AIR)){
-									if (block.getLocation().distance(blackhole.getLocation()) < distance){
-										b = block;
-										distance = block.getLocation().distance(blackhole.getLocation());
+				//if (blocks <= 20){
+					double distance = 5;
+					Block b = null;
+						for (int x = -5; x <=5; x++){
+							for (int y = -5; y <=5; y++){
+								for (int z = -5; z <=5; z++){
+									Block block = blackhole.getLocation().getWorld().getBlockAt(blackhole.getLocation().getBlockX() + x, blackhole.getLocation().getBlockY() + y, blackhole.getLocation().getBlockZ() + z);
+									if (!block.getType().equals(Material.AIR)){
+										if (block.getLocation().distance(blackhole.getLocation()) < distance){
+											b = block;
+											distance = block.getLocation().distance(blackhole.getLocation());
+										}
 									}
 								}
 							}
 						}
-					}
-					blocks++;
-					if (b != null){
-						FallingBlock falling = blackhole.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-						falling.setGravity(false);
-						falling.setHurtEntities(false);
-						falling.setInvulnerable(true);
-						falling.setDropItem(false);
-						b.setType(Material.AIR);
-						entitys.add(falling);
-						b = null;
-					}
-				}
+						if (b != null){
+							FallingBlock falling = blackhole.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+							falling.setGravity(false);
+							falling.setHurtEntities(false);
+							falling.setInvulnerable(true);
+							falling.setDropItem(false);
+							b.setType(Material.AIR);
+							entitys.add(falling);
+							b = null;
+						}
+						//blocks++;
+				//}
 				it = entitys.iterator();
 				while (it.hasNext()){
 					Entity e = it.next();

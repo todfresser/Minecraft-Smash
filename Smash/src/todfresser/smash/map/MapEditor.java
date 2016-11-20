@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -23,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.MapEditorItems.EditorInventoryType;
+import todfresser.smash.particles.ParticleEffect;
 
 public class MapEditor implements Listener{
 	public static List<MapEditorData> editors = new ArrayList<>();
@@ -252,7 +252,7 @@ public class MapEditor implements Listener{
 				}
 				count--;
 				for (Location l : collection){
-					p.spigot().playEffect(l, Effect.PORTAL, 1, 1, 0.1f, 0.1f, 0.1f, 0.001f, 15, 50);
+					ParticleEffect.PORTAL.display(0.1f, 0.1f, 0.1f, 0, 15, l, 70);
 				}
 			}
 		}.runTaskTimer(Smash.getInstance(), 0, 5);

@@ -1,8 +1,6 @@
 package todfresser.smash.items;
 
 import java.util.List;
-
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -18,6 +16,7 @@ import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
+import todfresser.smash.particles.ParticleEffect;
 
 public class Freezer implements SmashItemData{
 
@@ -80,7 +79,8 @@ public class Freezer implements SmashItemData{
 				if (i == 13) freezer.remove();
 				if(i >=0 ) {
 				i--;
-				freezer.getWorld().spigot().playEffect(freezer.getLocation(), Effect.SNOW_SHOVEL, 0, 0, 2, 2, 2, 0, 300, 100);
+				//freezer.getWorld().spigot().playEffect(freezer.getLocation(), Effect.SNOW_SHOVEL, 0, 0, 2, 2, 2, 0, 300, 100);
+				ParticleEffect.SNOW_SHOVEL.display(2, 2, 2, 0, 300, freezer.getLocation(), 100);
 				for (Entity e: freezer.getNearbyEntities(4, 4, 4)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
 						Player target = (Player) e;

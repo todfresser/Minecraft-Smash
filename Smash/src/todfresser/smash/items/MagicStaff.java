@@ -1,8 +1,6 @@
 package todfresser.smash.items;
 
 import java.util.List;
-
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -18,6 +16,7 @@ import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
+import todfresser.smash.particles.ParticleEffect;
 
 public class MagicStaff implements SmashItemData{
 
@@ -75,13 +74,13 @@ public class MagicStaff implements SmashItemData{
 			double t = 0.25;
 			@Override
 			public void run() {
-				if (t > 30) playerdata.cancelItemRunnable(this);
+				if (t > 20) playerdata.cancelItemRunnable(this);
 				t = t + 0.25;
-				double x = direction.getX() * t;
-				double y = direction.getY() * t;
-				double z = direction.getZ() * t;
+				double x = direction.getX() * 1.5;
+				double y = direction.getY() * 1.5;
+				double z = direction.getZ() * 1.5;
 				loc.add(x, y, z);
-				loc.getWorld().spigot().playEffect(loc, Effect.FIREWORKS_SPARK, 0, 0, 0, 0, 0, 0, 1, 40);
+				ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
 				for (Entity e : loc.getWorld().getNearbyEntities(loc, 1.5, 1.5, 1.5)){
 					if (e.getType().equals(EntityType.PLAYER)){
 						if (!((Player)e).getUniqueId().equals(whoclicked.getUniqueId())){
@@ -95,11 +94,11 @@ public class MagicStaff implements SmashItemData{
 					}
 				}
 				t = t + 0.25;
-				x = direction.getX() * t;
-				y = direction.getY() * t;
-				z = direction.getZ() * t;
+				x = direction.getX() * 1.5;
+				y = direction.getY() * 1.5;
+				z = direction.getZ() * 1.5;
 				loc.add(x, y, z);
-				loc.getWorld().spigot().playEffect(loc, Effect.FIREWORKS_SPARK, 0, 0, 0, 0, 0, 0, 1, 40);
+				ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
 				for (Entity e : loc.getWorld().getNearbyEntities(loc, 1.5, 1.5, 1.5)){
 					if (e.getType().equals(EntityType.PLAYER)){
 						if (!((Player)e).getUniqueId().equals(whoclicked.getUniqueId())){

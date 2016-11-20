@@ -77,11 +77,11 @@ public class RocketLauncher implements SmashItemData{
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
-					if (t > 40) playerdata.cancelItemRunnable(this);
+					if (t > 10) playerdata.cancelItemRunnable(this);
 					t = t + 0.25;
-					double px = direction.getX() * t;
-					double py = direction.getY() * t;
-					double pz = direction.getZ() * t;
+					double px = direction.getX() * 3;
+					double py = direction.getY() * 3;
+					double pz = direction.getZ() * 3;
 					loc.add(px, py, pz);
 					loc.getWorld().spigot().playEffect(loc, Effect.EXPLOSION, 0, 0, 0.1f, 0.1f, 0.1f, 0.001f, 3, 40);
 					if (!loc.getBlock().getType().equals(Material.AIR)){

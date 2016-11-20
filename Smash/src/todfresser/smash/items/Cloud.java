@@ -68,16 +68,14 @@ public class Cloud implements SmashItemData{
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player player, Game game) {
 		Location l = player.getLocation();
 		int y = l.getBlockY() - 1;
-		System.out.println("RightClick");
 		List<Block> blocks = new ArrayList<>();
 		for (int x = -1; x <= 1; x++){
 			for (int z = -1; z <= 1; z++){
 				Block b = l.getWorld().getBlockAt(l.getBlockX() + x, y, l.getBlockZ() + z);
 				if (b.getType().equals(Material.AIR)){
 					b.setType(Material.STAINED_GLASS);
-					//if (x == 0 && z == 0) player.setVelocity(VectorFunctions.getVectorbetweenLocations(l, b.getLocation()).normalize());
 					if (x == 0 && z == 0){
-						Location loc = b.getLocation().clone().add(0, 1, 0);
+						Location loc = b.getLocation().clone().add(0.5, 1, 0.5);
 						loc.setYaw(player.getLocation().getYaw());
 						loc.setPitch(player.getLocation().getPitch());
 						player.teleport(loc);
@@ -91,7 +89,6 @@ public class Cloud implements SmashItemData{
 			@Override
 			public void run() {
 				for (Block b : blocks){
-					System.out.println("Block deleted");
 					if (b.getType().equals(Material.STAINED_GLASS)){
 						b.setType(Material.AIR);
 					}

@@ -294,7 +294,7 @@ public class MapEditorItems {
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack EmptySpace(){
-		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getData());
+		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(" ");
 		item.setItemMeta(meta);
@@ -302,7 +302,7 @@ public class MapEditorItems {
 	}
 	@SuppressWarnings("deprecation")
 	public static ItemStack EmptySpace_GRAY(){
-		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GRAY.getData());
+		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GRAY.getDyeData());
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(" ");
 		item.setItemMeta(meta);
@@ -311,7 +311,7 @@ public class MapEditorItems {
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack CREATE(boolean exists){
-		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GREEN.getData());
+		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GREEN.getDyeData());
 		ItemMeta meta = i.getItemMeta();
 		if (exists == false) meta.setDisplayName(ChatColor.WHITE + "Erstellen");
 		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "Überschreiben");
@@ -321,7 +321,7 @@ public class MapEditorItems {
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack CANCEL(){
-		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.ORANGE.getData());
+		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.ORANGE.getDyeData());
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Abbrechen");
 		i.setItemMeta(meta);
@@ -330,7 +330,7 @@ public class MapEditorItems {
 	@SuppressWarnings("deprecation")
 	public static ItemStack DELETE(boolean exists){
 		if (exists){
-			ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.RED.getData());
+			ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.RED.getDyeData());
 			ItemMeta meta = i.getItemMeta();
 			meta.setDisplayName(ChatColor.WHITE + "Löschen");
 			i.setItemMeta(meta);

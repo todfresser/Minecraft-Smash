@@ -16,6 +16,7 @@ import todfresser.smash.items.Freezer;
 import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.GoldenSword;
 import todfresser.smash.items.Grenade;
+import todfresser.smash.items.InstantTeleporter;
 import todfresser.smash.items.IronSword;
 import todfresser.smash.items.ItemManager;
 import todfresser.smash.items.JetPack;
@@ -24,6 +25,7 @@ import todfresser.smash.items.MolotovCocktail;
 import todfresser.smash.items.RocketLauncher;
 import todfresser.smash.items.Smasher;
 import todfresser.smash.items.SmokeGrenade;
+import todfresser.smash.items.Sniper;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.Steak;
 import todfresser.smash.items.StoneSword;
@@ -33,6 +35,7 @@ import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
 import todfresser.smash.map.MapEditor;
 import todfresser.smash.map.events.BlockBreak;
+import todfresser.smash.map.events.ChangeBlock;
 import todfresser.smash.map.events.ChatEvent;
 import todfresser.smash.map.events.CommandReprocess;
 import todfresser.smash.map.events.DamageEvent;
@@ -96,9 +99,11 @@ public class Smash extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new HookEvent(), this);
 		getServer().getPluginManager().registerEvents(new WeatherChange(), this);
 		getServer().getPluginManager().registerEvents(new ProjectileThrowEvent(), this);
+		getServer().getPluginManager().registerEvents(new ChangeBlock(), this);
 		
 		ItemManager.registerItem(new SpeedItem());
 		ItemManager.registerItem(new UltraBow());
+		ItemManager.registerItem(new Sniper());
 		ItemManager.registerItem(new Smasher());
 		ItemManager.registerItem(new FireStick());
 		ItemManager.registerItem(new RocketLauncher());
@@ -117,8 +122,10 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new Grenade());
 		ItemManager.registerItem(new SmokeGrenade());
 		ItemManager.registerItem(new Cloud());
+		ItemManager.registerItem(new InstantTeleporter());
 		
 		instance = this;
+		
 		Map.deleteAllWorlds();
 		this.getCommand("smash").setExecutor(new SmashCommands());
 		

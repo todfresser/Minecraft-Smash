@@ -5,22 +5,26 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
-
-import todfresser.smash.extrafunctions.VectorFunctions;
+import org.bukkit.util.Vector;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 import todfresser.smash.particles.ParticleEffect;
 
-public class JetPack implements SmashItemData{
+public class InstantTeleporter implements SmashItemData{
 
 	@Override
 	public String getDisplayName() {
-		return "§fJ§7e§ft§7P§fa§7c§fk";
+		return "§2Instant Teleporter";
 	}
 
 	@Override
 	public Material getType() {
-		return Material.FLINT_AND_STEEL;
+		return Material.EYE_OF_ENDER;
+	}
+
+	@Override
+	public byte getSubID() {
+		return 0;
 	}
 
 	@Override
@@ -30,9 +34,9 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public int getmaxItemUses() {
-		return 4;
+		return 1;
 	}
-	
+
 	@Override
 	public int getSpawnChance() {
 		return 20;
@@ -52,7 +56,7 @@ public class JetPack implements SmashItemData{
 	public boolean hasOnPlayerShootBowEvent() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean hasOnHookEvent() {
 		return false;
@@ -60,33 +64,38 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
-		//whoclicked.getLocation().getWorld().spigot().playEffect(whoclicked.getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
-		ParticleEffect.FLAME.display(0.4f, 0.0f, 0.4f, 0.1f, 4, whoclicked.getLocation(), 20);
+		Location loc = whoclicked.getLocation().add(0, 1, 0);
+		final Vector direction = loc.getDirection().normalize();
+		double t = 0.25;
+		while (t < 5.0){
+			t = t + 0.1;
+			double x = direction.getX() * 0.7;
+			double y = direction.getY() * 0.7;
+			double z = direction.getZ() * 0.7;
+			if (loc.getBlock() != null && !loc.getBlock().getType().equals(Material.AIR)){
+				whoclicked.teleport(loc);
+				playerdata.canUseItem = true;
+				return;
+			}
+			loc.add(x, y, z);
+			//loc.getWorld().spigot().playEffect(loc, Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 0, 1, 40);
+			ParticleEffect.SPELL_WITCH.display(0, 0, 0, 0.1f, 1, loc, 40);
+		}
+		whoclicked.teleport(loc);
 		playerdata.canUseItem = true;
+		return;
 	}
 
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		
 	}
 
 	@Override
 	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-		
-	}
-
-	@Override
-	public byte getSubID() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
 	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		// TODO Auto-generated method stub
-		
 	}
 	
-
 }

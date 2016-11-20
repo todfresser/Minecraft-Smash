@@ -3,24 +3,28 @@ package todfresser.smash.items;
 import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 
-import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
-import todfresser.smash.particles.ParticleEffect;
 
-public class JetPack implements SmashItemData{
+public class Sniper implements SmashItemData{
 
 	@Override
 	public String getDisplayName() {
-		return "§fJ§7e§ft§7P§fa§7c§fk";
+		return "§5Sniper";
 	}
 
 	@Override
 	public Material getType() {
-		return Material.FLINT_AND_STEEL;
+		return Material.BOW;
+	}
+
+	@Override
+	public byte getSubID() {
+		return 0;
 	}
 
 	@Override
@@ -30,17 +34,17 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public int getmaxItemUses() {
-		return 4;
+		return 2;
 	}
-	
+
 	@Override
 	public int getSpawnChance() {
-		return 20;
+		return 9;
 	}
 
 	@Override
 	public boolean hasOnRightClickEvent() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -50,9 +54,9 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public boolean hasOnPlayerShootBowEvent() {
-		return false;
+		return true;
 	}
-	
+
 	@Override
 	public boolean hasOnHookEvent() {
 		return false;
@@ -60,33 +64,21 @@ public class JetPack implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
-		//whoclicked.getLocation().getWorld().spigot().playEffect(whoclicked.getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
-		ParticleEffect.FLAME.display(0.4f, 0.0f, 0.4f, 0.1f, 4, whoclicked.getLocation(), 20);
-		playerdata.canUseItem = true;
 	}
 
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		
 	}
 
 	@Override
 	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-		
-	}
-
-	@Override
-	public byte getSubID() {
-		// TODO Auto-generated method stub
-		return 0;
+		player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(force + 5.0f)).setGravity(false);
+		playerdata.canUseItem = true;
 	}
 
 	@Override
 	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		// TODO Auto-generated method stub
-		
 	}
 	
-
+	
 }

@@ -1,8 +1,6 @@
 package todfresser.smash.items;
 
 import java.util.List;
-
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -16,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
+import todfresser.smash.particles.ParticleEffect;
 
 public class SmokeGrenade implements SmashItemData{
 
@@ -78,7 +77,8 @@ public class SmokeGrenade implements SmashItemData{
 				if (i == 25) grenade.remove();
 				if(i >=0 ) {
 				i--;
-				if (i > 2) grenade.getWorld().spigot().playEffect(grenade.getLocation(), Effect.LARGE_SMOKE, 0, 0, 2, 2, 2, 0.1f, 300, 100);
+				//if (i > 2) grenade.getWorld().spigot().playEffect(grenade.getLocation(), Effect.LARGE_SMOKE, 0, 0, 2, 2, 2, 0.1f, 300, 100);
+				if (i > 2) ParticleEffect.SMOKE_LARGE.display(2f, 2f, 2f, 0.1f, 300, grenade.getLocation(), 100);
 				for (Entity e: grenade.getNearbyEntities(5, 5, 5)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
 						Player p = (Player) e;

@@ -57,18 +57,8 @@ public class SpeedItem implements SmashItemData{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-		//if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) return;
 		if (whoclicked.getPotionEffect(PotionEffectType.SPEED) != null) whoclicked.removePotionEffect(PotionEffectType.SPEED);
 		whoclicked.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 8*20, 1));
-		/*playerdata.registerItemRunnable(new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				whoclicked.removePotionEffect(PotionEffectType.SPEED);
-				playerdata.canUseItem = true;
-				playerdata.cancelItemRunnable(this);
-			}
-		}, 6*20, 0);*/
 		playerdata.canUseItem = true;
 		
 	}
