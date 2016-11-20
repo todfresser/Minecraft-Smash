@@ -1,17 +1,15 @@
 package todfresser.smash.items;
 
-import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 
 import todfresser.smash.extrafunctions.VectorFunctions;
+import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
-public class Hook implements SmashItemData{
+public class Hook extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
@@ -22,12 +20,7 @@ public class Hook implements SmashItemData{
 	public Material getType() {
 		return Material.FISHING_ROD;
 	}
-
-	@Override
-	public List<String> getLore() {
-		return null;
-	}
-
+	
 	@Override
 	public int getmaxItemUses() {
 		return 1;
@@ -37,43 +30,10 @@ public class Hook implements SmashItemData{
 	public int getSpawnChance() {
 		return 11;
 	}
-
-	@Override
-	public boolean hasOnRightClickEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnPlayerHitPlayerEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnPlayerShootBowEvent() {
-		return false;
-	}
 	
 	@Override
 	public boolean hasOnHookEvent() {
 		return true;
-	}
-
-	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
-	}
-
-	@Override
-	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-	}
-
-	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-	}
-
-	@Override
-	public byte getSubID() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -82,5 +42,4 @@ public class Hook implements SmashItemData{
 		playerdata.canUseItem = true;
 		
 	}
-
 }

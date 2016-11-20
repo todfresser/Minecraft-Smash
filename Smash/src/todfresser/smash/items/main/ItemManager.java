@@ -1,4 +1,4 @@
-package todfresser.smash.items;
+package todfresser.smash.items.main;
 
 import java.util.ArrayList;
 import java.util.Collection;

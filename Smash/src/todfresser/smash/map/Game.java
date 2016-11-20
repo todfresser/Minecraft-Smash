@@ -28,7 +28,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import todfresser.smash.extrafunctions.PlayerFunctions;
-import todfresser.smash.items.ItemManager;
+import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.main.Statistics;
 import todfresser.smash.map.events.FlyToggleEvent;

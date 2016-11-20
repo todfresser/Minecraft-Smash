@@ -8,13 +8,12 @@ import java.util.UUID;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import todfresser.smash.items.ItemManager;
-import todfresser.smash.items.SmashItemData;
+import todfresser.smash.items.main.ItemManager;
+import todfresser.smash.items.main.SmashItemData;
 import todfresser.smash.main.Smash;
 
 public class SmashPlayerData {
@@ -81,13 +80,13 @@ public class SmashPlayerData {
 		this.itemID = 0;
 		p.updateInventory();
 	}
-	public boolean OnInteract(Action a, Player whoclicked, Game game){
+	public boolean OnInteract(Player whoclicked, Game game){
 		if (hasItem()){
 			SmashItemData data = ItemManager.getItemData(itemID);
 			if (data.hasOnRightClickEvent()){
 				if (canUseItem == true){
 					canUseItem = false;
-					data.onRightClickEvent(this, a, whoclicked, game);
+					data.onRightClickEvent(this, whoclicked, game);
 					ItemUsesLeft--;
 					if (ItemUsesLeft <= 0) removeItems(whoclicked);
 				}

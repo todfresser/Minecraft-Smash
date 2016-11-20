@@ -11,16 +11,16 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
+import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
-public class RocketLauncher implements SmashItemData{
+public class RocketLauncher extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
@@ -31,12 +31,7 @@ public class RocketLauncher implements SmashItemData{
 	public Material getType() {
 		return Material.DIAMOND_PICKAXE;
 	}
-
-	@Override
-	public List<String> getLore() {
-		return null;
-	}
-
+	
 	@Override
 	public int getmaxItemUses() {
 		return 1;
@@ -51,24 +46,9 @@ public class RocketLauncher implements SmashItemData{
 	public boolean hasOnRightClickEvent() {
 		return true;
 	}
-
-	@Override
-	public boolean hasOnPlayerHitPlayerEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnPlayerShootBowEvent() {
-		return false;
-	}
 	
 	@Override
-	public boolean hasOnHookEvent() {
-		return false;
-	}
-
-	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player player, Game game) {
+	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int blocks = 0;
 			Location loc = player.getLocation().add(0, 1, 0);
@@ -212,25 +192,4 @@ public class RocketLauncher implements SmashItemData{
 		playerdata.canUseItem = true;
 		
 	}
-
-	@Override
-	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-	}
-
-	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-	}
-
-	@Override
-	public byte getSubID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

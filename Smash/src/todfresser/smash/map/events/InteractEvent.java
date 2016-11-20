@@ -29,7 +29,7 @@ public class InteractEvent implements Listener{
 							}
 						}
 						if (e.getItem() != null && e.getItem().getType() != Material.AIR){					
-							g.getPlayerData(e.getPlayer()).OnInteract(e.getAction(), e.getPlayer(), g);
+							g.getPlayerData(e.getPlayer()).OnInteract(e.getPlayer(), g);
 							if (e.getItem().getType().equals(Material.FISHING_ROD)){
 								if (g.getPlayerData(e.getPlayer()).canUseItem == true){
 									e.setCancelled(false);

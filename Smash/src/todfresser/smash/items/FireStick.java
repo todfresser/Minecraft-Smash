@@ -2,50 +2,47 @@ package todfresser.smash.items;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
+import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
-public class FireStick implements SmashItemData {
+public class FireStick extends SmashItem {
+	@Override
 	public String getDisplayName() {
 		return "§cF§6i§er§ce§6S§et§ci§6c§ek";
 	}
 
+	@Override
 	public List<String> getLore() {
 		List<String> l = new ArrayList<>();
 		l.add(ChatColor.RED + "Zündet den Gegner an.");
 		return l;
 	}
 
+	@Override
 	public Material getType() {
 		return Material.BLAZE_ROD;
 	}
 
+	@Override
 	public int getmaxItemUses() {
 		return 1;
 	}
 
+	@Override
 	public boolean hasOnPlayerHitPlayerEvent() {
 		return true;
 	}
 
-	public boolean hasOnPlayerShootBowEvent() {
-		return false;
-	}
-	
 	@Override
-	public boolean hasOnHookEvent() {
-		return false;
-	}
-
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(80);
@@ -64,31 +61,9 @@ public class FireStick implements SmashItemData {
 		}, 19, 20);
 		playerdata.canUseItem = true;
 	}
-
-	public void onPlayerShootBowEvent(SmashPlayerData arg0, Player arg1, float arg2, Game arg3) {
-	}
-
-	public boolean hasOnRightClickEvent() {
-		return false;
-	}
-
-	public void onRightClickEvent(SmashPlayerData arg0, Action arg1, Player arg2, Game arg3) {
-	}
-
+	
 	@Override
 	public int getSpawnChance() {
 		return 27;
-	}
-
-	@Override
-	public byte getSubID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		// TODO Auto-generated method stub
-		
 	}
 }

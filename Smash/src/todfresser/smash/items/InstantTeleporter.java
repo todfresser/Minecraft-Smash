@@ -1,16 +1,16 @@
 package todfresser.smash.items;
 
-import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.util.Vector;
+
+import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 import todfresser.smash.particles.ParticleEffect;
 
-public class InstantTeleporter implements SmashItemData{
+public class InstantTeleporter extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
@@ -20,16 +20,6 @@ public class InstantTeleporter implements SmashItemData{
 	@Override
 	public Material getType() {
 		return Material.EYE_OF_ENDER;
-	}
-
-	@Override
-	public byte getSubID() {
-		return 0;
-	}
-
-	@Override
-	public List<String> getLore() {
-		return null;
 	}
 
 	@Override
@@ -48,22 +38,7 @@ public class InstantTeleporter implements SmashItemData{
 	}
 
 	@Override
-	public boolean hasOnPlayerHitPlayerEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnPlayerShootBowEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnHookEvent() {
-		return false;
-	}
-
-	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player whoclicked, Game game) {
+	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		Location loc = whoclicked.getLocation().add(0, 1, 0);
 		final Vector direction = loc.getDirection().normalize();
 		double t = 0.25;
@@ -85,17 +60,4 @@ public class InstantTeleporter implements SmashItemData{
 		playerdata.canUseItem = true;
 		return;
 	}
-
-	@Override
-	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-	}
-
-	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-	}
-
-	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-	}
-	
 }

@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-import todfresser.smash.items.ItemManager;
+import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.map.Game;
 
 public class PickupItemEvent implements Listener{

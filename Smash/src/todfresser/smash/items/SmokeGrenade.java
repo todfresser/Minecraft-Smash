@@ -1,22 +1,20 @@
 package todfresser.smash.items;
 
-import java.util.List;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 import todfresser.smash.particles.ParticleEffect;
 
-public class SmokeGrenade implements SmashItemData{
+public class SmokeGrenade extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
@@ -27,12 +25,7 @@ public class SmokeGrenade implements SmashItemData{
 	public Material getType() {
 		return Material.SKULL_ITEM;
 	}
-
-	@Override
-	public List<String> getLore() {
-		return null;
-	}
-
+	
 	@Override
 	public int getmaxItemUses() {
 		return 1;
@@ -47,24 +40,9 @@ public class SmokeGrenade implements SmashItemData{
 	public boolean hasOnRightClickEvent() {
 		return true;
 	}
-
+	
 	@Override
-	public boolean hasOnPlayerHitPlayerEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnPlayerShootBowEvent() {
-		return false;
-	}
-
-	@Override
-	public boolean hasOnHookEvent() {
-		return false;
-	}
-
-	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Action action, Player player, Game game) {
+	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.SKULL_ITEM, 1, (byte)1));
 		
 		grenade.setVelocity(player.getLocation().getDirection().multiply(1.5D));
@@ -97,25 +75,10 @@ public class SmokeGrenade implements SmashItemData{
 		playerdata.canUseItem = true;
 		
 	}
-
-	@Override
-	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-	}
-
-	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-	}
-
+	
 	@Override
 	public byte getSubID() {
 		// TODO Auto-generated method stub
 		return 1;
 	}
-
-	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
