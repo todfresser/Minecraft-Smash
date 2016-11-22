@@ -167,7 +167,7 @@ public class Game implements Runnable{
 			p.setGameMode(GameMode.SURVIVAL);
 			
 			if (gs.equals(GameState.Ending)){
-				p.teleport(getrandomSpawnLocation());
+				p.teleport(getrandomSpawnLocation(p.getUniqueId()));
 			}else p.teleport(m.getLobbySpawnPoint(w));
 			
 			p.setFoodLevel(20);
@@ -203,7 +203,7 @@ public class Game implements Runnable{
 			getPlayerData(p).removeItems(p);
 			players.get(p.getUniqueId()).resetDamage();
 			sendlocalMessage(Smash.pr + p.getName() + " ist gestorben!");
-			p.teleport(getrandomSpawnLocation());
+			p.teleport(getrandomSpawnLocation(p.getUniqueId()));
 			p.setGameMode(GameMode.SURVIVAL);
 			p.setFoodLevel(20);
 			p.setHealth(players.get(p.getUniqueId()).getHealth());
@@ -245,8 +245,51 @@ public class Game implements Runnable{
 		}
 	}
 	
-	public Location getrandomSpawnLocation(){
+	public Location getrandomSpawnLocation(UUID respawnPlayer){
 		Random r = new Random();
+		Location l = null;
+		int distance = 59;
+		wholeloop:
+		while (distance > 2){
+			for (Location loc : m.getPlayerSpawns(w)){
+				loop:
+				{
+					for (UUID id : getIngamePlayers()){
+						if (Bukkit.getPlayer(id).getLocation().distance(loc) < distance && !id.equals(respawnPlayer)){
+							break loop;
+						}
+					}
+					l = loc;
+					break wholeloop;
+				}
+			}
+			distance = distance - 4;
+		}
+		if (l == null) l = m.getPlayerSpawns(w).get(r.nextInt(m.getPlayerSpawns(w).size()));
+		int y = (int) l.getBlockY();
+		while( y > 0){
+			if (w.getBlockAt(l.getBlockX(), y, l.getBlockZ()).getType().equals(Material.AIR) == false){
+				l.setY(y + 1);
+				return l;
+			}
+			y--;
+		}
+		Block b = w.getBlockAt(l.getBlockX(), l.getBlockY() - 1, l.getBlockZ());
+		if (b.getType().equals(Material.AIR)){
+			b.setType(Material.STAINED_GLASS);
+			new BukkitRunnable() {
+				
+				@Override
+				public void run() {
+					if (gs.equals(GameState.Ending)) return;
+					if (b == null || b.getType() != Material.STAINED_GLASS) return;
+					b.setType(Material.AIR);
+				}
+			}.runTaskLater(Smash.getInstance(), 60);
+		}
+		return l;
+		
+		/*Random r = new Random();
 		Location l = null;
 		double distance = -1;
 		for (Location loc : m.getPlayerSpawns(w)){
@@ -279,7 +322,7 @@ public class Game implements Runnable{
 				}
 			}.runTaskLater(Smash.getInstance(), 80);
 		}
-		return l;
+		return l;*/
 		
 		/*for (int integer = 0; integer < m.getPlayerSpawns(w).size()*4; integer++){
 			l = m.getPlayerSpawns(w).get(r.nextInt(m.getPlayerSpawns(w).size() - 1));
@@ -527,7 +570,7 @@ public class Game implements Runnable{
 					return;
 				}*/
 				if (counter <= 0){
-					ArrayList<Location> spawns = m.getPlayerSpawns(w);
+					ArrayList<Location> spawns = new ArrayList<>(m.getPlayerSpawns(w));
 					Player p;
 					Random r = new Random();
 					for (UUID id : getIngamePlayers()){

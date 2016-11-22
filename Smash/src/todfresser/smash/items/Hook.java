@@ -1,6 +1,5 @@
 package todfresser.smash.items;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -37,8 +36,8 @@ public class Hook extends SmashItem{
 	}
 
 	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
-		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target).multiply(0.5f));
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		player.setVelocity(VectorFunctions.getVectorbetweenLocations(player.getLocation(), target.getLocation()).multiply(0.5f));
 		playerdata.canUseItem = true;
 		
 	}

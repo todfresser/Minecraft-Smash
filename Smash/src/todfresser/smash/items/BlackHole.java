@@ -82,7 +82,7 @@ public class BlackHole extends SmashItem{
 					playerdata.cancelItemRunnable(this);
 					return;
 				}
-				for (Entity e : blackhole.getLocation().getWorld().getNearbyEntities(blackhole.getLocation(), 5, 5, 5)){
+				for (Entity e : blackhole.getLocation().getWorld().getNearbyEntities(blackhole.getLocation(), 4, 4, 4)){
 					if (e instanceof Player){
 						if (!entitys.contains(e)) entitys.add(e);
 					}
@@ -121,7 +121,7 @@ public class BlackHole extends SmashItem{
 					if (e instanceof Player){
 						if (game.getIngamePlayers().contains(e.getUniqueId())){
 							if (e.getLocation().distance(blackhole.getLocation()) < 10 || e.getLocation().getY() > 1){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize(), 1);
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize().multiply(0.7), 1);
 							}
 						}
 					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());

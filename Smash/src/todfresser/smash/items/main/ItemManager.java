@@ -9,6 +9,7 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemFlag;
@@ -34,6 +35,7 @@ public class ItemManager {
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(itemdata.get(itemdataID).getDisplayName());
 		m.setLore(itemdata.get(itemdataID).getLore());
+		if (itemdata.get(itemdataID).isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
 		i.setItemMeta(m);
 		return i;
 	}
@@ -48,7 +50,9 @@ public class ItemManager {
 			if (allowedItems.contains(id)){
 				lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.GREEN + "true");
 			}else lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.RED + "false");
+			lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  itemdata.get(id).getSpawnChance());
 			m.setLore(lore);
+			if (itemdata.get(id).isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
 			i.setItemMeta(m);
 			items.add(i);
 		}
@@ -63,7 +67,9 @@ public class ItemManager {
 		if (allowed){
 			lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.GREEN + "true");
 		}else lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.RED + "false");
+		lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  d.getSpawnChance());
 		m.setLore(lore);
+		if (d.isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
 		i.setItemMeta(m);
 		return i;
 	}
@@ -81,7 +87,8 @@ public class ItemManager {
 				itemIDs.put(itemIDs.size(), id);
 			}
 		}
-		l.getWorld().dropItem(l, getStandardItem(itemIDs.get(r.nextInt(itemIDs.keySet().size()))));
+		int id = itemIDs.get(r.nextInt(itemIDs.size()));
+		l.getWorld().dropItem(l, getStandardItem(id));
 	}
 	
 	public static SmashItemData getItemData(int itemdataID){

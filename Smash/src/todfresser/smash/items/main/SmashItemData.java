@@ -2,7 +2,6 @@ package todfresser.smash.items.main;
 
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import todfresser.smash.map.Game;
@@ -13,6 +12,7 @@ public interface SmashItemData {
 	abstract String getDisplayName(); //Name of the Item
 	abstract Material getType();    //Type from the Item
 	abstract byte getSubID();
+	abstract boolean isEnchanted();
 	abstract List<String> getLore();
 	abstract int getmaxItemUses();
 	abstract int getSpawnChance();  //Chance from 0 (very rare) to 50 (very common)
@@ -34,6 +34,6 @@ public interface SmashItemData {
 	
 	abstract void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game);
 	
-	abstract void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game);
+	abstract void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
 	
 }

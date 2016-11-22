@@ -21,6 +21,11 @@ public class Sniper extends SmashItem{
 	}
 	
 	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
+	
+	@Override
 	public int getmaxItemUses() {
 		return 2;
 	}
@@ -37,7 +42,7 @@ public class Sniper extends SmashItem{
 
 	@Override
 	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-		player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(force + 3.0f)).setGravity(false);
+		player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(force + 2.5f)).setGravity(false);
 		playerdata.canUseItem = true;
 	}
 }

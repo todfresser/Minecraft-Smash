@@ -2,8 +2,6 @@ package todfresser.smash.items;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -19,6 +17,7 @@ import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
+import todfresser.smash.particles.ParticleEffect;
 
 public class RocketLauncher extends SmashItem{
 
@@ -57,13 +56,14 @@ public class RocketLauncher extends SmashItem{
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
+				for (int i = 0; i < 3; i++){
 					if (t > 10) playerdata.cancelItemRunnable(this);
-					t = t + 0.25;
-					double px = direction.getX() * 3;
-					double py = direction.getY() * 3;
-					double pz = direction.getZ() * 3;
+					t = t + 0.2;
+					double px = direction.getX() * 1;
+					double py = direction.getY() * 1;
+					double pz = direction.getZ() * 1;
 					loc.add(px, py, pz);
-					loc.getWorld().spigot().playEffect(loc, Effect.EXPLOSION, 0, 0, 0.1f, 0.1f, 0.1f, 0.001f, 3, 40);
+					ParticleEffect.EXPLOSION_NORMAL.display(0f, 0f, 0f, 0.001f, 1, loc, 50);
 					if (!loc.getBlock().getType().equals(Material.AIR)){
 						List<Entity> entitys = new ArrayList<>();
 						for (Entity e : loc.getWorld().getNearbyEntities(loc, 3, 3, 3)){
@@ -71,7 +71,7 @@ public class RocketLauncher extends SmashItem{
 								if (!entitys.contains(e)) entitys.add(e);
 							}
 						}
-						while (blocks < 20){
+						while (blocks < 16){
 							double distance = 4;
 							Block b = null;
 							for (int x = -4; x <=4; x++){
@@ -90,7 +90,7 @@ public class RocketLauncher extends SmashItem{
 							blocks++;
 							if (b != null){
 								FallingBlock falling = loc.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-								falling.setGravity(false);
+								//falling.setGravity(false);
 								falling.setHurtEntities(false);
 								falling.setInvulnerable(true);
 								falling.setDropItem(false);
@@ -98,13 +98,14 @@ public class RocketLauncher extends SmashItem{
 								entitys.add(falling);
 							}
 						}
+						ParticleEffect.EXPLOSION_LARGE.display(1.5f, 1.5f, 1.5f, 0, 30, loc, 60);
 						for (Entity e : entitys){
 							if (e instanceof Player){
 								if (game.getIngamePlayers().contains(e.getUniqueId())){
 									PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(loc.getYaw(), 2).multiply(2), 40);
 								}
 							}else if (!e.isDead()){
-								e.setVelocity(VectorFunctions.getStandardVector(loc.getYaw() + Math.random()*10 - 5 , 5));
+								e.setVelocity(VectorFunctions.getStandardVector(loc.getYaw() + Math.random()*10 - 5 , 2).multiply(2));
 							}
 						}
 						playerdata.registerItemRunnable(new BukkitRunnable() {
@@ -124,6 +125,8 @@ public class RocketLauncher extends SmashItem{
 						playerdata.cancelItemRunnable(this);
 						return;
 					}
+				}
+					
 				}
 				/*if (i <= 0){
 					item.remove();

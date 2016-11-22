@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
+import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.map.Game;
 
@@ -20,6 +21,7 @@ public class PickupItemEvent implements Listener{
 					return;
 				}
 				if (!g.getPlayerData(e.getPlayer()).hasItem()){
+					PlayerFunctions.sendActionBar(e.getPlayer(), "");
 					g.getPlayerData(e.getPlayer()).changeItem(ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName()));
 					ItemStack item = e.getItem().getItemStack();
 					item.setAmount(1);
@@ -28,6 +30,8 @@ public class PickupItemEvent implements Listener{
 					e.getItem().remove();
 					e.getPlayer().updateInventory();
 					return;
+				}else{
+					PlayerFunctions.sendActionBar(e.getPlayer(), ItemManager.getItemData(ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName())).getDisplayName());
 				}
 				e.setCancelled(true);
 				return;

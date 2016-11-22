@@ -41,7 +41,7 @@ public class DamageEvent implements Listener{
 			Arrow arrow = (Arrow) e.getDamager();
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(p)){
-					e.setDamage(0);
+					e.setCancelled(true);
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
 						arrow.remove();
 						return;
@@ -62,7 +62,6 @@ public class DamageEvent implements Listener{
 			Player damager = (Player) e.getDamager();
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(p)){
-					e.setDamage(0);
 					e.setCancelled(true);
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
 					if (g.containsPlayer(damager)){

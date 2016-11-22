@@ -2,7 +2,6 @@ package todfresser.smash.items.main;
 
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import todfresser.smash.map.Game;
@@ -18,6 +17,11 @@ public abstract class SmashItem implements SmashItemData {
 	@Override
 	public List<String> getLore() {
 		return null;
+	}
+	
+	@Override
+	public boolean isEnchanted() {
+		return false;
 	}
 
 	@Override
@@ -57,11 +61,11 @@ public abstract class SmashItem implements SmashItemData {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Location target, Game game) {
+	public void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

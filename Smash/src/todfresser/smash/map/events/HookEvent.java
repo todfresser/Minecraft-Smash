@@ -1,11 +1,12 @@
 package todfresser.smash.map.events;
 
-
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
@@ -18,85 +19,38 @@ public class HookEvent implements Listener{
 			if (e.getPlayer().getWorld().getName().equals(g.getWorld().getName())){
 	            Player player = e.getPlayer();
 	            if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
-				if (e.getState().equals(State.FAILED_ATTEMPT) || e.getState().equals(State.IN_GROUND) || e.getState().equals(State.CAUGHT_ENTITY)){
-					if (g.getIngamePlayers().contains(player.getUniqueId())){
+				if (g.getIngamePlayers().contains(player.getUniqueId())){
+					if (!e.getState().equals(State.FISHING)){
 						e.setCancelled(true);
-						g.getPlayerData(player).OnHookPlayerEvent(player, e.getHook().getLocation(), g);
 						e.getHook().remove();
-						System.out.println("hook");
-						return;
+						if (e.getState().equals(State.CAUGHT_ENTITY)){
+							Player target = (Player) e.getCaught();
+							if (g.containsPlayer(target)){
+		    					g.getPlayerData(player).OnHookPlayerEvent(player, target, g);
+		    				}
+						}
+					}else{
+						g.getPlayerData(player).registerItemRunnable(new BukkitRunnable() {
+							Projectile hook = e.getHook();
+							@Override
+							public void run() {
+								System.out.println(player.getLocation().distance(hook.getLocation()));
+								if (hook.isDead()){
+									g.getPlayerData(player).cancelItemRunnable(this);
+									return;
+								}
+								if (player.getLocation().distance(hook.getLocation()) > 15){
+									hook.remove();
+									g.getPlayerData(player).cancelItemRunnable(this);
+									return;
+								}
+							}
+						}, 5, 5);
 					}
-				}
-				/*if (e.getCaught() != null){
-					if (e.getCaught().getType().equals(EntityType.PLAYER)) {
-						Player target = (Player) e.getCaught();
-			            if (e.getState().equals(State.CAUGHT_ENTITY)){
-			    			if (g.containsPlayer(player)){
-			    				e.setCancelled(true);
-			    	           	e.getHook().remove();
-			    				if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
-			    				if (g.containsPlayer(target)){
-			    					g.getPlayerData(player).OnHookPlayerEvent(player, target, g);
-			    				}
-			    				return;
-			    			}
-			            }
-					}
-				}*/
-				return;
-			}
-		}
-		/*for (Game g : Game.getrunningGames()){
-			if (e.getPlayer().getWorld().getName().equals(g.getWorld().getName())){
-				if (e.getState().equals(State.FAILED_ATTEMPT) || e.getState().equals(State.IN_GROUND)){
-					e.getHook().remove();
 					return;
 				}
-				if (e.getState().equals(State.CAUGHT_ENTITY)){
-					if (e.getCaught().getType().equals(EntityType.PLAYER)){
-						e.setCancelled(true);
-					}
-				}
-				if (e.getCaught() != null){
-					if (e.getCaught().getType().equals(EntityType.PLAYER)) {
-						Player target = (Player) e.getCaught();
-			            Player player = e.getPlayer();
-			            if (e.getState().equals(State.CAUGHT_ENTITY)){
-			    			if (g.containsPlayer(player)){
-			    				e.setCancelled(true);
-			    	           	e.getHook().remove();
-			    				if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
-			    				if (g.containsPlayer(target)){
-			    					g.getPlayerData(target).setLastDamager(player.getUniqueId());
-			    					g.getPlayerData(player).OnHookPlayerEvent(player, target, g);
-			    				}
-			    				return;
-			    			}
-			            }
-					}
-				}
-				return;
 			}
-		}*/
-		/*System.out.println("hook:" + e.getCaught().toString());
-		if (e.getCaught() == null) return;
-		if (e.getCaught().getType().equals(EntityType.PLAYER)) {
-			Player target = (Player) e.getCaught();
-            Player player = e.getPlayer();
-            if (e.getState().equals(State.CAUGHT_ENTITY)){
-                for (Game g : Game.getrunningGames()){
-    				if (g.containsPlayer(player)){
-    					e.setCancelled(true);
-    	            	e.getHook().remove();
-    					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
-    					if (g.containsPlayer(target)){
-    						g.getPlayerData(target).setLastDamager(player.getUniqueId());
-    						g.getPlayerData(player).OnHookPlayerEvent(player, target, g);
-    					}
-    					return;
-    				}
-                }
-            }
-		}*/
+		}
 	}
+	
 }

@@ -16,8 +16,10 @@ import todfresser.smash.items.Freezer;
 import todfresser.smash.items.GoldenApple;
 import todfresser.smash.items.GoldenSword;
 import todfresser.smash.items.Grenade;
+import todfresser.smash.items.Hook;
 import todfresser.smash.items.InstantTeleporter;
 import todfresser.smash.items.IronSword;
+import todfresser.smash.items.ItemGrabber;
 import todfresser.smash.items.JetPack;
 import todfresser.smash.items.MagicStaff;
 import todfresser.smash.items.MolotovCocktail;
@@ -123,6 +125,8 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new SmokeGrenade());
 		ItemManager.registerItem(new Cloud());
 		ItemManager.registerItem(new InstantTeleporter());
+		ItemManager.registerItem(new Hook());
+		ItemManager.registerItem(new ItemGrabber());
 		
 		instance = this;
 		

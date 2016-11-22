@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -128,7 +127,7 @@ public class SmashPlayerData {
 		}
 		return;
 	}
-	public boolean OnHookPlayerEvent(Player p, Location target, Game game){
+	public boolean OnHookPlayerEvent(Player p, Player target, Game game){
 		if (hasItem()){
 			SmashItemData data = ItemManager.getItemData(itemID);
 			if (data.hasOnHookEvent()){

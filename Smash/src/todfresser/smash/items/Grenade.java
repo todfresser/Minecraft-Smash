@@ -2,8 +2,6 @@ package todfresser.smash.items;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -19,6 +17,7 @@ import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
+import todfresser.smash.particles.ParticleEffect;
 
 public class Grenade extends SmashItem{
 
@@ -60,7 +59,8 @@ public class Grenade extends SmashItem{
 			@Override
 			public void run() {
 				grenade.remove();
-				grenade.getWorld().spigot().playEffect(grenade.getLocation(), Effect.EXPLOSION, 0, 0, 2f, 2f, 2f, 0, 300, 100);
+				//grenade.getWorld().spigot().playEffect(grenade.getLocation(), Effect.EXPLOSION, 0, 0, 2f, 2f, 2f, 0, 300, 100);
+				ParticleEffect.EXPLOSION_LARGE.display(1.5f, 1.5f, 1.5f, 0, 30, grenade.getLocation(), 60);
 				for (Entity e: grenade.getNearbyEntities(4, 4, 4)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
 						PlayerFunctions.playOutDamage(game, (Player) e,player, VectorFunctions.getStandardVector(Yaw, 0.9).multiply(2), 25);
@@ -87,7 +87,7 @@ public class Grenade extends SmashItem{
 					blocks++;
 					if (b != null){
 						FallingBlock falling = loc.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-						falling.setGravity(false);
+						//falling.setGravity(false);
 						falling.setHurtEntities(false);
 						falling.setInvulnerable(true);
 						falling.setDropItem(false);
@@ -109,10 +109,10 @@ public class Grenade extends SmashItem{
 						playerdata.cancelItemRunnable(this);
 						return;
 					}
-				}, 25, 0);
+				}, 20, 0);
 				playerdata.cancelItemRunnable(this);
 			}
-		}, 40, 0);
+		}, 30, 0);
 		playerdata.canUseItem = true;
 		
 	}
