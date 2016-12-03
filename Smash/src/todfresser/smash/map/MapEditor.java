@@ -127,7 +127,7 @@ public class MapEditor implements Listener{
 				return;
 			}
 			if (i.getDisplayName().equals(MapEditorItems.CREATE(d.exists).getItemMeta().getDisplayName())){
-				if (d.playerspawns.size() > 1 && d.itemspawns.size() > 1 && d.leavesign != null && d.livesign != null && d.itemsign != null && d.leavepoint != null && d.spectatorspawn != null && d.worldtoCopy != null && d.lobbyspawnpoint != null){
+				if (d.playerspawns.size() > 1 && d.itemspawns.size() > 1 && d.leavesign != null && d.livesign != null && d.itemsign != null && d.itemchancesign != null && d.leavepoint != null && d.spectatorspawn != null && d.worldtoCopy != null && d.lobbyspawnpoint != null){
 					((Player) e.getWhoClicked()).closeInventory();
 					cantClick.remove(e.getWhoClicked().getUniqueId());
 					editors.remove(d);
@@ -233,6 +233,17 @@ public class MapEditor implements Listener{
 					s.update();
 					e.setCancelled(true);
 					data.itemsign = s.getLocation();
+					MapEditorItems.setInventory(data, EditorInventoryType.COMMANDSIGNS);
+					return;
+				}
+				if (e.getLine(0).equals("chance")){
+					s.setLine(0, "");
+					s.setLine(1, ChatColor.BLUE + "Item");
+					s.setLine(2, ChatColor.BLUE + "Seltenheit");
+					s.setLine(3, "");
+					s.update();
+					e.setCancelled(true);
+					data.itemchancesign = s.getLocation();
 					MapEditorItems.setInventory(data, EditorInventoryType.COMMANDSIGNS);
 					return;
 				}

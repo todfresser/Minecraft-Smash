@@ -26,6 +26,7 @@ public class MapEditorData {
 	public ArrayList<Location> itemspawns;
 	public Location leavesign;
 	public Location itemsign;
+	public Location itemchancesign;
 	public Location livesign;
 	public int type;
 	
@@ -64,6 +65,7 @@ public class MapEditorData {
 		this.worldtoCopy = m.getWorldtoCopy().getName();
 		if (m.getleaveSign(w) != null) this.leavesign = m.getleaveSign(w).getLocation();
 		if (m.getItemSign(w) != null) this.itemsign = m.getItemSign(w).getLocation();
+		if (m.getItemChanceSign(w) != null) this.itemchancesign = m.getItemChanceSign(w).getLocation();
 		if (m.getLiveSign(w) != null) this.livesign = m.getLiveSign(w).getLocation();
 		MapEditorItems.setInventory(this, EditorInventoryType.SAVEDELETE);
 	}
@@ -78,7 +80,7 @@ public class MapEditorData {
 				}
 			}
 		}else m = new Map(name);
-		m.create(worldtoCopy, time, type, spectatorspawn, lobbyspawnpoint, leavepoint, playerspawns, itemspawns, leavesign.toVector(), itemsign.toVector(), livesign.toVector());
+		m.create(worldtoCopy, time, type, spectatorspawn, lobbyspawnpoint, leavepoint, playerspawns, itemspawns, leavesign.toVector(), itemsign.toVector(), itemchancesign.toVector(), livesign.toVector());
 	}
 	
 }

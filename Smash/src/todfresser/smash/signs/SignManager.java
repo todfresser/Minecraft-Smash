@@ -49,14 +49,26 @@ public class SignManager implements Listener{
 		
 	}
 	private static Inventory getItemSignInventory(Game g){
-		Inventory inv = Bukkit.createInventory(null, 9*((int)((ItemManager.getAllItemDataIDs().size()-1)/9) + 1), ChatColor.GOLD + "Items");
-		addItemstoItemInventory(inv, g.getAllowedItemIDs());
+		Inventory inv = Bukkit.createInventory(null, 9*((int)((g.getAllItemIDs().size()-1)/9) + 1), ChatColor.GOLD + "Items");
+		addItemstoItemInventory(inv, g.getAllowedItemIDs(), g.getAllItemIDs());
 		return inv;
 		
 	}
-	private static void addItemstoItemInventory(Inventory inv, Collection<Integer> allowedItems){
+	private static Inventory getItemChanceSignInventory(Game g){
+		Inventory inv = Bukkit.createInventory(null, 9*((int)((g.getAllItemIDs().size()-1)/9) + 1), ChatColor.GOLD + "Item-Seltenheit");
+		addItemstoItemChanceInventory(inv, g);
+		return inv;
+		
+	}
+	private static void addItemstoItemChanceInventory(Inventory inv, Game g){
 		inv.clear();
-		for (ItemStack item : ItemManager.getStandardDeactivationItems(allowedItems)){
+		for (ItemStack item : ItemManager.getStandardChanceItems(g)){
+			inv.addItem(item);
+		}
+	}
+	private static void addItemstoItemInventory(Inventory inv, Collection<Integer> allowedItems, Collection<Integer> allItems){
+		inv.clear();
+		for (ItemStack item : ItemManager.getStandardDeactivationItems(allowedItems, allItems)){
 			inv.addItem(item);
 		}
 	}
@@ -216,6 +228,9 @@ public class SignManager implements Listener{
 							if (e.getClickedBlock().getLocation().equals(g.getMap().getItemSign(g.getWorld()).getLocation())){
 								e.getPlayer().openInventory(getItemSignInventory(g));
 							}
+							if (e.getClickedBlock().getLocation().equals(g.getMap().getItemChanceSign(g.getWorld()).getLocation())){
+								e.getPlayer().openInventory(getItemChanceSignInventory(g));
+							}
 							if (e.getClickedBlock().getLocation().equals(g.getMap().getLiveSign(g.getWorld()).getLocation())){
 								e.getPlayer().openInventory(getLiveSignInventory(g));
 							}
@@ -255,7 +270,7 @@ public class SignManager implements Listener{
 			Player p = (Player) e.getWhoClicked();
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(p)){
-					if (e.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY) || g.getGameState().equals(GameState.Running) || g.getGameState().equals(GameState.Ending)){
+					if (g.getGameState().equals(GameState.Running) || g.getGameState().equals(GameState.Ending)){
 						e.setCancelled(true);
 						return;
 					}
@@ -274,12 +289,12 @@ public class SignManager implements Listener{
 					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Items")){
 						e.setCancelled(true);
 						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
-							for (int id : ItemManager.getAllItemDataIDs()){
+							for (int id : g.getAllItemIDs()){
 								if (ItemManager.getItemData(id).getDisplayName().equals(e.getCurrentItem().getItemMeta().getDisplayName())){
 									if (g.getAllowedItemIDs().contains(id)){
 										if (e.getClick().equals(ClickType.RIGHT)){
 											g.getAllowedItemIDs().clear();
-											addItemstoItemInventory(e.getClickedInventory(), g.getAllowedItemIDs());
+											addItemstoItemInventory(e.getClickedInventory(), g.getAllowedItemIDs(), g.getAllItemIDs());
 											p.updateInventory();
 										}
 										if (e.getClick().equals(ClickType.LEFT)){
@@ -295,7 +310,7 @@ public class SignManager implements Listener{
 													g.getAllowedItemIDs().add(ID);
 												}
 											}
-											addItemstoItemInventory(e.getClickedInventory(), g.getAllowedItemIDs());
+											addItemstoItemInventory(e.getClickedInventory(), g.getAllowedItemIDs(), g.getAllItemIDs());
 											p.updateInventory();
 										}
 										if (e.getClick().equals(ClickType.LEFT)){
@@ -308,7 +323,53 @@ public class SignManager implements Listener{
 								}
 							}
 						}
-					return;
+						return;
+					}
+					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Item-Seltenheit")){
+						e.setCancelled(true);
+						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
+							for (int id : g.getAllItemIDs()){
+								if (ItemManager.getItemData(id).getDisplayName().equals(e.getCurrentItem().getItemMeta().getDisplayName())){
+									final int chance = g.getCustomItemSpawnChance(id);
+									if (e.getClick().equals(ClickType.SHIFT_RIGHT)){
+										if (chance <= 45){
+											g.setCustomItemSpawnChance(id, chance + 5);
+											e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardChanceItem(ItemManager.getItemData(id), g.getCustomItemSpawnChance(id)));
+											p.updateInventory();
+										}
+										return;
+									}
+									if (e.getClick().equals(ClickType.RIGHT)){
+										if (chance < 50){
+											g.setCustomItemSpawnChance(id, chance + 1);
+											e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardChanceItem(ItemManager.getItemData(id), g.getCustomItemSpawnChance(id)));
+											p.updateInventory();
+										}
+										return;
+									}
+									if (e.getClick().equals(ClickType.SHIFT_LEFT)){
+										if (chance >= 5){
+											g.setCustomItemSpawnChance(id, chance - 5);
+											e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardChanceItem(ItemManager.getItemData(id), g.getCustomItemSpawnChance(id)));
+											p.updateInventory();
+										}
+									}
+									if (e.getClick().equals(ClickType.LEFT)){
+										if (chance > 0){
+											g.setCustomItemSpawnChance(id, chance - 1);
+											e.getClickedInventory().setItem(e.getSlot(), ItemManager.getStandardChanceItem(ItemManager.getItemData(id), g.getCustomItemSpawnChance(id)));
+											p.updateInventory();
+										}
+									}
+									return;
+								}
+							}
+						}
+						return;
+					}
+					if (e.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY)){
+						e.setCancelled(true);
+						return;
 					}
 				}
 			}

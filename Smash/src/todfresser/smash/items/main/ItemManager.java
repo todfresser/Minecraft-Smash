@@ -16,6 +16,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import todfresser.smash.map.Game;
+
 public class ItemManager {
 	
 	private static HashMap<Integer, SmashItemData> itemdata = new HashMap<>();
@@ -39,9 +41,9 @@ public class ItemManager {
 		i.setItemMeta(m);
 		return i;
 	}
-	public static List<ItemStack> getStandardDeactivationItems(Collection<Integer> allowedItems){
+	public static List<ItemStack> getStandardDeactivationItems(Collection<Integer> allowedItems, Collection<Integer> allItems){
 		List<ItemStack> items = new ArrayList<>();
-		for (int id : itemdata.keySet()){
+		for (int id : allItems){
 			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1, itemdata.get(id).getSubID());
 			ItemMeta m = i.getItemMeta();
 			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
@@ -50,7 +52,7 @@ public class ItemManager {
 			if (allowedItems.contains(id)){
 				lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.GREEN + "true");
 			}else lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.RED + "false");
-			lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  itemdata.get(id).getSpawnChance());
+			//lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  itemdata.get(id).getSpawnChance());
 			m.setLore(lore);
 			if (itemdata.get(id).isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
 			i.setItemMeta(m);
@@ -67,14 +69,43 @@ public class ItemManager {
 		if (allowed){
 			lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.GREEN + "true");
 		}else lore.add(ChatColor.GOLD + "Aktiv: " + ChatColor.RED + "false");
-		lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  d.getSpawnChance());
+		//lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  d.getSpawnChance());
 		m.setLore(lore);
 		if (d.isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
 		i.setItemMeta(m);
 		return i;
 	}
 	
-	public static void spawnRandomItem(List<Location> locations, List<Integer> allowedItems){
+	public static List<ItemStack> getStandardChanceItems(Game g){
+		List<ItemStack> items = new ArrayList<>();
+		for (int id : g.getAllItemIDs()){
+			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1, itemdata.get(id).getSubID());
+			ItemMeta m = i.getItemMeta();
+			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+			m.setDisplayName(itemdata.get(id).getDisplayName());
+			List<String> lore = new ArrayList<>();
+			lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  g.getCustomItemSpawnChance(id));
+			m.setLore(lore);
+			if (itemdata.get(id).isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
+			i.setItemMeta(m);
+			items.add(i);
+		}
+		return items;
+	}
+	public static ItemStack getStandardChanceItem(SmashItemData d, int chance){
+		ItemStack i = new ItemStack(d.getType(), 1, d.getSubID());
+		ItemMeta m = i.getItemMeta();
+		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+		m.setDisplayName(d.getDisplayName());
+		List<String> lore = new ArrayList<>();
+		lore.add(ChatColor.GOLD + "Seltenheit: " + ChatColor.GRAY +  chance);
+		m.setLore(lore);
+		if (d.isEnchanted()) m.addEnchant(Enchantment.DURABILITY, 1, false);
+		i.setItemMeta(m);
+		return i;
+	}
+	
+	public static void spawnRandomItem(List<Location> locations, Game g){
 		Random r = new Random();
 		Location l = locations.get(r.nextInt(locations.size()));
 		for (Entity e : l.getWorld().getNearbyEntities(l, 1.5, 5, 1.5)){
@@ -82,8 +113,8 @@ public class ItemManager {
 		}
 		if (itemdata.size() < 1) return;
 		HashMap<Integer, Integer> itemIDs = new HashMap<>();
-		for (int id : allowedItems){
-			for (int quantity = 0; quantity <= getItemData(id).getSpawnChance() && quantity <= 50; quantity++){
+		for (int id : g.getAllowedItemIDs()){
+			for (int quantity = 0; quantity <= g.getCustomItemSpawnChance(id) && quantity <= 50; quantity++){
 				itemIDs.put(itemIDs.size(), id);
 			}
 		}

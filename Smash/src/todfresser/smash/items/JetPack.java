@@ -37,7 +37,8 @@ public class JetPack extends SmashItem{
 
 	@Override
 	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
-		whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
+		//whoclicked.setVelocity(VectorFunctions.getStandardVector(whoclicked.getLocation().getYaw(), 5).multiply(0.2f));
+		whoclicked.setVelocity(VectorFunctions.getStandardJumpVector(whoclicked.getLocation()).setY(1.5).multiply(0.6));
 		//whoclicked.getLocation().getWorld().spigot().playEffect(whoclicked.getLocation().subtract(0, 0.5, 0), Effect.MOBSPAWNER_FLAMES, 1, 1, 0.4f, 0.0f, 0.4f, 0.1f, 4, 20);
 		ParticleEffect.FLAME.display(0.4f, 0.0f, 0.4f, 0.1f, 4, whoclicked.getLocation(), 20);
 		playerdata.canUseItem = true;

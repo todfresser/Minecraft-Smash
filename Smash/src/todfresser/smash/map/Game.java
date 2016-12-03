@@ -3,7 +3,6 @@ package todfresser.smash.map;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -45,7 +44,8 @@ public class Game implements Runnable{
 	private int counter;
 	private final int taskID;
 	
-	private List<Integer> allowedItems;
+	private HashMap<Integer, Integer> itemChance = new HashMap<>();
+	private ArrayList<Integer> allowedItems;
 	
 	private HashMap<UUID, SmashPlayerData> players = new HashMap<>();
 	
@@ -66,6 +66,9 @@ public class Game implements Runnable{
 		this.lives = 3;
 		gs = GameState.Lobby;
 		allowedItems = new ArrayList<>(ItemManager.getAllItemDataIDs());
+		for (int i : allowedItems){
+			itemChance.put(i, ItemManager.getItemData(i).getSpawnChance());
+		}
 		runningGames.add(this);
 		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Smash.getInstance(), this, 1, 1);
 		updateSigns();
@@ -81,6 +84,21 @@ public class Game implements Runnable{
 	
 	public Collection<Integer> getAllowedItemIDs(){
 		return allowedItems;
+	}
+	
+	public Collection<Integer> getAllItemIDs(){
+		return itemChance.keySet();
+	}
+	
+	public int getCustomItemSpawnChance(int itemID){
+		return itemChance.get(itemID);
+	}
+	
+	public void setCustomItemSpawnChance(int itemID, int spawnChance){
+		if (itemChance.containsKey(itemID)){
+			itemChance.remove(itemID);
+			itemChance.put(itemID, spawnChance);
+		}
 	}
 	
 	public void changeMaxLives(int lives){
@@ -222,6 +240,7 @@ public class Game implements Runnable{
 		Sign leave = m.getleaveSign(w);
 		Sign lives = m.getLiveSign(w);
 		Sign items = m.getItemSign(w);
+		Sign itemchance = m.getItemChanceSign(w);
 		if (leave != null){
 			leave.setLine(0, ChatColor.GOLD + "");
 			leave.setLine(1, ChatColor.DARK_BLUE + "Spiel");
@@ -242,6 +261,13 @@ public class Game implements Runnable{
 			items.setLine(2, ChatColor.DARK_BLUE + "deaktivieren");
 			items.setLine(3, ChatColor.GOLD + "");
 			items.update();
+		}
+		if (itemchance != null){
+			itemchance.setLine(0, ChatColor.GOLD + "");
+			itemchance.setLine(1, ChatColor.DARK_BLUE + "Item");
+			itemchance.setLine(2, ChatColor.DARK_BLUE + "Seltenheit");
+			itemchance.setLine(3, ChatColor.GOLD + "");
+			itemchance.update();
 		}
 	}
 	
@@ -612,7 +638,7 @@ public class Game implements Runnable{
 					return;
 				}
 				//
-				if (((double) (counter / 10) == (int)(counter / 10)) && getAllowedItemIDs().size() > 0) ItemManager.spawnRandomItem(m.getItemSpawns(w), allowedItems);
+				if (((double) (counter / 10) == (int)(counter / 10)) && getAllowedItemIDs().size() > 0) ItemManager.spawnRandomItem(m.getItemSpawns(w), this);
 				
 				
 				counter--;

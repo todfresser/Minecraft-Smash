@@ -64,7 +64,7 @@ public class MagicStaff extends SmashItem{
 					if (e.getType().equals(EntityType.PLAYER)){
 						if (!((Player)e).getUniqueId().equals(whoclicked.getUniqueId())){
 							if (game.getIngamePlayers().contains(((Player)e).getUniqueId())){
-								PlayerFunctions.playOutDamage(game, (Player) e, whoclicked, VectorFunctions.getStandardVector(loc.getYaw(), 0.5), 5);
+								PlayerFunctions.playOutDamage(game, (Player) e, whoclicked, VectorFunctions.getStandardVector(loc.getYaw(), 0.5), 5, false);
 								((Player)e).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 160, 2));
 								playerdata.cancelItemRunnable(this);
 								return;
@@ -82,7 +82,7 @@ public class MagicStaff extends SmashItem{
 					if (e.getType().equals(EntityType.PLAYER)){
 						if (!((Player)e).getUniqueId().equals(whoclicked.getUniqueId())){
 							if (game.getIngamePlayers().contains(((Player)e).getUniqueId())){
-								PlayerFunctions.playOutDamage(game, (Player) e, whoclicked, VectorFunctions.getStandardVector(loc.getYaw(), 1), 5);
+								PlayerFunctions.playOutDamage(game, (Player) e, whoclicked, VectorFunctions.getStandardVector(loc.getYaw(), 1), 5, false);
 								((Player)e).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 160, 2));
 								playerdata.cancelItemRunnable(this);
 								return;

@@ -7,6 +7,18 @@ commands:
     description: Zeigt dir alle Befehle von Smash.
     usage:
     aliases: sm
+  sound:
+    description: Spielt einen Sound.
+    usage: |
+       /sound
+       Example: /sound [SoundName] [volume] [pitch]
+       Example: /sound [SoundName]
+  particle:
+    description: Zeigt einen ParticleEffect.
+    usage: |
+       /particle
+       Example: /particle [EffectName] [offsetX] [offsetY] [offsetZ] [speed] [amount]
+       Example: /particle [EffectName]
 permissions:
   SMASH.*:
     description: Gibt Zugriff auf alle Befehle.

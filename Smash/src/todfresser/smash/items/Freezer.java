@@ -62,7 +62,7 @@ public class Freezer extends SmashItem{
 				for (Entity e: freezer.getNearbyEntities(4, 4, 4)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
 						Player target = (Player) e;
-						PlayerFunctions.playOutDamage(game, target,player, VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.1), 1);
+						PlayerFunctions.playOutDamage(game, target,player, VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.1), 1, false);
 						if (target.hasPotionEffect(PotionEffectType.HUNGER)) target.removePotionEffect(PotionEffectType.HUNGER);
 						if (target.hasPotionEffect(PotionEffectType.SLOW)) target.removePotionEffect(PotionEffectType.SLOW);
 						target.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 90, 0, false, false));
@@ -74,7 +74,7 @@ public class Freezer extends SmashItem{
 			}
 				
 			}
-		}, 40, 10);
+		}, 60, 10);
 		playerdata.canUseItem = true;
 	}
 }

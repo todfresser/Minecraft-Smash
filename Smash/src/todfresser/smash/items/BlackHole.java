@@ -71,7 +71,7 @@ public class BlackHole extends SmashItem{
 					for (Entity e : entitys){
 						if (e instanceof Player){
 							if (game.getIngamePlayers().contains(e.getUniqueId())){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(Math.random()*180 - 90 , 2).multiply(3), 5);
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(Math.random()*180 - 90 , 2).multiply(3), 5, false);
 							}
 						}else if (!e.isDead()){
 							e.setVelocity(VectorFunctions.getStandardVector(Math.random()*180 - 90 , 5));
@@ -121,7 +121,7 @@ public class BlackHole extends SmashItem{
 					if (e instanceof Player){
 						if (game.getIngamePlayers().contains(e.getUniqueId())){
 							if (e.getLocation().distance(blackhole.getLocation()) < 10 || e.getLocation().getY() > 1){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize().multiply(0.7), 1);
+								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize().multiply(0.7), 1, false);
 							}
 						}
 					}else e.setVelocity(VectorFunctions.getVectorbetweenLocations(e.getLocation(), new Location(blackhole.getLocation().getWorld(), blackhole.getLocation().getX() + Math.random()*2 -1, blackhole.getLocation().getY() + Math.random(), blackhole.getLocation().getZ() + Math.random()*2 -1)).normalize());
@@ -136,7 +136,7 @@ public class BlackHole extends SmashItem{
 				
 				i--;
 			}
-		}, 80L, 3L);
+		}, 60L, 3L);
 	    playerdata.canUseItem = true;
 		
 	}

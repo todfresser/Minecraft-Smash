@@ -46,7 +46,7 @@ public class FireStick extends SmashItem {
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(80);
-		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 0.5), 6);
+		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 0.5), 6, true);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int i = 3;
 			@Override
@@ -55,7 +55,7 @@ public class FireStick extends SmashItem {
 					playerdata.cancelItemRunnable(this);
 					return;
 				}
-				PlayerFunctions.playOutDamage(game, target, player, 4);
+				PlayerFunctions.playOutDamage(game, target, player, 4, false);
 				i--;
 			}
 		}, 19, 20);

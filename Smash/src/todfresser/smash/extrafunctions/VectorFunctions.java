@@ -15,7 +15,7 @@ public class VectorFunctions {
 	}
 	
 	public static Vector getStandardJumpVector(Location PlayerLocation){
-		double pitch = ((0.4 * PlayerLocation.getPitch() + 90) * Math.PI) / 180;
+		double pitch = ((0.6 * PlayerLocation.getPitch() + 90) * Math.PI) / 180;
 		double yaw = ((PlayerLocation.getYaw() + 90) * Math.PI) / 180;
 		double x = Math.sin(pitch) * Math.cos(yaw);
 		//double y = 0.4 * Math.cos(pitch) + 0.5;

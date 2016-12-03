@@ -27,6 +27,7 @@ import todfresser.smash.items.RocketLauncher;
 import todfresser.smash.items.Smasher;
 import todfresser.smash.items.SmokeGrenade;
 import todfresser.smash.items.Sniper;
+import todfresser.smash.items.Snowball;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.Steak;
 import todfresser.smash.items.StoneSword;
@@ -127,11 +128,16 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new InstantTeleporter());
 		ItemManager.registerItem(new Hook());
 		ItemManager.registerItem(new ItemGrabber());
+		ItemManager.registerItem(new Snowball());
 		
 		instance = this;
 		
 		Map.deleteAllWorlds();
 		this.getCommand("smash").setExecutor(new SmashCommands());
+		this.getCommand("sound").setExecutor(new SoundCommands());
+		//this.getCommand("particle").setTabCompleter(new ParticleEffectCommands());
+		this.getCommand("particle").setExecutor(new ParticleEffectCommands());
+		//this.getCommand("particle").setTabCompleter(new ParticleEffectCommands());
 		
 		Map.deleteAllWorlds();
 		for (String name : Map.getallMapnames()){

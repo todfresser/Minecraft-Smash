@@ -102,7 +102,7 @@ public class RocketLauncher extends SmashItem{
 						for (Entity e : entitys){
 							if (e instanceof Player){
 								if (game.getIngamePlayers().contains(e.getUniqueId())){
-									PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(loc.getYaw(), 2).multiply(2), 40);
+									PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(loc.getYaw(), 2).multiply(2), 40, false);
 								}
 							}else if (!e.isDead()){
 								e.setVelocity(VectorFunctions.getStandardVector(loc.getYaw() + Math.random()*10 - 5 , 2).multiply(2));

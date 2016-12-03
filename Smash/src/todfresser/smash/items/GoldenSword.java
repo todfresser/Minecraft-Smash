@@ -39,7 +39,7 @@ public class GoldenSword extends SmashItem{
 	
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player damager, Player target, Game game) {
-		PlayerFunctions.playOutDamage(game, target, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45D), 3);
+		PlayerFunctions.playOutDamage(game, target, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45D), 3, true);
 		playerdata.canUseItem = true;
 		
 	}

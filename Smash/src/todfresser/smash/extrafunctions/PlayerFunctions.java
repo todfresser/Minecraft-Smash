@@ -88,7 +88,17 @@ public class PlayerFunctions {
 		}
 		
 	}
-	public static void playOutDamage(Game g, Player p, Vector velocity, int damage){
+	
+	private static void setAllowFlight(Player p){
+		if (p.getAllowFlight()) return;
+		if (p.getFoodLevel() >= 5){
+			if (p.getExp() < 1f){
+				p.setAllowFlight(true);
+				p.setExp(1f);
+			}
+		}
+	}
+	public static void playOutDamage(Game g, Player p, Vector velocity, int damage, boolean allowFlight){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity.multiply(((double)g.getPlayerData(p).getDamage()/100) + 0.9));
@@ -100,20 +110,23 @@ public class PlayerFunctions {
 				g.getPlayerData(p).direction = velocity;
 				
 			}
-		}.runTaskLater(Smash.getInstance(), 4);
+		}.runTaskLater(Smash.getInstance(), 3);
+		if (allowFlight) setAllowFlight(p);
 	}
-	public static void playOutDamage(Game g, Player p, Player damager, int damage){
+	public static void playOutDamage(Game g, Player p, Player damager, int damage, boolean allowFlight){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		if (allowFlight) setAllowFlight(p);
 	}
-	public static void playOutDamage(Game g, Player p, int damage){
+	public static void playOutDamage(Game g, Player p, int damage, boolean allowFlight){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+		if (allowFlight) setAllowFlight(p);
 	}
-	public static void playOutDamage(Game g, Player p, Player damager, Vector velocity, int damage){
+	public static void playOutDamage(Game g, Player p, Player damager, Vector velocity, int damage, boolean allowFlight){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity.multiply(((double)g.getPlayerData(p).getDamage()/100) + 0.9));
@@ -126,7 +139,8 @@ public class PlayerFunctions {
 				g.getPlayerData(p).direction = velocity;
 				
 			}
-		}.runTaskLater(Smash.getInstance(), 4);
+		}.runTaskLater(Smash.getInstance(), 3);
+		if (allowFlight) setAllowFlight(p);
 	}
 	
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle)
@@ -216,6 +230,7 @@ public class PlayerFunctions {
 			o.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		}
 		Bukkit.getPlayer(PlayerID).setLevel(g.getPlayerData(PlayerID).getDamage());
+		PlayerFunctions.sendDamageScoreboard(g);
 	}
 	
 	
@@ -239,7 +254,7 @@ public class PlayerFunctions {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 			
 		for(UUID id : g.getAllPlayers()){
-			Score s = obj.getScore(Bukkit.getPlayer(id).getName());
+			Score s = obj.getScore(Bukkit.getPlayer(id).getName() + "[" + g.getPlayerData(id).getDamage() + "%]");
 			s.setScore(g.getPlayerData(id).getLives());
 		}
 		for (UUID id : g.getAllPlayers()){

@@ -66,7 +66,7 @@ public class FlyToggleEvent implements Listener{
 									for (Entity entity : e.getPlayer().getNearbyEntities(4, 10, 4)){
 										if (entity instanceof Player){
 											Player near = (Player) entity;
-											PlayerFunctions.playOutDamage(g, near, e.getPlayer(), new Vector(Math.random() * 2.0D - 1, 1.3 + g.getPlayerData(near).getDamage()/350, Math.random() * 2.0D - 1), 5);
+											PlayerFunctions.playOutDamage(g, near, e.getPlayer(), new Vector(Math.random() * 2.0D - 1, 1.3 + g.getPlayerData(near).getDamage()/350, Math.random() * 2.0D - 1), 5, true);
 											//g.getPlayerData(near).addDamage(5);
 											//PlayerFunctions.sendDamage(near.getUniqueId(), g);
 											//g.getPlayerData(e.getPlayer()).addDamageDone(5);

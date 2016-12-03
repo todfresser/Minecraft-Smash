@@ -155,6 +155,9 @@ public class SmashPlayerData {
 	private int kills;
 	private int deaths;
 	
+	// !!!
+	public boolean canHit = true;
+	
 	public Vector direction;
 	
 	private UUID lastDamager;

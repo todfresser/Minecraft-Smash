@@ -63,7 +63,7 @@ public class Grenade extends SmashItem{
 				ParticleEffect.EXPLOSION_LARGE.display(1.5f, 1.5f, 1.5f, 0, 30, grenade.getLocation(), 60);
 				for (Entity e: grenade.getNearbyEntities(4, 4, 4)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
-						PlayerFunctions.playOutDamage(game, (Player) e,player, VectorFunctions.getStandardVector(Yaw, 0.9).multiply(2), 25);
+						PlayerFunctions.playOutDamage(game, (Player) e,player, VectorFunctions.getStandardVector(Yaw, 0.9).multiply(2), 25, false);
 					}
 				}
 				Location loc = grenade.getLocation();

@@ -38,7 +38,7 @@ public class StoneSword extends SmashItem{
 	}
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player damager, Player target, Game game) {
-		PlayerFunctions.playOutDamage(game, target, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45D), 4);
+		PlayerFunctions.playOutDamage(game, target, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45D), 4, true);
 		playerdata.canUseItem = true;
 		
 	}

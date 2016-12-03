@@ -65,7 +65,7 @@ public class MolotovCocktail extends SmashItem{
 				ParticleEffect.FLAME.display(2.0f, 2.0f, 2.0f, 0.0f, 300, grenade.getLocation(), 100);
 				for (Entity e: grenade.getNearbyEntities(4, 4, 4)) {
 					if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
-						PlayerFunctions.playOutDamage(game, (Player) e,player, VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.4), 1);
+						PlayerFunctions.playOutDamage(game, (Player) e,player, VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.4), 1, false);
 						e.setFireTicks(20);
 					}
 				

@@ -3,42 +3,41 @@ package todfresser.smash.items;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
 
-public class Hook extends SmashItem{
+public class Snowball extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§fHook";
+		return "§bSnowball";
 	}
 
 	@Override
 	public Material getType() {
-		return Material.FISHING_ROD;
+		return Material.SNOW_BALL;
 	}
-	
+
 	@Override
 	public int getmaxItemUses() {
-		return 1;
+		return 3;
 	}
 
 	@Override
 	public int getSpawnChance() {
-		return 11;
+		return 25;
 	}
 	
 	@Override
-	public boolean hasOnHookEvent() {
+	public boolean hasOnRightClickEvent() {
 		return true;
 	}
-
+	
 	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		target.setVelocity(VectorFunctions.getVectorbetweenLocations(target.getLocation(), player.getLocation()).multiply(0.5f));
+	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+		player.launchProjectile(org.bukkit.entity.Snowball.class);
 		playerdata.canUseItem = true;
-		
 	}
+
 }

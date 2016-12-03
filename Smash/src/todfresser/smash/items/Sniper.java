@@ -42,7 +42,7 @@ public class Sniper extends SmashItem{
 
 	@Override
 	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-		player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(force + 2.5f)).setGravity(false);
+		player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(force + 4f)).setGravity(false);
 		playerdata.canUseItem = true;
 	}
 }

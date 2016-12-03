@@ -39,7 +39,7 @@ public class DiamondSword extends SmashItem{
 	
 	@Override
 	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player damager, Player target, Game game) {
-		PlayerFunctions.playOutDamage(game, target, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45D), 8);
+		PlayerFunctions.playOutDamage(game, target, damager, VectorFunctions.getStandardVector(damager.getLocation().getYaw(), 0.45D), 8, true);
 		playerdata.canUseItem = true;
 		
 	}

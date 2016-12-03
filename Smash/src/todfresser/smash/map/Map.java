@@ -175,7 +175,7 @@ public class Map {
 		return locs;
 	}
 
-	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, Vector leavesign, Vector itemsign, Vector livesign){
+	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign){
 		File file = new File("plugins/Smash/Maps", name + ".yml");
 		String signS = null;
 		
@@ -206,6 +206,7 @@ public class Map {
 		
 		cfg.set("Signs.leave", leavesign.getBlockX() + "," + leavesign.getBlockY() + "," + leavesign.getBlockZ());
 		cfg.set("Signs.items", itemsign.getBlockX() + "," + itemsign.getBlockY() + "," + itemsign.getBlockZ());
+		cfg.set("Signs.itemchance", itemchancesign.getBlockX() + "," + itemchancesign.getBlockY() + "," + itemchancesign.getBlockZ());
 		cfg.set("Signs.live", livesign.getBlockX() + "," + livesign.getBlockY() + "," + livesign.getBlockZ());
 		
 		StringBuilder sb1 = new StringBuilder();
@@ -230,9 +231,10 @@ public class Map {
 		sb2 = null;
 		
 		if (first){
-			Bukkit.getWorld(worldtoCopy).save();
+			//Bukkit.getWorld(worldtoCopy).save();
 			maps.add(this);
 		}
+		Bukkit.getWorld(worldtoCopy).save();
 		
 		System.out.println("[Smash] Die Map " + name + " wurde erfolgreich erstellt.");
 		
@@ -260,7 +262,17 @@ public class Map {
 		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild zum Verlassen existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild zum Deaktivieren der Items existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			return null;
+		}
+	}
+	public Sign getItemChanceSign(World w){
+		String[] s = cfg.getString("Signs.itemchance").split(",");
+		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
+		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+			return (Sign) l.getBlock().getState();
+		}else{
+			System.out.println("[Smash] Das Schild zum Einstellen der Item-Seltenheit existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
 			return null;
 		}
 	}
