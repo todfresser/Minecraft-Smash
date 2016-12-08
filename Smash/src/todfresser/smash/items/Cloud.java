@@ -41,7 +41,7 @@ public class Cloud extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		Location l = player.getLocation();
 		int y = l.getBlockY() - 1;
 		List<Block> blocks = new ArrayList<>();
@@ -60,6 +60,7 @@ public class Cloud extends SmashItem{
 				}
 			}
 		}
+		if (blocks.size() == 0) return false;
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			
 			@Override
@@ -74,6 +75,7 @@ public class Cloud extends SmashItem{
 			}
 		}, 80, 0);
 		playerdata.canUseItem = true;
+		return true;
 		
 	}
 }

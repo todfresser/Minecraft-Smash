@@ -45,26 +45,26 @@ public abstract class SmashItem implements SmashItemData {
 	}
 
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
-		// TODO Auto-generated method stub
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
+		return false;
 
 	}
 
 	@Override
-	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		// TODO Auto-generated method stub
+	public boolean onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		return false;
 
 	}
 
 	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
-		// TODO Auto-generated method stub
+	public boolean onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
+		return false;
 
 	}
 	
 	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		// TODO Auto-generated method stub
+	public boolean onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		return false;
 		
 	}
 

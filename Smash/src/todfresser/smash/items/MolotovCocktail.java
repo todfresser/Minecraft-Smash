@@ -45,7 +45,7 @@ public class MolotovCocktail extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		
 		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.SPLASH_POTION));	
 		
@@ -77,5 +77,6 @@ public class MolotovCocktail extends SmashItem{
 			}
 		}, 40, 4);
 		playerdata.canUseItem = true;
+		return true;
 	}
 }

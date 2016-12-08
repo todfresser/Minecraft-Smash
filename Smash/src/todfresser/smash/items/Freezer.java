@@ -44,7 +44,7 @@ public class Freezer extends SmashItem{
 	}
 
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		
 		Item freezer = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.PACKED_ICE));	
 		
@@ -76,5 +76,6 @@ public class Freezer extends SmashItem{
 			}
 		}, 60, 10);
 		playerdata.canUseItem = true;
+		return true;
 	}
 }

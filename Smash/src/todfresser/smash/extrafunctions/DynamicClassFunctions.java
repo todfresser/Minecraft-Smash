@@ -18,6 +18,15 @@ import todfresser.smash.main.Smash;
 
 public class DynamicClassFunctions {
 	
+	 public static boolean isDeclaredInInterface(Method method, Class<?> interfaceClass) {
+	     for (Method methodInInterface : interfaceClass.getMethods())
+	     {
+	         if (methodInInterface.getName().equals(method.getName()))
+	             return true;
+	     }
+	     return false;
+	 }
+	
 	public static String nmsPackage = "net.minecraft.server.v1_11_R1";
 	public static String obcPackage = "org.bukkit.craftbukkit.v1_11_R1";
 	

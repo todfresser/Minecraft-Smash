@@ -100,7 +100,7 @@ public class DamageEvent implements Listener{
 								g.getPlayerData(damager).canHit = true;
 								g.getPlayerData(damager.getUniqueId()).cancelItemRunnable(this);
 							}
-						}, 8, 0);
+						}, 3, 0);
 						return;
 					}
 				}

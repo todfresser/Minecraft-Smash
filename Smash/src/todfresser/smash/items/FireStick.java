@@ -43,7 +43,7 @@ public class FireStick extends SmashItem {
 	}
 
 	@Override
-	public void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+	public boolean onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(80);
 		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 0.5), 6, true);
@@ -60,6 +60,7 @@ public class FireStick extends SmashItem {
 			}
 		}, 19, 20);
 		playerdata.canUseItem = true;
+		return true;
 	}
 	
 	@Override

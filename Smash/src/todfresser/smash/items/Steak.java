@@ -35,9 +35,10 @@ public class Steak extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		playerdata.removeDamage(10);
 		PlayerFunctions.updateDamageManually(whoclicked.getUniqueId(), game);
 		playerdata.canUseItem = true;
+		return true;
 	}
 }

@@ -53,7 +53,7 @@ public class BlackHole extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		Item blackhole = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.COAL));
 	    blackhole.setVelocity(player.getLocation().getDirection().multiply(1.2D));
 	    playerdata.registerItemRunnable(new BukkitRunnable() {
@@ -138,6 +138,7 @@ public class BlackHole extends SmashItem{
 			}
 		}, 60L, 3L);
 	    playerdata.canUseItem = true;
+	    return true;
 		
 	}
 	

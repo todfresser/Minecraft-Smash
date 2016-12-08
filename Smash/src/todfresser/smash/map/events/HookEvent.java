@@ -23,7 +23,7 @@ public class HookEvent implements Listener{
 					if (!e.getState().equals(State.FISHING)){
 						e.setCancelled(true);
 						e.getHook().remove();
-						if (e.getState().equals(State.CAUGHT_ENTITY)){
+						if (e.getState().equals(State.CAUGHT_ENTITY) && e.getCaught() instanceof Player){
 							Player target = (Player) e.getCaught();
 							if (g.containsPlayer(target)){
 		    					g.getPlayerData(player).OnHookPlayerEvent(player, target, g);
@@ -34,7 +34,6 @@ public class HookEvent implements Listener{
 							Projectile hook = e.getHook();
 							@Override
 							public void run() {
-								System.out.println(player.getLocation().distance(hook.getLocation()));
 								if (hook.isDead()){
 									g.getPlayerData(player).cancelItemRunnable(this);
 									return;

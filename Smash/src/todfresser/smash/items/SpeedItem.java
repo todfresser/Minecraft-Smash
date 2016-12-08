@@ -33,10 +33,11 @@ public class SpeedItem extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		if (whoclicked.getPotionEffect(PotionEffectType.SPEED) != null) whoclicked.removePotionEffect(PotionEffectType.SPEED);
 		whoclicked.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 8*20, 1));
 		playerdata.canUseItem = true;
+		return true;
 		
 	}
 	

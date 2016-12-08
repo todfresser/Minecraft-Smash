@@ -31,6 +31,7 @@ import todfresser.smash.items.Snowball;
 import todfresser.smash.items.SpeedItem;
 import todfresser.smash.items.Steak;
 import todfresser.smash.items.StoneSword;
+import todfresser.smash.items.Trap;
 import todfresser.smash.items.UltraBow;
 import todfresser.smash.items.WoodenSword;
 import todfresser.smash.items.main.ItemManager;
@@ -129,6 +130,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new Hook());
 		ItemManager.registerItem(new ItemGrabber());
 		ItemManager.registerItem(new Snowball());
+		ItemManager.registerItem(new Trap());
 		
 		instance = this;
 		

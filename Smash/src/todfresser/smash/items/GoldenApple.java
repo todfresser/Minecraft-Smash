@@ -35,9 +35,10 @@ public class GoldenApple extends SmashItem{
 	}
 
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		playerdata.removeDamage(100);
 		PlayerFunctions.updateDamageManually(whoclicked.getUniqueId(), game);
 		playerdata.canUseItem = true;
+		return true;
 	}
 }

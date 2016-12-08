@@ -85,9 +85,10 @@ public class SmashPlayerData {
 			if (data.hasOnRightClickEvent()){
 				if (canUseItem == true){
 					canUseItem = false;
-					data.onRightClickEvent(this, whoclicked, game);
-					ItemUsesLeft--;
-					if (ItemUsesLeft <= 0) removeItems(whoclicked);
+					if (data.onRightClickEvent(this, whoclicked, game)){
+						ItemUsesLeft--;
+						if (ItemUsesLeft <= 0) removeItems(whoclicked);
+					}else canUseItem = true;
 				}
 				whoclicked.updateInventory();
 				return true;
@@ -101,9 +102,10 @@ public class SmashPlayerData {
 			if (data.hasOnPlayerHitPlayerEvent()){
 				if (canUseItem == true){
 					canUseItem = false;
-					data.onPlayerHitPlayerEvent(this, p, target, game);
-					ItemUsesLeft--;
-					if (ItemUsesLeft <= 0) removeItems(p);
+					if (data.onPlayerHitPlayerEvent(this, p, target, game)){
+						ItemUsesLeft--;
+						if (ItemUsesLeft <= 0) removeItems(p);
+					}else canUseItem = true;
 				}
 				p.updateInventory();
 				return true;
@@ -117,9 +119,10 @@ public class SmashPlayerData {
 			if (data.hasOnPlayerShootBowEvent()){
 				if (canUseItem == true){
 					canUseItem = false;
-					data.onPlayerShootBowEvent(this, p, force, game);
-					ItemUsesLeft--;
-					if (ItemUsesLeft <= 0) removeItems(p);
+					if (data.onPlayerShootBowEvent(this, p, force, game)){
+						ItemUsesLeft--;
+						if (ItemUsesLeft <= 0) removeItems(p);
+					}else canUseItem = true;
 				}
 				p.updateInventory();
 				return;
@@ -133,9 +136,10 @@ public class SmashPlayerData {
 			if (data.hasOnHookEvent()){
 				if (canUseItem == true){
 					canUseItem = false;
-					data.onHookEvent(this, p, target, game);
-					ItemUsesLeft--;
-					if (ItemUsesLeft <= 0) removeItems(p);
+					if (data.onHookEvent(this, p, target, game)){
+						ItemUsesLeft--;
+						if (ItemUsesLeft <= 0) removeItems(p);
+					}else canUseItem = true;
 				}
 				p.updateInventory();
 				return true;

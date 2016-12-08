@@ -36,9 +36,10 @@ public class Hook extends SmashItem{
 	}
 
 	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		target.setVelocity(VectorFunctions.getVectorbetweenLocations(target.getLocation(), player.getLocation()).multiply(0.5f));
+	public boolean onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+		target.setVelocity(VectorFunctions.getVectorbetweenLocations(target.getLocation(), player.getLocation()));
 		playerdata.canUseItem = true;
+		return true;
 		
 	}
 }

@@ -42,7 +42,7 @@ public class ItemGrabber extends SmashItem{
 	}
 	
 	@Override
-	public void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
+	public boolean onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			
 			@Override
@@ -60,6 +60,7 @@ public class ItemGrabber extends SmashItem{
 			}
 		}, 2, 0);
 		playerdata.canUseItem = true;
+		return true;
 	}
 
 }

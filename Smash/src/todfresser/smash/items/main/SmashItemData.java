@@ -28,12 +28,12 @@ public interface SmashItemData {
 	 * @param whoclicked
 	 * @param game
 	 */
-	abstract void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game);
+	abstract boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game);
 	
-	abstract void onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
+	abstract boolean onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
 	
-	abstract void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game);
+	abstract boolean onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game);
 	
-	abstract void onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
+	abstract boolean onHookEvent(SmashPlayerData playerdata, Player player, Player target, Game game);
 	
 }

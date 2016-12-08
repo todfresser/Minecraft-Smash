@@ -38,7 +38,7 @@ public class InstantTeleporter extends SmashItem{
 	}
 
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		Location loc = whoclicked.getLocation().add(0, 1, 0);
 		final Vector direction = loc.getDirection().normalize();
 		double t = 0.25;
@@ -50,7 +50,7 @@ public class InstantTeleporter extends SmashItem{
 			if (loc.getBlock() != null && !loc.getBlock().getType().equals(Material.AIR)){
 				whoclicked.teleport(loc);
 				playerdata.canUseItem = true;
-				return;
+				return true;
 			}
 			loc.add(x, y, z);
 			//loc.getWorld().spigot().playEffect(loc, Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 0, 1, 40);
@@ -58,6 +58,6 @@ public class InstantTeleporter extends SmashItem{
 		}
 		whoclicked.teleport(loc);
 		playerdata.canUseItem = true;
-		return;
+		return true;
 	}
 }

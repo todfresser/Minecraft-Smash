@@ -35,9 +35,10 @@ public class Snowball extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		player.launchProjectile(org.bukkit.entity.Snowball.class);
 		playerdata.canUseItem = true;
+		return true;
 	}
 
 }

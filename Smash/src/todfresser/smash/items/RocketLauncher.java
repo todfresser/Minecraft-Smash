@@ -47,7 +47,7 @@ public class RocketLauncher extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int blocks = 0;
 			Location loc = player.getLocation().add(0, 1, 0);
@@ -193,6 +193,7 @@ public class RocketLauncher extends SmashItem{
 			}*/
 		}, 1, 1);
 		playerdata.canUseItem = true;
+		return true;
 		
 	}
 }

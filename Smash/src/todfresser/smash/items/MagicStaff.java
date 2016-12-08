@@ -45,7 +45,7 @@ public class MagicStaff extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		playerdata.canUseItem = true;
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			Location loc = whoclicked.getLocation().add(0, 1, 0);
@@ -92,5 +92,6 @@ public class MagicStaff extends SmashItem{
 				}
 			}
 		}, 0, 1);
+		return true;
 	}
 }

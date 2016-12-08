@@ -34,7 +34,7 @@ public class UltraBow extends SmashItem{
 	}
 	
 	@Override
-	public void onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
+	public boolean onPlayerShootBowEvent(SmashPlayerData playerdata, Player player, float force, Game game) {
 		player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(force/2 + 1.0f));
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int i = 3;
@@ -49,7 +49,7 @@ public class UltraBow extends SmashItem{
 				
 			}
 		}, 1, 1);
-		
+		return true;
 	}
 
 	@Override

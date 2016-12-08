@@ -47,7 +47,7 @@ public class Grenade extends SmashItem{
 	}
 	
 	@Override
-	public void onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		float Yaw = player.getLocation().getYaw();
 		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.FIREWORK_CHARGE));	
 		
@@ -114,6 +114,7 @@ public class Grenade extends SmashItem{
 			}
 		}, 30, 0);
 		playerdata.canUseItem = true;
+		return true;
 		
 	}
 }
