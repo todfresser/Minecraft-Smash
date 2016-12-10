@@ -23,6 +23,15 @@ public class SignJ {
 		return false;
 	}
 	
+	public void updateBlock(Location l){
+		String l1 = s.getLine(0);
+		String l2 = s.getLine(1);
+		String l3 = s.getLine(2);
+		String l4 = s.getLine(3);
+		this.s = (Sign) l.getBlock().getState();
+		write(l1, l2, l3, l4);
+	}
+	
 	public SignJ(Location l){
 		this.s = (Sign) l.getBlock().getState();
 		SignManager.signs.add(this);

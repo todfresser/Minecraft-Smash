@@ -176,6 +176,13 @@ public class SignManager implements Listener{
 		}
 		if (e.getLine(0).equals("[Smash]") && e.getLine(1).equals("")){
 			if (e.getPlayer().hasPermission("SMASH.admin")){
+				for (SignJ sign : signs){
+					if (sign.getLocation().equals(e.getBlock().getLocation())){
+						sign.updateBlock(e.getBlock().getLocation());
+						e.setCancelled(true);
+						return;
+					}
+				}
 				SignJ s = new SignJ(e.getBlock().getLocation());
 				s.write(ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]",
 						ChatColor.BLUE + "Neues", 

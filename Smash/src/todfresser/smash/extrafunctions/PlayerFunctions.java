@@ -116,7 +116,7 @@ public class PlayerFunctions {
 	public static void playOutDamage(Game g, Player p, Player damager, int damage, boolean allowFlight){
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
-		g.getPlayerData(damager).addDamageDone((int) damage);
+		if (damage > 0 && damager.isOnline()) g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 		if (allowFlight) setAllowFlight(p);
 	}
@@ -130,7 +130,7 @@ public class PlayerFunctions {
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage((int) damage);
 		p.setVelocity(velocity.multiply(((double)g.getPlayerData(p).getDamage()/100) + 0.9));
-		if (damage > 0) g.getPlayerData(damager).addDamageDone((int) damage);
+		if (damage > 0 && damager.isOnline()) g.getPlayerData(damager).addDamageDone((int) damage);
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 		new BukkitRunnable() {
 			
