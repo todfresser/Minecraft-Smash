@@ -7,8 +7,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import multiworld.MultiWorldPlugin;
 import multiworld.api.MultiWorldWorldData;
 import multiworld.api.flag.FlagName;
+import todfresser.smash.events.InvertedSpawnChance;
+import todfresser.smash.events.main.EventManager;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
 import todfresser.smash.items.BlackHole;
+import todfresser.smash.items.Broom;
 import todfresser.smash.items.Cloud;
 import todfresser.smash.items.DiamondSword;
 import todfresser.smash.items.FireStick;
@@ -131,6 +134,9 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new ItemGrabber());
 		ItemManager.registerItem(new Snowball());
 		ItemManager.registerItem(new Trap());
+		ItemManager.registerItem(new Broom());
+		
+		EventManager.registerEvent(new InvertedSpawnChance());
 		
 		instance = this;
 		

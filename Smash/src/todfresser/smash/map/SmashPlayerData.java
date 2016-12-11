@@ -161,7 +161,7 @@ public class SmashPlayerData {
 	
 	// !!!
 	public boolean canHit = true;
-	
+
 	public Vector direction;
 	
 	private UUID lastDamager;

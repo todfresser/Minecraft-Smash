@@ -3,6 +3,7 @@ package todfresser.smash.map;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -26,6 +27,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+
+import todfresser.smash.events.main.EventManager;
+import todfresser.smash.events.main.EventState;
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
@@ -37,6 +41,7 @@ public class Game implements Runnable{
 	
 	public Scoreboard board;
 	private final Map m;
+	private final EventState event;
 	private GameState gs;
 	private final World w;
 	private int lives;
@@ -47,6 +52,8 @@ public class Game implements Runnable{
 	private HashMap<Integer, Integer> itemChance = new HashMap<>();
 	private ArrayList<Integer> allowedItems;
 	
+	private ArrayList<Integer> allowedEvents;
+	
 	private HashMap<UUID, SmashPlayerData> players = new HashMap<>();
 	
 	private static ArrayList<Game> runningGames = new ArrayList<>();
@@ -54,6 +61,28 @@ public class Game implements Runnable{
 	public static ArrayList<Game> getrunningGames(){
 		return runningGames;
 	}
+	
+	
+	List<BukkitRunnable> tasks = new ArrayList<>();
+	
+    public void registerEventRunnable(BukkitRunnable itemrunnable, long delay, long period){
+    	itemrunnable.runTaskTimer(Smash.getInstance(), delay, period);
+    	//itemrunnable.runTaskLater(Smash.getInstance(), delay);
+    	tasks.add(itemrunnable);
+    }
+    public void cancelEventRunnable(BukkitRunnable itemrunnable){
+    	if (tasks.contains(itemrunnable)){
+    		tasks.remove(itemrunnable);
+    		itemrunnable.cancel();
+    	}
+    }
+    public void cancelAllEventRunnables(){
+    	for (BukkitRunnable run : tasks){
+    		run.cancel();
+    	}
+    	tasks.clear();
+    }
+	
 	
 	public int getMaxLives(){
 		return lives;
@@ -69,8 +98,10 @@ public class Game implements Runnable{
 		for (int i : allowedItems){
 			itemChance.put(i, ItemManager.getItemData(i).getSpawnChance());
 		}
+		allowedEvents = new ArrayList<>(EventManager.getAllEventDataIDs());
 		runningGames.add(this);
 		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Smash.getInstance(), this, 1, 1);
+		this.event = new EventState();
 		updateSigns();
 	}
 	
@@ -101,6 +132,10 @@ public class Game implements Runnable{
 		}
 	}
 	
+	public Collection<Integer> getAllowedEventIDs(){
+		return allowedEvents;
+	}
+	
 	public void changeMaxLives(int lives){
 		if (gs.equals(GameState.Starting) || gs.equals(GameState.Lobby)){
 			this.lives = lives;
@@ -122,7 +157,10 @@ public class Game implements Runnable{
 				sendPlayerGameStats();
 				counter = 15;
 			}
-			if (gamestate.equals(GameState.Running)) counter = 60*10*lives;
+			if (gamestate.equals(GameState.Running)){
+				counter = 100+500*lives;
+				event.show();
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -394,6 +432,7 @@ public class Game implements Runnable{
 				p.setAllowFlight(false);
 				p.setFlying(false);
 				SignManager.update(this);
+				event.addPlayer(p);
 				
 				sendlocalMessage(Smash.pr + ChatColor.RED + p.getName() + ChatColor.GRAY + " hat das Spiel betreten.");
 				if (players.size() > 1) start(30);
@@ -407,6 +446,7 @@ public class Game implements Runnable{
 	}
 	public void removePlayer(Player p, boolean removefromList){
 		if (players.containsKey(p.getUniqueId())){
+			event.removePlayer(p);
 			p.getInventory().clear();
 			p.getInventory().setArmorContents(null);
 			//
@@ -468,6 +508,7 @@ public class Game implements Runnable{
     
     public void delete(boolean deletefromList){
     	Bukkit.getScheduler().cancelTask(taskID);
+    	cancelAllEventRunnables();
     	/*if (deletefromList) {
     		for (int i = 0; i < runningGames.size(); i++){
         		if (runningGames.get(i).getWorld().getName().equals(w.getName())){
@@ -634,10 +675,12 @@ public class Game implements Runnable{
 			if (gs == GameState.Running){
 				if (counter <= 0){
 					this.setGameState(GameState.Ending);
+					cancelAllEventRunnables();
 					//
 					return;
 				}
 				//
+				if (getAllowedEventIDs().size() > 0) event.update(this);
 				if (((double) (counter / 10) == (int)(counter / 10)) && getAllowedItemIDs().size() > 0) ItemManager.spawnRandomItem(m.getItemSpawns(w), this);
 				
 				

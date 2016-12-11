@@ -57,6 +57,7 @@ public class FlyToggleEvent implements Listener{
 			for (Game g : Game.getrunningGames()){
 				if (g.containsPlayer(e.getPlayer())){
 					if (g.getGameState().equals(GameState.Running) || g.getGameState().equals(GameState.Ending)){
+						e.setCancelled(false);
 						if (e.getPlayer().isOnGround() == false){
 							if (!cantSmash.contains(e.getPlayer().getUniqueId())){
 								if (e.getPlayer().getFoodLevel() >= 9){
