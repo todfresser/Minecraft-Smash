@@ -27,6 +27,11 @@ public abstract class SmashEvent implements SmashEventData{
 	}
 	
 	@Override
+	public int getProtectionTime() {
+		return 30;
+	}
+	
+	@Override
 	public void cancel(Game g) {
 		g.cancelAllEventRunnables();
 	}

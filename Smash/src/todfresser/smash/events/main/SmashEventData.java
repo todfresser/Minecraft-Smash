@@ -15,6 +15,7 @@ public interface SmashEventData {
 	abstract int getChance();
 	
 	abstract int getTime();
+	abstract int getProtectionTime();
 	abstract boolean perform(Game g);
 	abstract void cancel(Game g);
 }

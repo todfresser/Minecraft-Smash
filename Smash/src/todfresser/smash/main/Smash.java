@@ -8,6 +8,7 @@ import multiworld.MultiWorldPlugin;
 import multiworld.api.MultiWorldWorldData;
 import multiworld.api.flag.FlagName;
 import todfresser.smash.events.InvertedSpawnChance;
+import todfresser.smash.events.Lightning;
 import todfresser.smash.events.main.EventManager;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
 import todfresser.smash.items.BlackHole;
@@ -137,6 +138,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new Broom());
 		
 		EventManager.registerEvent(new InvertedSpawnChance());
+		EventManager.registerEvent(new Lightning());
 		
 		instance = this;
 		

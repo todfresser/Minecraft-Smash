@@ -19,7 +19,7 @@ public class EventState {
 	public EventState(){
 		currentEvent = null;
 		protection = false;
-		time = 20+(int)(Math.random()*80*2);
+		time = 20+(int)(Math.random()*80)*2        * 0.2;
 		bar = Smash.getInstance().getServer().createBossBar(ChatColor.GRAY + "Kein Event", BarColor.YELLOW, BarStyle.SOLID);
 		bar.setVisible(false);
 		bar.setProgress(1);
@@ -29,11 +29,12 @@ public class EventState {
 	public void update(Game g){
 		if (currentEvent != null){
 			if (protection){
-				time = time + 0.5/(double)currentEvent.getTime();
+				time = time + 0.5/(double)currentEvent.getProtectionTime();
 				if (time >= 1){
 					protection = false;
-					time = 10+(int)(Math.random()*80)*2;
+					time = 10+(int)(Math.random()*80)*2      *0.2;
 					currentEvent = null;
+					bar.setTitle(ChatColor.GRAY + "Kein Event");
 					bar.setColor(BarColor.YELLOW);
 					bar.setProgress(1);
 					return;
@@ -46,7 +47,7 @@ public class EventState {
 					time = time - 0.5/(double)currentEvent.getTime();
 					if (time <= 0){
 						currentEvent.cancel(g);
-						bar.setTitle(ChatColor.GRAY + "Kein Event");
+						bar.setTitle(ChatColor.GRAY + "Schutzzeit");
 						bar.setColor(BarColor.GREEN);
 						protection = true;
 						time = 0;
