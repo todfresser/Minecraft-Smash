@@ -610,6 +610,7 @@ public class Game implements Runnable{
 			}
 		}
 		if (i == 2 || i == 12 ){
+			if (gs.equals(GameState.Running) && getAllowedEventIDs().size() > 0) event.update(this);
 			for (UUID id: getIngamePlayers()){
 				if (Bukkit.getPlayer(id).hasPotionEffect(PotionEffectType.HUNGER)){
 					if (Bukkit.getPlayer(id).getFoodLevel() > 1){
@@ -680,7 +681,6 @@ public class Game implements Runnable{
 					return;
 				}
 				//
-				if (getAllowedEventIDs().size() > 0) event.update(this);
 				if (((double) (counter / 10) == (int)(counter / 10)) && getAllowedItemIDs().size() > 0) ItemManager.spawnRandomItem(m.getItemSpawns(w), this);
 				
 				
