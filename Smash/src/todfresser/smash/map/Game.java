@@ -279,6 +279,7 @@ public class Game implements Runnable{
 		Sign lives = m.getLiveSign(w);
 		Sign items = m.getItemSign(w);
 		Sign itemchance = m.getItemChanceSign(w);
+		Sign eventsign = m.getEventSign(w);
 		if (leave != null){
 			leave.setLine(0, ChatColor.GOLD + "");
 			leave.setLine(1, ChatColor.DARK_BLUE + "Spiel");
@@ -306,6 +307,13 @@ public class Game implements Runnable{
 			itemchance.setLine(2, ChatColor.DARK_BLUE + "Seltenheit");
 			itemchance.setLine(3, ChatColor.GOLD + "");
 			itemchance.update();
+		}
+		if (eventsign != null){
+			eventsign.setLine(0, ChatColor.GOLD + "");
+			eventsign.setLine(1, ChatColor.DARK_BLUE + "Events");
+			eventsign.setLine(2, ChatColor.DARK_BLUE + "deaktivieren");
+			eventsign.setLine(3, ChatColor.GOLD + "");
+			eventsign.update();
 		}
 	}
 	

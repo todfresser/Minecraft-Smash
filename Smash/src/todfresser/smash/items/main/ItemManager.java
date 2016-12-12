@@ -108,7 +108,7 @@ public class ItemManager {
 	public static void spawnRandomItem(List<Location> locations, Game g){
 		Random r = new Random();
 		Location l = locations.get(r.nextInt(locations.size()));
-		for (Entity e : l.getWorld().getNearbyEntities(l, 1.5, 5, 1.5)){
+		for (Entity e : l.getWorld().getNearbyEntities(l, 2, 5, 2)){
 			if (e.getType().equals(EntityType.DROPPED_ITEM) && e.getLocation().getY() <= l.getY() + 1.5) return;
 		}
 		if (itemdata.size() < 1) return;

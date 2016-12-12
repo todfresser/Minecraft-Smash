@@ -80,7 +80,7 @@ public class EventManager {
 		return d;
 	}
 	
-	private static SmashEventData getEventData(int eventdataID){
+	public static SmashEventData getEventData(int eventdataID){
 		return eventdata.get(eventdataID);
 	}
 }

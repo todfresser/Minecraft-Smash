@@ -27,7 +27,7 @@ public class MapEditorItems {
 		i.setItem(4, GLOBALSPAWNS(d));
 		i.setItem(5, PLAYERSPAWNS(d.playerspawns));
 		i.setItem(6, ITEMSPAWNS(d.itemspawns));
-		i.setItem(7, SIGNS(d.leavesign, d.livesign, d.itemsign, d.itemchancesign));
+		i.setItem(7, SIGNS(d.leavesign, d.livesign, d.itemsign, d.itemchancesign, d.eventsign));
 		i.setItem(8, EmptySpace_GRAY());
 		clear(i);
 		updateIcon(i, d.type);
@@ -63,6 +63,7 @@ public class MapEditorItems {
 			i.setItem(22, ITEMSIGN(d.itemsign));
 			i.setItem(23, ITEMCHANCESIGN(d.itemchancesign));
 			i.setItem(24, LIVESIGN(d.livesign));
+			i.setItem(25, EVENTSIGN(d.eventsign));
 			return;
 		}
 	}
@@ -196,6 +197,23 @@ public class MapEditorItems {
 		i.setItemMeta(meta);
 		return i;
 	}
+	public static ItemStack EVENTSIGN(Location loc){
+		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemMeta meta = i.getItemMeta();
+		List<String> l = new ArrayList<>();
+		if (loc != null ){
+			l.add(ChatColor.GRAY + Integer.toString(loc.getBlockX()) + ", " + Integer.toString(loc.getBlockY()) + ", " + Integer.toString(loc.getBlockZ()));
+			meta.setDisplayName(ChatColor.GREEN + "Schild zum Deaktivieren von Events");
+			meta.setLore(l);
+		}else{
+			l.add(ChatColor.GRAY + "Schreibe " + ChatColor.GREEN + "events");
+			l.add(ChatColor.GRAY + "auf ein Schild");
+			meta.setDisplayName(ChatColor.RED + "Schild zum Deaktivieren von Events");
+			meta.setLore(l);
+		}
+		i.setItemMeta(meta);
+		return i;
+	}
 	
 	public static ItemStack SHOWPLAYERSPAWNS(ArrayList<Location> collection){
 		ItemStack i = new ItemStack(Material.COMPASS, 1);
@@ -291,7 +309,7 @@ public class MapEditorItems {
 		i.setItemMeta(meta);
 		return i;
 	}
-	public static ItemStack SIGNS(Location leavesign, Location livesign, Location itemsign, Location itemchancesign){
+	public static ItemStack SIGNS(Location leavesign, Location livesign, Location itemsign, Location itemchancesign, Location eventsign){
 		ItemStack i = new ItemStack(Material.SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Schilder");
@@ -308,6 +326,9 @@ public class MapEditorItems {
 		if (livesign != null){
 			l.add(ChatColor.GREEN + "Livesign");
 		}else l.add(ChatColor.RED + "Livesign");
+		if (eventsign != null){
+			l.add(ChatColor.GREEN + "Eventsign");
+		}else l.add(ChatColor.RED + "Eventsign");
 		meta.setLore(l);
 		i.setItemMeta(meta);
 		return i;

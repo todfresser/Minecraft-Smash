@@ -29,6 +29,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import todfresser.smash.events.main.EventManager;
 import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
@@ -60,6 +61,12 @@ public class SignManager implements Listener{
 		return inv;
 		
 	}
+	private static Inventory getEventSignInventory(Game g){
+		Inventory inv = Bukkit.createInventory(null, 9*((int)((EventManager.getAllEventDataIDs().size()-1)/9) + 1), ChatColor.GOLD + "Events");
+		addItemstoEventInventory(inv, g.getAllowedEventIDs());
+		return inv;
+		
+	}
 	private static void addItemstoItemChanceInventory(Inventory inv, Game g){
 		inv.clear();
 		for (ItemStack item : ItemManager.getStandardChanceItems(g)){
@@ -69,6 +76,14 @@ public class SignManager implements Listener{
 	private static void addItemstoItemInventory(Inventory inv, Collection<Integer> allowedItems, Collection<Integer> allItems){
 		inv.clear();
 		for (ItemStack item : ItemManager.getStandardDeactivationItems(allowedItems, allItems)){
+			inv.addItem(item);
+		}
+	}
+	
+	
+	private static void addItemstoEventInventory(Inventory inv, Collection<Integer> allowedEvents) {
+		inv.clear();
+		for (ItemStack item : EventManager.getStandardDeactivationItems(allowedEvents)){
 			inv.addItem(item);
 		}
 	}
@@ -241,6 +256,9 @@ public class SignManager implements Listener{
 							if (e.getClickedBlock().getLocation().equals(g.getMap().getLiveSign(g.getWorld()).getLocation())){
 								e.getPlayer().openInventory(getLiveSignInventory(g));
 							}
+							if (e.getClickedBlock().getLocation().equals(g.getMap().getEventSign(g.getWorld()).getLocation())){
+								e.getPlayer().openInventory(getEventSignInventory(g));
+							}
 						}else return;
 						return;
 					}
@@ -292,6 +310,45 @@ public class SignManager implements Listener{
 								}
 							}
 						}
+					}
+					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Events")){
+						e.setCancelled(true);
+						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
+							for (int id : EventManager.getAllEventDataIDs()){
+								if (EventManager.getEventData(id).getDisplayName().equals(e.getCurrentItem().getItemMeta().getDisplayName())){
+									if (g.getAllowedEventIDs().contains(id)){
+										if (e.getClick().equals(ClickType.RIGHT)){
+											g.getAllowedEventIDs().clear();
+											addItemstoEventInventory(e.getClickedInventory(), g.getAllowedEventIDs());
+											p.updateInventory();
+										}
+										if (e.getClick().equals(ClickType.LEFT)){
+											g.getAllowedEventIDs().remove(id);
+											e.getClickedInventory().setItem(e.getSlot(), EventManager.getStandardDeactivationItem(EventManager.getEventData(id), false));
+											p.updateInventory();
+										}
+										return;
+									}else{
+										if (e.getClick().equals(ClickType.RIGHT)){
+											for (int ID : ItemManager.getAllItemDataIDs()){
+												if (!g.getAllowedEventIDs().contains(ID)){
+													g.getAllowedEventIDs().add(ID);
+												}
+											}
+											addItemstoEventInventory(e.getClickedInventory(), g.getAllowedEventIDs());
+											p.updateInventory();
+										}
+										if (e.getClick().equals(ClickType.LEFT)){
+											g.getAllowedEventIDs().add(id);
+											e.getClickedInventory().setItem(e.getSlot(), EventManager.getStandardDeactivationItem(EventManager.getEventData(id), true));
+											p.updateInventory();
+										}
+									}
+									return;
+								}
+							}
+						}
+						return;
 					}
 					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Items")){
 						e.setCancelled(true);
