@@ -17,7 +17,7 @@ public class Broom extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return ChatColor.GOLD + "Besen";
+		return ChatColor.GOLD + "Broom";
 	}
 
 	@Override

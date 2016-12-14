@@ -31,11 +31,6 @@ public class InvertedSpawnChance extends SmashEvent{
 	}
 	
 	@Override
-	public int getTime() {
-		return 30;
-	}
-	
-	@Override
 	public int getProtectionTime() {
 		return 10;
 	}

@@ -7,8 +7,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import multiworld.MultiWorldPlugin;
 import multiworld.api.MultiWorldWorldData;
 import multiworld.api.flag.FlagName;
+import todfresser.smash.events.DoubleDamage;
 import todfresser.smash.events.InvertedSpawnChance;
 import todfresser.smash.events.Lightning;
+import todfresser.smash.events.MaximizedKnockback;
+import todfresser.smash.events.MinimizedKnockback;
+import todfresser.smash.events.TNTRain;
 import todfresser.smash.events.main.EventManager;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
 import todfresser.smash.items.BlackHole;
@@ -49,6 +53,7 @@ import todfresser.smash.map.events.CommandReprocess;
 import todfresser.smash.map.events.DamageEvent;
 import todfresser.smash.map.events.DropItem;
 import todfresser.smash.map.events.DropPotionEvent;
+import todfresser.smash.map.events.Explode;
 import todfresser.smash.map.events.FlyToggleEvent;
 import todfresser.smash.map.events.HookEvent;
 import todfresser.smash.map.events.InteractEvent;
@@ -108,6 +113,7 @@ public class Smash extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new WeatherChange(), this);
 		getServer().getPluginManager().registerEvents(new ProjectileThrowEvent(), this);
 		getServer().getPluginManager().registerEvents(new ChangeBlock(), this);
+		getServer().getPluginManager().registerEvents(new Explode(), this);
 		
 		ItemManager.registerItem(new SpeedItem());
 		ItemManager.registerItem(new UltraBow());
@@ -139,6 +145,10 @@ public class Smash extends JavaPlugin{
 		
 		EventManager.registerEvent(new InvertedSpawnChance());
 		EventManager.registerEvent(new Lightning());
+		EventManager.registerEvent(new DoubleDamage());
+		EventManager.registerEvent(new MinimizedKnockback());
+		EventManager.registerEvent(new MaximizedKnockback());
+		EventManager.registerEvent(new TNTRain());
 		
 		instance = this;
 		

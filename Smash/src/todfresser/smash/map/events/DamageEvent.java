@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
@@ -29,7 +30,12 @@ public class DamageEvent implements Listener{
 					if (e.getCause().equals(DamageCause.VOID)) return;
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
 					if (e.getCause().equals(DamageCause.FALL)) return;
-					e.setCancelled(true);
+					if (e.getCause().equals(DamageCause.FIRE_TICK)){
+						PlayerFunctions.playOutDamage(g, p, 4, false);
+					}
+					if (e.getCause().equals(DamageCause.BLOCK_EXPLOSION) || e.getCause().equals(DamageCause.ENTITY_EXPLOSION)){
+						PlayerFunctions.playOutDamage(g, p, new Vector(Math.random() * 1.0D - 0.5, 0.8, Math.random() * 1.0D - 0.5), (int) Math.floor(e.getDamage()*3), true);
+					}
 					return;
 				}
 			}

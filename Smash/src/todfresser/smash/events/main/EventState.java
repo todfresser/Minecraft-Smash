@@ -34,9 +34,10 @@ public class EventState {
 					protection = false;
 					time = 10+(int)(Math.random()*80)*2      *0.2;
 					currentEvent = null;
-					bar.setTitle(ChatColor.GRAY + "Kein Event");
-					bar.setColor(BarColor.YELLOW);
+					//bar.setTitle(ChatColor.GRAY + "Kein Event");
+					//bar.setColor(BarColor.YELLOW);
 					bar.setProgress(1);
+					bar.setVisible(false);
 					return;
 				}
 				bar.setProgress(time);
@@ -62,6 +63,7 @@ public class EventState {
 			currentEvent = EventManager.activateRandomEvent(g);
 			bar.setTitle(currentEvent.getDisplayName());
 			bar.setColor(BarColor.RED);
+			bar.setVisible(true);
 		}else time--;
 	}
 	
@@ -70,10 +72,6 @@ public class EventState {
 			if (player.getUniqueId().equals(p.getUniqueId())) return;
 		}
 		bar.addPlayer(p);
-	}
-	
-	public void show(){
-		bar.setVisible(true);
 	}
 	
 	public void removePlayer(Player p){

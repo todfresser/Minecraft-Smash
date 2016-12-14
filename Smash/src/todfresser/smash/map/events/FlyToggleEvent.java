@@ -64,7 +64,7 @@ public class FlyToggleEvent implements Listener{
 									e.getPlayer().setFoodLevel(e.getPlayer().getFoodLevel() - 9);
 									e.getPlayer().setVelocity(new Vector(0, -2, 0));
 									cantSmash.add(e.getPlayer().getUniqueId());
-									for (Entity entity : e.getPlayer().getNearbyEntities(4, 10, 4)){
+									for (Entity entity : e.getPlayer().getNearbyEntities(3, 5, 3)){
 										if (entity instanceof Player){
 											Player near = (Player) entity;
 											PlayerFunctions.playOutDamage(g, near, e.getPlayer(), new Vector(Math.random() * 2.0D - 1, 1.3, Math.random() * 2.0D - 1), 5, true);

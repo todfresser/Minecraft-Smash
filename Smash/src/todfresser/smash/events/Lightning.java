@@ -50,13 +50,13 @@ public class Lightning extends SmashEvent{
 						}
 					}
 					if (canbehit){
-						g.getWorld().strikeLightningEffect(p.getLocation());
+						g.getWorld().strikeLightning(p.getLocation());
 						PlayerFunctions.playOutDamage(g, p, 4, false);
 					}
 				}
 				
 			}
-		}, 0, 5);
+		}, 0, 6);
 		return true;
 	}
 

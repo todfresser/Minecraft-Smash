@@ -46,7 +46,7 @@ public class Trap extends SmashItem{
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		Item trap = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.IRON_TRAPDOOR));	
-		trap.setVelocity(player.getLocation().getDirection().multiply(0.5f));
+		trap.setVelocity(player.getLocation().getDirection().multiply(0.8f));
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int i = 30;
 			@Override

@@ -34,7 +34,7 @@ public class Smasher extends SmashItem{
 	
 	@Override
 	public boolean onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 3).multiply(2), 80, false);
+		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 3).multiply(2), 80, true);
 		PlayerFunctions.sendTitle(target, 1, 25, 10, "§6Get Smashed", "");
 		PlayerFunctions.playOutDamage(game, player, new Vector(0, 1, 0), 0, false);
 		PlayerFunctions.sendTitle(player, 1, 25, 10, "§6Get Smashed", "");

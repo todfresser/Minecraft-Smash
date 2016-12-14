@@ -45,6 +45,8 @@ public class Game implements Runnable{
 	private GameState gs;
 	private final World w;
 	private int lives;
+	private double damagemultiplier;
+	private double velocitymultiplier; 
 	
 	private int counter;
 	private final int taskID;
@@ -58,7 +60,7 @@ public class Game implements Runnable{
 	
 	private static ArrayList<Game> runningGames = new ArrayList<>();
 	
-	public static ArrayList<Game> getrunningGames(){
+	public static Collection<Game> getrunningGames(){
 		return runningGames;
 	}
 	
@@ -67,7 +69,6 @@ public class Game implements Runnable{
 	
     public void registerEventRunnable(BukkitRunnable itemrunnable, long delay, long period){
     	itemrunnable.runTaskTimer(Smash.getInstance(), delay, period);
-    	//itemrunnable.runTaskLater(Smash.getInstance(), delay);
     	tasks.add(itemrunnable);
     }
     public void cancelEventRunnable(BukkitRunnable itemrunnable){
@@ -88,11 +89,29 @@ public class Game implements Runnable{
 		return lives;
 	}
 	
+	public int getDamageMultiplied(int damage){
+		return (int) Math.floor(damagemultiplier* damage);
+	}
+	
+	public void setDamageMultiplier(double damagemultiplier){
+		this.damagemultiplier = damagemultiplier;
+	}
+	
+	public double getVelocityMultiplier(){
+		return velocitymultiplier;
+	}
+	
+	public void setVelocityMultiplier(double velocitymultiplier){
+		this.velocitymultiplier = velocitymultiplier;
+	}
+	
 	public Game(Map map){
 		this.m = map;
 		this.w = m.generateNewWorldandID();
 		System.out.println("[Smash] Die Welt " + w.getName() + " wurde erstellt.");
 		this.lives = 3;
+		this.damagemultiplier = 1;
+		this.velocitymultiplier = 1;
 		gs = GameState.Lobby;
 		allowedItems = new ArrayList<>(ItemManager.getAllItemDataIDs());
 		for (int i : allowedItems){
@@ -159,7 +178,6 @@ public class Game implements Runnable{
 			}
 			if (gamestate.equals(GameState.Running)){
 				counter = 100+500*lives;
-				event.show();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -624,6 +642,8 @@ public class Game implements Runnable{
 					if (Bukkit.getPlayer(id).getFoodLevel() > 1){
 						Bukkit.getPlayer(id).setFoodLevel(Bukkit.getPlayer(id).getFoodLevel()-2);
 					}
+				}else if (Bukkit.getPlayer(id).hasPotionEffect(PotionEffectType.SATURATION) && Bukkit.getPlayer(id).getFoodLevel() < 19){
+					Bukkit.getPlayer(id).setFoodLevel(Bukkit.getPlayer(id).getFoodLevel()+2);
 				}else if (Bukkit.getPlayer(id).getFoodLevel() != 20){
 					Bukkit.getPlayer(id).setFoodLevel(Bukkit.getPlayer(id).getFoodLevel()+1);
 				}
