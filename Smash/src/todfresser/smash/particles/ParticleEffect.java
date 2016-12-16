@@ -17,7 +17,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import todfresser.smash.particles.ReflectionUtils.PackageType;
+import todfresser.smash.extrafunctions.ReflectionUtils;
+import todfresser.smash.extrafunctions.ReflectionUtils.PackageType;
 
 /**
  * <b>ParticleEffect Library</b>

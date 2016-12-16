@@ -35,6 +35,7 @@ import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.main.Statistics;
 import todfresser.smash.map.events.FlyToggleEvent;
+import todfresser.smash.mobs.main.SmashEntity;
 import todfresser.smash.signs.SignManager;
 
 public class Game implements Runnable{
@@ -55,6 +56,8 @@ public class Game implements Runnable{
 	private ArrayList<Integer> allowedItems;
 	
 	private ArrayList<Integer> allowedEvents;
+	
+	private ArrayList<SmashEntity> entitys = new ArrayList<>();
 	
 	private HashMap<UUID, SmashPlayerData> players = new HashMap<>();
 	
@@ -82,6 +85,35 @@ public class Game implements Runnable{
     		run.cancel();
     	}
     	tasks.clear();
+    }
+    
+    public void registerEntity(SmashEntity e){
+    	for (SmashEntity entity : entitys){
+    		if (e.getUniqueId().equals(entity.getUniqueId())) return;
+    	}
+    	entitys.add(e);
+    }
+    
+    public Collection<SmashEntity> getEntitys(){
+    	return entitys;
+    }
+    
+    public void removeEntity(SmashEntity e){
+    	for (SmashEntity entity : entitys){
+    		if (entity.getUniqueId().equals(e.getUniqueId())){
+    			entitys.remove(entity);
+    			return;
+    		}
+    	}
+    }
+    
+    public void removeAllEntitys(){
+    	for (SmashEntity e : entitys){
+    		if (!e.isDead() && !e.isEmpty()){
+    			e.remove(this, false);
+    		}
+    	}
+    	entitys.clear();
     }
 	
 	
@@ -263,6 +295,7 @@ public class Game implements Runnable{
 				setGameState(GameState.Ending);
 			}
 			p.setGameMode(GameMode.SPECTATOR);
+			p.setFireTicks(0);
 			p.setHealth(lives*2);
 			for (PotionEffect effect : p.getActivePotionEffects()){
 				p.removePotionEffect(effect.getType());
@@ -277,6 +310,7 @@ public class Game implements Runnable{
 			getPlayerData(p).removeItems(p);
 			players.get(p.getUniqueId()).resetDamage();
 			sendlocalMessage(Smash.pr + p.getName() + " ist gestorben!");
+			p.setFireTicks(0);
 			p.teleport(getrandomSpawnLocation(p.getUniqueId()));
 			p.setGameMode(GameMode.SURVIVAL);
 			p.setFoodLevel(20);
@@ -549,6 +583,7 @@ public class Game implements Runnable{
     	players.clear();
     	SignManager.removeGamefromSign(this);
     	if (deletefromList) runningGames.remove(this);
+    	removeAllEntitys();
     	m.deleteWorld(w);
     }
     
@@ -703,8 +738,12 @@ public class Game implements Runnable{
 			}
 			if (gs == GameState.Running){
 				if (counter <= 0){
+					for (UUID id : getIngamePlayers()){
+						if (Bukkit.getPlayer(id).getFireTicks() > 0) PlayerFunctions.playOutDamage(this, Bukkit.getPlayer(id), 3, false);
+					}
 					this.setGameState(GameState.Ending);
 					cancelAllEventRunnables();
+					removeAllEntitys();
 					//
 					return;
 				}

@@ -1,9 +1,11 @@
 package todfresser.smash.map.events;
 
-
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SmallFireball;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +19,7 @@ import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
+import todfresser.smash.mobs.main.SmashEntity;
 
 public class DamageEvent implements Listener{
 	
@@ -30,13 +33,28 @@ public class DamageEvent implements Listener{
 					if (e.getCause().equals(DamageCause.VOID)) return;
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)) return;
 					if (e.getCause().equals(DamageCause.FALL)) return;
-					if (e.getCause().equals(DamageCause.FIRE_TICK)){
-						PlayerFunctions.playOutDamage(g, p, 4, false);
-					}
 					if (e.getCause().equals(DamageCause.BLOCK_EXPLOSION) || e.getCause().equals(DamageCause.ENTITY_EXPLOSION)){
 						PlayerFunctions.playOutDamage(g, p, new Vector(Math.random() * 1.0D - 0.5, 0.8, Math.random() * 1.0D - 0.5), (int) Math.floor(e.getDamage()*3), true);
 					}
 					return;
+				}
+			}
+		}else{
+			for (Game g : Game.getrunningGames()){
+				if (g.getWorld().getName().equals(e.getEntity().getLocation().getWorld())){
+					e.setCancelled(true);
+					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
+						e.getEntity().remove();
+						return;
+					}
+					for (SmashEntity entity : g.getEntitys()){
+						if (e.getEntity().getUniqueId().equals(entity.getUniqueId())){
+							entity.setVelocity(VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.2 * entity.getKnockbackMultiplier()));
+							entity.damage(g, 1);
+							PlayerFunctions.playDamageAnimation(e.getEntity(), g);
+							return;
+						}
+					}
 				}
 			}
 		}
@@ -64,6 +82,7 @@ public class DamageEvent implements Listener{
 					return;
 				}
 			}
+			return;
 		}
 		if (e.getEntityType().equals(EntityType.PLAYER) && e.getDamager().getType().equals(EntityType.SNOWBALL)){
 			Player p = (Player) e.getEntity();
@@ -85,6 +104,40 @@ public class DamageEvent implements Listener{
 					return;
 				}
 			}
+			return;
+		}
+		if (e.getEntityType().equals(EntityType.PLAYER) && e.getDamager().getType().equals(EntityType.SMALL_FIREBALL)){
+			Player p = (Player) e.getEntity();
+			SmallFireball ball = (SmallFireball) e.getDamager();
+			for (Game g : Game.getrunningGames()){
+				if (g.containsPlayer(p)){
+					e.setCancelled(true);
+					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
+						ball.remove();
+						return;
+					}
+					if (ball.getShooter() instanceof Player){
+						Player damager = (Player) ball.getShooter();
+						if (p.getName().equals(damager.getName())){
+							ball.remove();
+							return;
+						}
+						PlayerFunctions.playOutDamage(g, p, damager, ball.getVelocity().normalize().setY(0.3).multiply(0.8), 5, true);
+						return;
+					}else if (ball.getShooter() != null && ball.getShooter() instanceof LivingEntity){
+						for (SmashEntity entity : g.getEntitys()){
+							if (((LivingEntity)ball.getShooter()).getUniqueId().equals(entity.getUniqueId())){
+								PlayerFunctions.playOutDamage(g, p, ball.getVelocity().normalize().setY(0.3).multiply(entity.getVelocityDamageMultiplier()), entity.getAttackDamage(), true);
+							}
+						}
+						
+					}
+					PlayerFunctions.playOutDamage(g, p, ball.getVelocity().normalize().setY(0.3).multiply(0.8), 4, true);
+					ball.remove();
+					return;
+				}
+			}
+			return;
 		}
 		if (e.getEntityType().equals(EntityType.PLAYER) && e.getDamager().getType().equals(EntityType.PLAYER)){
 			Player p = (Player) e.getEntity();
@@ -108,6 +161,28 @@ public class DamageEvent implements Listener{
 							}
 						}, 3, 0);
 						return;
+					}
+				}
+			}
+			return;
+		}
+		if (e.getDamager().getType().equals(EntityType.PLAYER)){
+			Player p = (Player) e.getDamager();
+			Entity creature = e.getEntity();
+			for (Game g : Game.getrunningGames()){
+				if (g.containsPlayer(p)){
+					e.setCancelled(true);
+					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
+						creature.remove();
+						return;
+					}
+					for (SmashEntity entity : g.getEntitys()){
+						if (creature.getUniqueId().equals(entity.getUniqueId())){
+							entity.setVelocity(VectorFunctions.getStandardVector(p.getLocation().getYaw(), 0.45).multiply(entity.getKnockbackMultiplier()));
+							entity.damage(g, 1);
+							PlayerFunctions.playDamageAnimation(creature, g);
+							return;
+						}
 					}
 				}
 			}

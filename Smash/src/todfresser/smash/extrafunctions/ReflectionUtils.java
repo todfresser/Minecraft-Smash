@@ -1,4 +1,4 @@
-package todfresser.smash.particles;
+package todfresser.smash.extrafunctions;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

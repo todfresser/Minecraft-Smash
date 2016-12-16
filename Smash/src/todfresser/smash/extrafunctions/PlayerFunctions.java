@@ -6,7 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -167,9 +169,9 @@ public class PlayerFunctions {
 	    }
 	  }
 	
-	public static void playDamageAnimation(Player target, Game g){
-		EntityPlayer player = ((CraftPlayer) target).getHandle();
-		PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(player, (byte) 2);
+	public static void playDamageAnimation(Entity target, Game g){
+		net.minecraft.server.v1_11_R1.Entity entity = ((CraftEntity) target).getHandle();
+		PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(entity, (byte) 2);
 		for (UUID id : g.getAllPlayers()){
 			EntityPlayer p = ((CraftPlayer) Bukkit.getPlayer(id)).getHandle();
 			p.playerConnection.sendPacket(status);
