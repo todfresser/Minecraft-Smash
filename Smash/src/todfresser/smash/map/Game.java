@@ -207,6 +207,8 @@ public class Game implements Runnable{
 			if (gamestate.equals(GameState.Ending)){
 				sendPlayerGameStats();
 				counter = 15;
+				cancelAllEventRunnables();
+				removeAllEntitys();
 			}
 			if (gamestate.equals(GameState.Running)){
 				counter = 100+500*lives;
@@ -738,18 +740,15 @@ public class Game implements Runnable{
 			}
 			if (gs == GameState.Running){
 				if (counter <= 0){
-					for (UUID id : getIngamePlayers()){
-						if (Bukkit.getPlayer(id).getFireTicks() > 0) PlayerFunctions.playOutDamage(this, Bukkit.getPlayer(id), 3, false);
-					}
 					this.setGameState(GameState.Ending);
-					cancelAllEventRunnables();
-					removeAllEntitys();
 					//
 					return;
 				}
 				//
 				if (((double) (counter / 10) == (int)(counter / 10)) && getAllowedItemIDs().size() > 0) ItemManager.spawnRandomItem(m.getItemSpawns(w), this);
-				
+				for (UUID id : getIngamePlayers()){
+					if (Bukkit.getPlayer(id).getFireTicks() > 0) PlayerFunctions.playOutDamage(this, Bukkit.getPlayer(id), 3, false);
+				}
 				
 				counter--;
 				return;

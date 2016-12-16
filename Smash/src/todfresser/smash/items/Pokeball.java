@@ -1,5 +1,7 @@
 package todfresser.smash.items;
 
+import java.util.Random;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -48,7 +50,24 @@ public class Pokeball extends SmashItem{
 			@Override
 			public void run() {
 				pokeball.remove();
-				new SmashEntity(game, pokeball.getLocation(), SmashEntityType.BLAZE);
+				Random r = new Random();
+				switch(r.nextInt(5)){
+					case 0:
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.BLAZE, 35, 0.2);
+						break;
+					case 1:
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.ZOMBIE, 35, 0.3);
+						break;
+					case 2:
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.SPIDER, 35, 0.45);
+						break;
+					case 3:
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.VEX, 35, 0.3);
+						break;
+					case 4:
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.ENDERMITE, 35, 0.4);
+						break;
+				}
 				playerdata.cancelItemRunnable(this);
 			}
 		}, 30, 0);

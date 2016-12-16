@@ -3,9 +3,11 @@ package todfresser.smash.mobs.main;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -15,13 +17,22 @@ import com.google.common.collect.Sets;
 import net.minecraft.server.v1_11_R1.EntityCreature;
 import net.minecraft.server.v1_11_R1.EntityInsentient;
 import net.minecraft.server.v1_11_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.GenericAttributes;
 import net.minecraft.server.v1_11_R1.PathfinderGoalSelector;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
 import todfresser.smash.mobs.SmashBlazeAI;
+import todfresser.smash.mobs.SmashEndermiteAI;
+import todfresser.smash.mobs.SmashSpiderAI;
+import todfresser.smash.mobs.SmashVexAI;
+import todfresser.smash.mobs.SmashZombieAI;
 
 public class SmashEntity{
 	public final static SmashAI BLAZE_AI = new SmashBlazeAI();
+	public final static SmashAI ZOMBIE_AI = new SmashZombieAI();
+	public final static SmashAI SPIDER_AI = new SmashSpiderAI();
+	public final static SmashAI ENDERMITE_AI = new SmashEndermiteAI();
+	public final static SmashAI VEX_AI = new SmashVexAI();
 	
 	private LivingEntity e;
 	private EntityCreature c;
@@ -32,21 +43,30 @@ public class SmashEntity{
 	private double vdm;
 	private double km;
 	
-	public SmashEntity(Game g, Location loc, SmashEntityType type){
+	public SmashEntity(Game g, Location loc, SmashEntityType type, double followRange, double movementSpeed){
+		this(loc, type, followRange, movementSpeed);
+		Player near = null;
+		for (UUID p : g.getIngamePlayers()){
+			if (near == null || Bukkit.getPlayer(p).getLocation().distance(e.getLocation()) < near.getLocation().distance(e.getLocation())){
+				near = Bukkit.getPlayer(p);
+			}
+		}
+		if (near != null) setTarget(near);
+		g.registerEntity(this);
+	}
+	public SmashEntity(Location loc, SmashEntityType type, double followRange, double movementSpeed){
 		this.maxhealth = type.getMaxhealth();
 		this.health = maxhealth;
 		this.e = loc.getWorld().spawn(loc, type.getEntityClass());
 		this.c = (EntityCreature)((EntityInsentient)((CraftEntity)e).getHandle());
-		//this.c = ((CraftWorld)loc.getWorld()).getHandle().addEntity(c);
-		//this.e = c.getBukkitEntity();
 		removeGoals();
 		type.getAI().setupPathfinder(c, c.goalSelector, c.targetSelector);
 		this.canbeHit = true;
 		this.ad = type.getAttackdamage();
 		this.vdm = type.getVelocitydamage();
 		this.km = type.getKnockback();
-		
-		g.registerEntity(this);
+		c.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(movementSpeed);
+		c.getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(followRange);
 	}
 	
 	public int getAttackDamage(){

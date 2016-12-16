@@ -41,7 +41,7 @@ public class DamageEvent implements Listener{
 			}
 		}else{
 			for (Game g : Game.getrunningGames()){
-				if (g.getWorld().getName().equals(e.getEntity().getLocation().getWorld())){
+				if (g.getWorld().getName().equals(e.getEntity().getLocation().getWorld().getName())){
 					e.setCancelled(true);
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
 						e.getEntity().remove();
@@ -187,5 +187,29 @@ public class DamageEvent implements Listener{
 				}
 			}
 		}
+		if (e.getEntity().getType().equals(EntityType.PLAYER)){
+			Player p = (Player) e.getEntity();
+			Entity damager = e.getDamager();
+			for (Game g : Game.getrunningGames()){
+				if (g.containsPlayer(p)){
+					e.setCancelled(true);
+					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
+						damager.remove();
+						return;
+					}
+					for (SmashEntity entity : g.getEntitys()){
+						if (damager.getUniqueId().equals(entity.getUniqueId())){
+							PlayerFunctions.playOutDamage(g, p, damager.getLocation().getDirection().normalize().setY(0.3).multiply(entity.getVelocityDamageMultiplier()), entity.getAttackDamage(), true);
+							return;
+						}
+					}
+				}
+			}
+		}
+		/*for (Game g : Game.getrunningGames()){
+			if (g.getWorld().getName().endsWith(e.getEntity().getLocation().getWorld().getName())){
+				e.setCancelled(true);
+			}
+		}*/
 	}
 }

@@ -1,10 +1,18 @@
 package todfresser.smash.mobs.main;
 
 import org.bukkit.entity.Blaze;
+import org.bukkit.entity.CaveSpider;
+import org.bukkit.entity.Endermite;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Vex;
+import org.bukkit.entity.Zombie;
 
 public enum SmashEntityType {
-	BLAZE(Blaze.class, SmashEntity.BLAZE_AI, 2, 4, 0.8, 1);
+	BLAZE(Blaze.class, SmashEntity.BLAZE_AI, 2, 4, 0.8, 1),
+	ZOMBIE(Zombie.class, SmashEntity.ZOMBIE_AI, 4, 6, 0.2, 0.4),
+	SPIDER(CaveSpider.class, SmashEntity.SPIDER_AI, 3, 3, 0.3, 0.5),
+	ENDERMITE(Endermite.class, SmashEntity.ENDERMITE_AI, 1, 4, 0.3, 0.3),
+	VEX(Vex.class, SmashEntity.VEX_AI, 1, 8, 0.15, 0.3);
 	
 	private Class<? extends LivingEntity> entity;
 	private int maxhealth;
