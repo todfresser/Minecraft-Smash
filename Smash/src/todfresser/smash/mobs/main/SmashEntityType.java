@@ -8,31 +8,28 @@ import org.bukkit.entity.Vex;
 import org.bukkit.entity.Zombie;
 
 public enum SmashEntityType {
-	BLAZE(Blaze.class, SmashEntity.BLAZE_AI, 2, 4, 0.8, 1),
-	ZOMBIE(Zombie.class, SmashEntity.ZOMBIE_AI, 4, 6, 0.2, 0.4),
-	SPIDER(CaveSpider.class, SmashEntity.SPIDER_AI, 3, 3, 0.3, 0.5),
-	ENDERMITE(Endermite.class, SmashEntity.ENDERMITE_AI, 1, 4, 0.3, 0.3),
-	VEX(Vex.class, SmashEntity.VEX_AI, 1, 8, 0.15, 0.3);
+	BLAZE(Blaze.class, SmashEntity.BLAZE_AI, 4, 0.8, 1, 35, 0.2),
+	ZOMBIE(Zombie.class, SmashEntity.ZOMBIE_AI, 6, 0.2, 0.4, 35, 0.3),
+	SPIDER(CaveSpider.class, SmashEntity.SPIDER_AI, 3, 0.3, 0.5, 35, 0.45),
+	ENDERMITE(Endermite.class, SmashEntity.ENDERMITE_AI, 4, 0.3, 0.3, 35, 0.3),
+	VEX(Vex.class, SmashEntity.VEX_AI, 8, 0.15, 0.3, 35, 0.4);
 	
 	private Class<? extends LivingEntity> entity;
-	private int maxhealth;
 	private int attackdamage;
 	private double velocitydamage;
 	private double knockback;
 	private SmashAI ai;
-	
-	
-	private SmashEntityType(Class<? extends LivingEntity> entity, SmashAI ai, int maxhealth, int attackdamage, double velocitydamage, double knockback){
+	private double movementspeed;
+	private double followrange;
+
+	private SmashEntityType(Class<? extends LivingEntity> entity, SmashAI ai, int attackdamage, double velocitydamage, double knockback, double followRange, double movementSpeed){
 		this.entity = entity;
-		this.maxhealth = maxhealth;
 		this.attackdamage = attackdamage;
 		this.velocitydamage = velocitydamage;
 		this.knockback = knockback;
 		this.ai = ai;
-	}
-	
-	public int getMaxhealth() {
-		return maxhealth;
+		this.followrange = followRange;
+		this.movementspeed = movementSpeed;
 	}
 
 	public int getAttackdamage() {
@@ -53,5 +50,14 @@ public enum SmashEntityType {
 	
 	public SmashAI getAI(){
 		return ai;
+	}
+	
+	
+	public double getMovementspeed() {
+		return movementspeed;
+	}
+
+	public double getFollowrange() {
+		return followrange;
 	}
 }

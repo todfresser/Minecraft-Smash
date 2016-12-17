@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
@@ -42,9 +43,10 @@ public class SmashEntity{
 	private int ad;
 	private double vdm;
 	private double km;
+	private EntityType type;
 	
-	public SmashEntity(Game g, Location loc, SmashEntityType type, double followRange, double movementSpeed){
-		this(loc, type, followRange, movementSpeed);
+	public SmashEntity(Game g, Location loc, SmashEntityType type, int maxhealth){
+		this(loc, type, maxhealth);
 		Player near = null;
 		for (UUID p : g.getIngamePlayers()){
 			if (near == null || Bukkit.getPlayer(p).getLocation().distance(e.getLocation()) < near.getLocation().distance(e.getLocation())){
@@ -54,8 +56,8 @@ public class SmashEntity{
 		if (near != null) setTarget(near);
 		g.registerEntity(this);
 	}
-	public SmashEntity(Location loc, SmashEntityType type, double followRange, double movementSpeed){
-		this.maxhealth = type.getMaxhealth();
+	public SmashEntity(Location loc, SmashEntityType type, int maxhealth){
+		this.maxhealth = maxhealth;
 		this.health = maxhealth;
 		this.e = loc.getWorld().spawn(loc, type.getEntityClass());
 		this.c = (EntityCreature)((EntityInsentient)((CraftEntity)e).getHandle());
@@ -65,8 +67,17 @@ public class SmashEntity{
 		this.ad = type.getAttackdamage();
 		this.vdm = type.getVelocitydamage();
 		this.km = type.getKnockback();
-		c.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(movementSpeed);
-		c.getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(followRange);
+		c.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(type.getMovementspeed());
+		c.getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(type.getFollowrange());
+		this.type = e.getType();
+	}
+	
+	public EntityType getType(){
+		return type;
+	}
+	
+	public void setAttackDamage(int damage){
+		this.ad = damage;
 	}
 	
 	public int getAttackDamage(){

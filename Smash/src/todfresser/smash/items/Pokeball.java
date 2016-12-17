@@ -53,19 +53,19 @@ public class Pokeball extends SmashItem{
 				Random r = new Random();
 				switch(r.nextInt(5)){
 					case 0:
-						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.BLAZE, 35, 0.2);
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.BLAZE, 2);
 						break;
 					case 1:
-						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.ZOMBIE, 35, 0.3);
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.ZOMBIE, 4);
 						break;
 					case 2:
-						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.SPIDER, 35, 0.45);
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.SPIDER, 2);
 						break;
 					case 3:
-						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.VEX, 35, 0.3);
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.VEX, 1);
 						break;
 					case 4:
-						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.ENDERMITE, 35, 0.4);
+						new SmashEntity(game, pokeball.getLocation(), SmashEntityType.ENDERMITE, 1);
 						break;
 				}
 				playerdata.cancelItemRunnable(this);
