@@ -25,7 +25,7 @@ public class MaximizedKnockback extends SmashEvent{
 
 	@Override
 	public int getChance() {
-		return 30;
+		return 40;
 	}
 
 	@Override

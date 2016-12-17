@@ -3,28 +3,28 @@ package todfresser.smash.events;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.events.main.SmashEvent;
 import todfresser.smash.map.Game;
+import todfresser.smash.mobs.main.SmashEntity;
+import todfresser.smash.mobs.main.SmashEntityType;
 
-public class TNTRain extends SmashEvent{
+public class SpiderRain extends SmashEvent{
 
 	@Override
 	public String getDisplayName() {
-		return ChatColor.GOLD + "TNT-Regen!";
+		return ChatColor.DARK_PURPLE + "Spinnen-Regen";
 	}
 
 	@Override
 	public Material getType() {
-		return Material.TNT;
+		return Material.SPIDER_EYE;
 	}
-
+	
 	@Override
 	public int getChance() {
-		return 15;
+		return 10;
 	}
 	
 	@Override
@@ -61,8 +61,7 @@ public class TNTRain extends SmashEvent{
 			public void run() {
 				if (t <= 0) g.cancelEventRunnable(this);
 				Location l = new Location(g.getWorld(), minX2 + Math.random() *(maxX2 - minX2), 240, minZ2 + Math.random() *(maxZ2 - minZ2));
-				Entity tnt = g.getWorld().spawn(l, TNTPrimed.class);
-		        ((TNTPrimed)tnt).setFuseTicks((int) (90 + Math.random() * 80));
+				new SmashEntity(g, l, SmashEntityType.SPIDER, 5);
 		        t--;
 				
 			}

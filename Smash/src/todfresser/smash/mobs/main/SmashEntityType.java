@@ -12,7 +12,7 @@ public enum SmashEntityType {
 	ZOMBIE(Zombie.class, SmashEntity.ZOMBIE_AI, 6, 0.2, 0.4, 35, 0.3),
 	SPIDER(CaveSpider.class, SmashEntity.SPIDER_AI, 3, 0.3, 0.5, 35, 0.45),
 	ENDERMITE(Endermite.class, SmashEntity.ENDERMITE_AI, 4, 0.3, 0.3, 35, 0.3),
-	VEX(Vex.class, SmashEntity.VEX_AI, 8, 0.15, 0.3, 35, 0.4);
+	VEX(Vex.class, SmashEntity.VEX_AI, 6, 0.15, 0.3, 35, 0.4);
 	
 	private Class<? extends LivingEntity> entity;
 	private int attackdamage;

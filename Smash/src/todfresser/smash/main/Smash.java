@@ -100,6 +100,8 @@ public class Smash extends JavaPlugin{
 		EventManager.registerEvent(new MinimizedKnockback());
 		EventManager.registerEvent(new MaximizedKnockback());
 		EventManager.registerEvent(new TNTRain());
+		EventManager.registerEvent(new SpiderRain());
+		EventManager.registerEvent(new Tornado());
 		
 		instance = this;
 		

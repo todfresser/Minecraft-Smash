@@ -30,6 +30,7 @@ import todfresser.smash.map.SmashPlayerData;
 
 public class PlayerFunctions {
 	public static void deleteBlocksNearPlayer(Player p, SmashPlayerData data){
+		if (data.direction == null) return;
 		Vector v = data.direction;
 		int playerX = p.getLocation().getBlockX();
 		int playerZ = p.getLocation().getBlockZ();
@@ -91,11 +92,10 @@ public class PlayerFunctions {
 		
 	}
 	
-	private static void setAllowFlight(Player p){
-		if (p.getAllowFlight()) return;
+	public static void setAllowFlight(Player p){
 		if (p.getFoodLevel() >= 5){
 			if (p.getExp() < 1f){
-				p.setAllowFlight(true);
+				if (!p.getAllowFlight()) p.setAllowFlight(true);
 				p.setExp(1f);
 			}
 		}
