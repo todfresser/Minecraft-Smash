@@ -15,9 +15,11 @@ import todfresser.smash.map.events.FlyToggleEvent;
 
 public class Broom extends SmashItem{
 
+	private String displayName = ChatColor.GOLD + "Broom";
+	
 	@Override
 	public String getDisplayName() {
-		return ChatColor.GOLD + "Broom";
+		return displayName;
 	}
 
 	@Override

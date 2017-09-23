@@ -10,10 +10,10 @@ import todfresser.smash.map.SmashPlayerData;
 public interface SmashItemData {
 	
 	abstract String getDisplayName(); //Name of the Item
-	abstract Material getType();    //Type from the Item
-	abstract byte getSubID();
+	abstract Material getType();    //normal ID (237)
+	abstract byte getSubID();		//more specified ID (237:2)
 	abstract boolean isEnchanted();
-	abstract List<String> getLore();
+	abstract List<String> getLore();  //Text behind the Item´s name
 	abstract int getmaxItemUses();
 	abstract int getSpawnChance();  //Chance from 0 (very rare) to 50 (very common)
 	
