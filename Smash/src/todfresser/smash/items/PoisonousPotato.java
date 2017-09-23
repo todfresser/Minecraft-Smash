@@ -53,7 +53,7 @@ public class PoisonousPotato extends SmashItem{
 			@Override
 			public void run() {	
 				
-					ParticleEffect.FLAME.display(0.1f, 0.3f, 0.1f, 0, 10, player.getLocation().add(0, 2.5, 0), 40);
+					ParticleEffect.FLAME.display(0.1f, 0.3f, 0.1f, 0, 10, player.getLocation().add(0, 0.25, 0), 40);
 			}
 		}, 0, 1);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0, false, false));
