@@ -6,7 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
@@ -50,7 +49,6 @@ public class Protector extends SmashItem{
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		playerdata.preventDamage();
 		playerdata.registerItemRunnable(new BukkitRunnable() {
-			int wholeTime = 0;
 			@Override
 			public void run() {	
 				playerdata.allowDamage();
