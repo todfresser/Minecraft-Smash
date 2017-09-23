@@ -32,7 +32,7 @@ public class Pokeball extends SmashItem{
 
 	@Override
 	public int getSpawnChance() {
-		return 20;
+		return 30;
 	}
 	
 	@Override
