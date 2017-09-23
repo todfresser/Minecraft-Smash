@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
 import todfresser.smash.map.MapEditor;
@@ -32,8 +33,11 @@ public class SmashCommands implements CommandExecutor{
 				p.sendMessage(Smash.pr + SM.Command_Help_3);
 				p.sendMessage(Smash.pr + SM.Command_Help_4);
 				if (p.hasPermission("SMASH.admin")){
-					p.sendMessage(Smash.pr + SM.Command_Help_5);
-					p.sendMessage(Smash.pr + SM.Command_Help_6);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_1);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_2);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_3);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_4);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
 				}
 				return true;
 			}
@@ -127,6 +131,67 @@ public class SmashCommands implements CommandExecutor{
 				}
 				p.sendMessage(Smash.pr + SM.Command_Error_InNoGame);
 				return true;
+			}
+			if (args[0].equalsIgnoreCase("admin") && p.hasPermission("SMASH.admin")){
+				for (Game g : Game.getrunningGames()){
+					if (g.containsPlayer(p)){
+						if(args.length == 2) {
+							if (args[1].equalsIgnoreCase("addPercents")) {
+								if(args.length == 3) {
+									try {
+										g.getPlayerData(p).addDamage(Integer.parseInt(args[2]));
+									} catch(NumberFormatException ex) {
+										
+										
+									}
+									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
+								} else {
+									g.getPlayerData(p).addDamage(100);
+								}
+								return true;
+							}
+							if (args[1].equalsIgnoreCase("removePercents")) {
+								if(args.length == 3) {
+									try {
+										g.getPlayerData(p).addDamage(Integer.parseInt(args[2]));
+									} catch(NumberFormatException ex) {
+										
+										
+									}
+									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
+								} else {
+									g.getPlayerData(p).removeDamage(100);
+								}
+								return true;
+							}
+							if (args[1].equalsIgnoreCase("setPercents")) {
+								if(args.length == 3) {
+									try {
+										g.getPlayerData(p).setDamage(Integer.parseInt(args[2]));
+									} catch(NumberFormatException ex) {
+										
+										
+									}
+									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
+								} else {
+									p.sendMessage(Smash.pr + SM.Command_Error_noParameters);
+								}
+								return true;
+							}
+						}
+						if (p.hasPermission("SMASH.admin")) {
+							p.sendMessage(Smash.pr + SM.Command_Help_Admin_1);
+							p.sendMessage(Smash.pr + SM.Command_Help_Admin_2);
+							p.sendMessage(Smash.pr + SM.Command_Help_Admin_3);
+							p.sendMessage(Smash.pr + SM.Command_Help_Admin_4);
+							p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
+							return true;
+						} else {
+							p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
+							return true;
+						}
+					}
+				}
 			}
 			p.sendMessage(Smash.pr + SM.Command_Error_Unavailable);
 			return true;

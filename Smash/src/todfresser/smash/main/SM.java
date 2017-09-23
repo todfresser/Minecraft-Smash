@@ -10,12 +10,14 @@ public enum SM {
 	Prefix("Prefix", "§6»§9Smash§6 | §7"),
 	Command_Help_1("Commands.help.1", "/smash stats Zeige deine Stats an."),
 	Command_Help_2("Commands.help.2", "/smash leave Verlassen eines Spiels."),
-	Command_Help_3("Commands.help.3", "/smash maps Anzeigen aller Maps."),
+	Command_Help_3("Commands.help.3", "/smash maps  Anzeigen aller Maps."),
 	Command_Help_4("Commands.help.4", "/smash games Anzeigen aller laufenden Spiele."),
-	Command_Help_5("Commands.help.5", "/smash start  Sofortiges Starten einen Spiels."),
-	Command_Help_6("Commands.help.6", "/smash edit  Erstellen/Verändern einer Map."),
-	Command_Help_7("Commands.help.7", "/smash edit  Erstellen/Verändern einer Map."),
-	Command_Start("Commands.start", "Der Start des Spiels wurde beshleunigt"),
+	Command_Help_Admin_1("Commands.help.admin.1", "/smash edit 	Erstellen/Verändern einer Map."),
+	Command_Help_Admin_2("Commands.help.admin.2", "/smash start	Sofortiges Starten einen Spiels."),
+	Command_Help_Admin_3("Commands.help.admin.3", "/smash admin addPercent [Parameter int]"),
+	Command_Help_Admin_4("Commands.help.admin.4", "/smash admin removePercent [Parameter int]"),
+	Command_Help_Admin_5("Commands.help.admin.5", "/smash admin setPercent *[Parameter int]"),
+	Command_Start("Commands.start", "Der Start des Spiels admin wurde beshleunigt"),
 	Command_Stats_1("Commands.stats.show.1", "§6<<§9------------------------§6>>"),
 	Command_Stats_2("Commands.stats.show.2", "§6>§9Gespielte Spiele: §6"),
 	Command_Stats_3("Commands.stats.show.3", "§6>§9Gewonnene Spiele: §6"),
@@ -35,8 +37,9 @@ public enum SM {
 	Command_Error_Unavailable("Commands.unavailable", "Diesen Befehl gibt es nicht."),
 	Command_Error_NoGames("Commands.error.games", "§c + keine Spiele am laufen + "),
 	Command_Error_InNoGame("Commands.error.innogame", "Du befindest dich in keinem Spiel!"),
-	Command_Error_NotEnoughRights("Commands.error.notenoughrights", "Dir fehlen die Rechte für diesen Befehl.");
-	
+	Command_Error_NotEnoughRights("Commands.error.notenoughrights", "Dir fehlen die Rechte für diesen Befehl."),
+	Command_Error_wrongParameters("Commands.error.wrongparameters","Du hast falsche Parameter angegeben. Bitte benutze nur Zahlen."),
+	Command_Error_noParameters("Commands.error.noparameters","Bitte füge einen Parameter ein.");
 	
 	private String path;
 	private String defaultmessage;

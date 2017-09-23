@@ -253,6 +253,10 @@ public class SmashPlayerData {
 		this.damage = this.damage - i;
 	}
 	
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	
 	public void addDamageDone(int damage){
 		this.damagedone = this.damagedone + damage;
 	}
