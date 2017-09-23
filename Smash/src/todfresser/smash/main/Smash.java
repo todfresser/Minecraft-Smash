@@ -82,7 +82,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new StoneSword());
 		ItemManager.registerItem(new IronSword());
 		ItemManager.registerItem(new DiamondSword());
-		ItemManager.registerItem(new MolotovCocktail());
+		//ItemManager.registerItem(new MolotovCocktail());
 		ItemManager.registerItem(new Freezer());
 		ItemManager.registerItem(new Grenade());
 		ItemManager.registerItem(new SmokeGrenade());
