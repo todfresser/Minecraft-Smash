@@ -41,12 +41,17 @@ public class PoisonousPotato extends SmashItem{
 	}
 	
 	@Override
+	public boolean hasOnRightClickEvent() {
+		
+		return true;
+	}
+	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {	
 		int damageDoneUntilHere = playerdata.getDamageDone();
 		BukkitRunnable particles = playerdata.registerItemRunnable(new BukkitRunnable() {
 			@Override
 			public void run() {	
-					ParticleEffect.REDSTONE.display(0.5f, 0.5f, 0.5f, 2, 10, player.getLocation(), 40);
+					ParticleEffect.FLAME.display(0.5f, 0.5f, 0.5f, 2, 10, player.getLocation(), 40);
 			}
 		}, 0, 10);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0, false, false));
