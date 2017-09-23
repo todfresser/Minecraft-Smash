@@ -54,8 +54,8 @@ public class Protector extends SmashItem{
 			
 			@Override
 			public void run() {
-				Location l = player.getLocation().add(0, 2, 0);
-				ParticleEffect.VILLAGER_ANGRY.display(0.3f, 0.3f, 0.3f, 0.3f, 3, l, 40);
+				Location l = player.getLocation().add(0, 0.5, 0);
+				ParticleEffect.PORTAL.display(1, 1, 1, 2, 20, l, 40);
 				if (Math.random() > 0.6){
 					playerdata.addDamage(1);
 					PlayerFunctions.playDamageAnimation(player, game);
