@@ -43,7 +43,6 @@ public class Protector extends SmashItem{
 
 	@Override
 	public boolean hasOnRightClickEvent() {
-		
 		return true;
 	}
 	
@@ -57,7 +56,11 @@ public class Protector extends SmashItem{
 			public void run() {
 				Location l = player.getLocation().add(0, 2, 0);
 				ParticleEffect.VILLAGER_ANGRY.display(0.3f, 0.3f, 0.3f, 0.3f, 3, l, 40);
-				if (Math.random() > 0.6) PlayerFunctions.playOutDamage(game, player, 1, true);
+				if (Math.random() > 0.6){
+					playerdata.addDamage(1);
+					PlayerFunctions.playDamageAnimation(player, game);
+					PlayerFunctions.updateDamageManually(player.getUniqueId(), game);
+				}
 			}
 		}, 0, 5);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
