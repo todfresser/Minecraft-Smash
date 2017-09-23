@@ -3,13 +3,16 @@ package todfresser.smash.items;
 
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
+import todfresser.smash.particles.ParticleEffect;
 
 public class Protector extends SmashItem{
 
@@ -23,7 +26,6 @@ public class Protector extends SmashItem{
 
 	@Override
 	public Material getType() {
-		// TODO Auto-generated method stub
 		return Material.END_CRYSTAL;
 	}
 
@@ -47,16 +49,27 @@ public class Protector extends SmashItem{
 	
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+		if (!playerdata.canGetDamage()) return false;
 		playerdata.preventDamage();
+		BukkitRunnable particles = playerdata.registerItemRunnable(new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				Location l = player.getLocation().add(0, 2, 0);
+				ParticleEffect.VILLAGER_ANGRY.display(0.3f, 0.3f, 0.3f, 0.3f, 3, l, 40);
+				if (Math.random() > 0.6) PlayerFunctions.playOutDamage(game, player, 1, true);
+			}
+		}, 0, 5);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			@Override
 			public void run() {	
 				playerdata.allowDamage();
+				playerdata.cancelItemRunnable(particles);
 				playerdata.cancelItemRunnable(this);
-				playerdata.canUseItem = true;
 			}
 			
 		}, 200, 0);
+		playerdata.canUseItem = true;
 		return true;
 	}
 	

@@ -26,10 +26,12 @@ public class SmashPlayerData {
 	//ItemTasks
 	List<BukkitRunnable> tasks = new ArrayList<>();
 	
-    public void registerItemRunnable(BukkitRunnable itemrunnable, long delay, long period){
+    public BukkitRunnable registerItemRunnable(BukkitRunnable itemrunnable, long delay, long period){
     	itemrunnable.runTaskTimer(Smash.getInstance(), delay, period);
     	//itemrunnable.runTaskLater(Smash.getInstance(), delay);
     	tasks.add(itemrunnable);
+    	
+    	return itemrunnable;
     }
     public void cancelItemRunnable(BukkitRunnable itemrunnable){
     	if (tasks.contains(itemrunnable)){

@@ -30,7 +30,7 @@ public class MinimizedKnockback extends SmashEvent{
 
 	@Override
 	public boolean perform(Game g) {
-		g.setVelocityMultiplier(0.4);
+		g.setVelocityMultiplier(0.3);
 		return true;
 	}
 	

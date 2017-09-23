@@ -53,7 +53,6 @@ public class InstantTeleporter extends SmashItem{
 				return true;
 			}
 			loc.add(x, y, z);
-			//loc.getWorld().spigot().playEffect(loc, Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 0, 1, 40);
 			ParticleEffect.SPELL_WITCH.display(0, 0, 0, 0.1f, 1, loc, 40);
 		}
 		whoclicked.teleport(loc);
