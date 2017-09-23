@@ -24,7 +24,7 @@ public class TNTRain extends SmashEvent{
 
 	@Override
 	public int getChance() {
-		return 15;
+		return 10;
 	}
 	
 	@Override

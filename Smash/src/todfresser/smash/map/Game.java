@@ -187,6 +187,7 @@ public class Game implements Runnable{
 		return allowedEvents;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void changeMaxLives(int lives){
 		if (gs.equals(GameState.Starting) || gs.equals(GameState.Lobby)){
 			this.lives = lives;
@@ -466,6 +467,7 @@ public class Game implements Runnable{
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void addPlayer(Player p){
 		if ((gs != GameState.Ending) && (gs != GameState.Running)){
 			boolean inanothergame = false;
@@ -506,6 +508,7 @@ public class Game implements Runnable{
 		}
 		//updateSign(); !!!!!!!
 	}
+	@SuppressWarnings("deprecation")
 	public void removePlayer(Player p, boolean removefromList){
 		if (players.containsKey(p.getUniqueId())){
 			event.removePlayer(p);

@@ -24,7 +24,7 @@ public class SpiderRain extends SmashEvent{
 	
 	@Override
 	public int getChance() {
-		return 10;
+		return 12;
 	}
 	
 	@Override
@@ -56,16 +56,22 @@ public class SpiderRain extends SmashEvent{
 		final int minZ2 = minZ - 10;
 		
 		g.registerEventRunnable(new BukkitRunnable() {
-			int t = 35;
+			int t = 10;
 			@Override
 			public void run() {
 				if (t <= 0) g.cancelEventRunnable(this);
 				Location l = new Location(g.getWorld(), minX2 + Math.random() *(maxX2 - minX2), 240, minZ2 + Math.random() *(maxZ2 - minZ2));
-				new SmashEntity(g, l, SmashEntityType.SPIDER, 5);
+				while (l.getY() > 1){
+					if (!l.getBlock().getType().equals(Material.AIR)){
+						new SmashEntity(g, l.add(0, 1, 0), SmashEntityType.SPIDER, 1);
+						break;
+					}
+					l.subtract(0, 1, 0);
+				}
 		        t--;
 				
 			}
-		}, 0, 2);
+		}, 0, 8);
 		
 		return true;
 	}
