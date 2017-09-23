@@ -56,8 +56,8 @@ public class HealingField extends SmashItem{
 				if (i == 13) healingField.remove();
 				if(i >=0 ) {
 					i--;
-					ParticleEffect.HEART.display(2, 1, 2, 0, 100, healingField.getLocation(), 80);
-					for (Entity e: healingField.getNearbyEntities(3, 2, 3)) {
+					ParticleEffect.HEART.display(1.4f, 0.2f, 1.4f, 0, 120, healingField.getLocation(), 80);
+					for (Entity e: healingField.getNearbyEntities(2.5, 2, 2.5)) {
 						if (e.getType().equals(org.bukkit.entity.EntityType.PLAYER)) {
 							Player target = (Player) e;
 							if (game.containsPlayer(target)){
