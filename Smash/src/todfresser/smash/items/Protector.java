@@ -24,7 +24,7 @@ public class Protector extends SmashItem{
 	@Override
 	public Material getType() {
 		// TODO Auto-generated method stub
-		return Material.SHIELD;
+		return Material.END_CRYSTAL;
 	}
 
 	@Override
