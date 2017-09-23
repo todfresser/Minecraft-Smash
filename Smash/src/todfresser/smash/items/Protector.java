@@ -49,19 +49,15 @@ public class Protector extends SmashItem{
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		if (!playerdata.canGetDamage()) return false;
+		PlayerFunctions.playOutDamage(game, player, (int) (Math.random()*15), true);
 		playerdata.preventDamage();
 		BukkitRunnable particles = playerdata.registerItemRunnable(new BukkitRunnable() {
 			
 			@Override
 			public void run() {
 				Location l = player.getLocation().add(0, 0.5, 0);
-				ParticleEffect.PORTAL.display(1, 1, 1, 2, 20, l, 40);
-				if (Math.random() > 0.6){
-					playerdata.addDamage(1);
-					PlayerFunctions.playDamageAnimation(player, game);
-					PlayerFunctions.updateDamageManually(player.getUniqueId(), game);
-					
-				}
+				ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 0.3f, 100, l, 40);
+				
 			}
 		}, 0, 5);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
@@ -72,7 +68,7 @@ public class Protector extends SmashItem{
 				playerdata.cancelItemRunnable(this);
 			}
 			
-		}, 200, 0);
+		}, 140, 0);
 		playerdata.canUseItem = true;
 		return true;
 	}

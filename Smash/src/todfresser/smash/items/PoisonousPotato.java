@@ -7,6 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
@@ -60,6 +61,7 @@ public class PoisonousPotato extends SmashItem{
 			public void run() {	
 					int j = playerdata.getDamageDone() - damageDoneUntilHere;
 					playerdata.removeDamage(j);
+					PlayerFunctions.updateDamageManually(player.getUniqueId(), game);
 					playerdata.cancelItemRunnable(particles);
 					playerdata.cancelItemRunnable(this);
 			}
