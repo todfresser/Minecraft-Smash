@@ -30,16 +30,27 @@ public class SmashCommands implements CommandExecutor{
 			if (args.length == 0){
 				p.sendMessage(Smash.pr + SM.Command_Help_1);
 				p.sendMessage(Smash.pr + SM.Command_Help_2);
-				p.sendMessage(Smash.pr + SM.Command_Help_3);
-				p.sendMessage(Smash.pr + SM.Command_Help_4);
 				if (p.hasPermission("SMASH.admin")){
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_1);
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_2);
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_3);
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_4);
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_6);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_7);
 				}
 				return true;
+			}
+			if(args.length == 1) {
+				if(args[0].equalsIgnoreCase("admin") && p.hasPermission("SMASH.admin")) {
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_1);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_2);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_3);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_4);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_6);
+					p.sendMessage(Smash.pr + SM.Command_Help_Admin_7);
+				}
 			}
 			if (args[0].equalsIgnoreCase("start")){
 				if (p.hasPermission("SMASH.admin")){
@@ -78,45 +89,7 @@ public class SmashCommands implements CommandExecutor{
 					p.sendMessage(Smash.pr + SM.Command_Stats_Reset);
 					return true;
 				}
-			}
-			
-			
-			
-			
-			if (args[0].equalsIgnoreCase("edit")){
-				if (p.hasPermission("SMASH.admin") == false){
-					p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
-					return true;
-				}
-				if (args.length == 2){
-					MapEditor.open(p, args[1]);
-				}else{
-					p.sendMessage(Smash.pr + "Usage: /smash edit <mapname>");
-				}
-				return true;
-			}
-			if (args[0].equalsIgnoreCase("maps")){
-				p.sendMessage(Smash.pr + SM.Command_Maps_1);
-				if (Map.getloadedMaps().isEmpty() || Map.getallMapnames() == null){
-					p.sendMessage(Smash.pr + SM.Command_Error_NoMaps);
-					return true;
-				}
-				for (Map m : Map.getloadedMaps()){
-					p.sendMessage(Smash.pr + SM.Command_Maps_list.toString().replaceAll("%MAPNAME%", m.getName()));
-				}
-				return true;
-			}
-			if (args[0].equalsIgnoreCase("games")){
-				p.sendMessage(Smash.pr + SM.Command_Games_1);
-				if (Game.getrunningGames().size() == 0){
-					p.sendMessage(Smash.pr + SM.Command_Error_NoGames);
-					return true;
-				}
-				for (Game g : Game.getrunningGames()){
-					p.sendMessage(Smash.pr + SM.Command_Games_list.toString().replaceAll("%MAPNAME%", g.getMap().getName()).replaceAll("%GAMESTATE%", g.getGameState().getName()));
-				}
-				return true;
-			}
+			}	
 			if (args[0].equalsIgnoreCase("leave")){
 				for (Game g : Game.getrunningGames()){
 					if (g.containsPlayer(p)){
@@ -178,17 +151,40 @@ public class SmashCommands implements CommandExecutor{
 								}
 								return true;
 							}
-						}
-						if (p.hasPermission("SMASH.admin")) {
-							p.sendMessage(Smash.pr + SM.Command_Help_Admin_1);
-							p.sendMessage(Smash.pr + SM.Command_Help_Admin_2);
-							p.sendMessage(Smash.pr + SM.Command_Help_Admin_3);
-							p.sendMessage(Smash.pr + SM.Command_Help_Admin_4);
-							p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
-							return true;
-						} else {
-							p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
-							return true;
+							if (args[1].equalsIgnoreCase("edit")){
+								if (p.hasPermission("SMASH.admin") == false){
+									p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
+									return true;
+								}
+								if (args.length == 2){
+									MapEditor.open(p, args[1]);
+								}else{
+									p.sendMessage(Smash.pr + "Usage: /smash edit <mapname>");
+								}
+								return true;
+							}
+							if (args[1].equalsIgnoreCase("maps")){
+								p.sendMessage(Smash.pr + SM.Command_Maps_1);
+								if (Map.getloadedMaps().isEmpty() || Map.getallMapnames() == null){
+									p.sendMessage(Smash.pr + SM.Command_Error_NoMaps);
+									return true;
+								}
+								for (Map m : Map.getloadedMaps()){
+									p.sendMessage(Smash.pr + SM.Command_Maps_list.toString().replaceAll("%MAPNAME%", m.getName()));
+								}
+								return true;
+							}
+							if (args[1].equalsIgnoreCase("games")){
+								p.sendMessage(Smash.pr + SM.Command_Games_1);
+								if (Game.getrunningGames().size() == 0){
+									p.sendMessage(Smash.pr + SM.Command_Error_NoGames);
+									return true;
+								}
+								for (Game g1 : Game.getrunningGames()){
+									p.sendMessage(Smash.pr + SM.Command_Games_list.toString().replaceAll("%MAPNAME%", g1.getMap().getName()).replaceAll("%GAMESTATE%", g1.getGameState().getName()));
+								}
+								return true;
+							}
 						}
 					}
 				}
