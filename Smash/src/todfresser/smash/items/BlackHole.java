@@ -136,7 +136,7 @@ public class BlackHole extends SmashItem{
 				
 				i--;
 			}
-		}, 60L, 3L);
+		}, 50, 3);
 	    playerdata.canUseItem = true;
 	    return true;
 		

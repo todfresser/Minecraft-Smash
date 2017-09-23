@@ -112,7 +112,7 @@ public class Grenade extends SmashItem{
 				}, 20, 0);
 				playerdata.cancelItemRunnable(this);
 			}
-		}, 30, 0);
+		}, 25, 0);
 		playerdata.canUseItem = true;
 		return true;
 		

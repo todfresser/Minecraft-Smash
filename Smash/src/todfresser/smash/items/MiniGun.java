@@ -33,7 +33,7 @@ public class MiniGun extends SmashItem{
 
 	@Override
 	public int getmaxItemUses() {
-		return 6;
+		return 10;
 	}
 
 	@Override
@@ -57,11 +57,13 @@ public class MiniGun extends SmashItem{
 			public void run() {
 				if (t > 20) playerdata.cancelItemRunnable(this);
 				t = t + 0.40;
-				double x = direction.getX() * 2.0;
-				double y = direction.getY() * 2.0;
-				double z = direction.getZ() * 2.0;
+				double x = direction.getX() * 1.6;
+				double y = direction.getY() * 1.6;
+				double z = direction.getZ() * 1.6;
 				loc.add(x, y, z);
-				ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
+				if (t > 1){
+					ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
+				}else ParticleEffect.FLAME.display(0.2f, 0.1f, 0.2f, 0.0f, 3, loc, 40);
 				for (Entity e : loc.getWorld().getNearbyEntities(loc, 1.5, 1.5, 1.5)){
 					if (e.getType().equals(EntityType.PLAYER)){
 						if (!((Player)e).getUniqueId().equals(player.getUniqueId())){
@@ -75,58 +77,6 @@ public class MiniGun extends SmashItem{
 				}
 			}
 		}, 0, 1);
-		playerdata.registerItemRunnable(new BukkitRunnable() {
-			Location loc = player.getLocation().add(0, 1, 0);
-			Vector direction = loc.getDirection().normalize();
-			double t = 0.25;
-			@Override
-			public void run() {
-				if (t > 20) playerdata.cancelItemRunnable(this);
-				t = t + 0.40;
-				double x = direction.getX() * 2.0;
-				double y = direction.getY() * 2.0;
-				double z = direction.getZ() * 2.0;
-				loc.add(x, y, z);
-				ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
-				for (Entity e : loc.getWorld().getNearbyEntities(loc, 1.5, 1.5, 1.5)){
-					if (e.getType().equals(EntityType.PLAYER)){
-						if (!((Player)e).getUniqueId().equals(player.getUniqueId())){
-							if (game.getIngamePlayers().contains(((Player)e).getUniqueId())){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(loc.getYaw(), 0.5).multiply(0.2f), damage, false);
-								playerdata.cancelItemRunnable(this);
-								return;
-							}
-						}
-					}
-				}
-			}
-		}, 6, 1);
-		playerdata.registerItemRunnable(new BukkitRunnable() {
-			Location loc = player.getLocation().add(0, 1, 0);
-			Vector direction = loc.getDirection().normalize();
-			double t = 0.25;
-			@Override
-			public void run() {
-				if (t > 20) playerdata.cancelItemRunnable(this);
-				t = t + 0.40;
-				double x = direction.getX() * 2.0;
-				double y = direction.getY() * 2.0;
-				double z = direction.getZ() * 2.0;
-				loc.add(x, y, z);
-				ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
-				for (Entity e : loc.getWorld().getNearbyEntities(loc, 1.5, 1.5, 1.5)){
-					if (e.getType().equals(EntityType.PLAYER)){
-						if (!((Player)e).getUniqueId().equals(player.getUniqueId())){
-							if (game.getIngamePlayers().contains(((Player)e).getUniqueId())){
-								PlayerFunctions.playOutDamage(game, (Player) e, player, VectorFunctions.getStandardVector(loc.getYaw(), 0.5).multiply(0.2f), damage, false);
-								playerdata.cancelItemRunnable(this);
-								return;
-							}
-						}
-					}
-				}
-			}
-		}, 12, 1);
 		return true;
 	}
 	

@@ -75,7 +75,7 @@ public class MolotovCocktail extends SmashItem{
 			}
 				
 			}
-		}, 40, 4);
+		}, 35, 4);
 		playerdata.canUseItem = true;
 		return true;
 	}

@@ -70,7 +70,7 @@ public class HealingField extends SmashItem{
 					playerdata.cancelItemRunnable(this);
 				}
 			}
-		}, 60, 10);
+		}, 40, 10);
 		playerdata.canUseItem = true;
 		return true;
 	}

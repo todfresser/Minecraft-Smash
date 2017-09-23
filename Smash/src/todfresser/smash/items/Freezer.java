@@ -74,7 +74,7 @@ public class Freezer extends SmashItem{
 			}
 				
 			}
-		}, 60, 10);
+		}, 50, 10);
 		playerdata.canUseItem = true;
 		return true;
 	}
