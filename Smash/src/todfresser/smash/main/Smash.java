@@ -95,6 +95,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new Pokeball());
 		ItemManager.registerItem(new Broom());
 		ItemManager.registerItem(new Protector());
+		ItemManager.registerItem(new PoisonousPotato());
 		
 		EventManager.registerEvent(new InvertedSpawnChance());
 		EventManager.registerEvent(new Lightning());
