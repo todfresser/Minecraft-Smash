@@ -53,11 +53,10 @@ public class Protector extends SmashItem{
 			public void run() {	
 				playerdata.allowDamage();
 				playerdata.cancelItemRunnable(this);
+				playerdata.canUseItem = true;
 			}
 			
 		}, 200, 0);
-	
-		
 		return true;
 	}
 	
