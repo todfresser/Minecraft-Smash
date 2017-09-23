@@ -151,6 +151,7 @@ public class SmashPlayerData {
 	
 	
 	//IngameStats:
+	private boolean allowedToGetDamage = true;
 	private PlayerType type;
 	private int lives;
 	private int damage;
@@ -258,5 +259,17 @@ public class SmashPlayerData {
 		this.damage = 0;
 		this.lives--;
 		deaths++;
+	}
+	
+	public void preventDamage() {
+		allowedToGetDamage = false;
+	}
+	
+	public void allowDamage() {
+		allowedToGetDamage = true;
+	}
+	
+	public boolean canGetDamage() {
+		return allowedToGetDamage;
 	}
 }

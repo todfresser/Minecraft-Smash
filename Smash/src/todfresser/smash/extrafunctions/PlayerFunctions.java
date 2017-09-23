@@ -101,6 +101,7 @@ public class PlayerFunctions {
 		}
 	}
 	public static void playOutDamage(Game g, Player p, Vector velocity, int damage, boolean allowFlight){
+		if(g.getPlayerData(p).canGetDamage() == false) return;
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage(g.getDamageMultiplied(damage));
 		p.setVelocity(velocity.multiply(g.getVelocityMultiplier() * ((double)g.getPlayerData(p).getDamage()/100) + 0.9));
@@ -116,6 +117,7 @@ public class PlayerFunctions {
 		if (allowFlight) setAllowFlight(p);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, int damage, boolean allowFlight){
+		if(g.getPlayerData(p).canGetDamage() == false) return;
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage(g.getDamageMultiplied(damage));
 		if (damage > 0 && damager.isOnline()) g.getPlayerData(damager).addDamageDone(g.getDamageMultiplied(damage));
@@ -123,12 +125,14 @@ public class PlayerFunctions {
 		if (allowFlight) setAllowFlight(p);
 	}
 	public static void playOutDamage(Game g, Player p, int damage, boolean allowFlight){
+		if(g.getPlayerData(p).canGetDamage() == false) return;
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage(g.getDamageMultiplied(damage));
 		if (damage > 0) PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 		if (allowFlight) setAllowFlight(p);
 	}
 	public static void playOutDamage(Game g, Player p, Player damager, Vector velocity, int damage, boolean allowFlight){
+		if(g.getPlayerData(p).canGetDamage() == false) return;
 		playDamageAnimation(p, g);
 		if (damage > 0) g.getPlayerData(p).addDamage(g.getDamageMultiplied(damage));
 		p.setVelocity(velocity.multiply(g.getVelocityMultiplier() * ((double)g.getPlayerData(p).getDamage()/100) + 0.9));
