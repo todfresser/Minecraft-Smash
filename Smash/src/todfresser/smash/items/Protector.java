@@ -60,6 +60,7 @@ public class Protector extends SmashItem{
 					playerdata.addDamage(1);
 					PlayerFunctions.playDamageAnimation(player, game);
 					PlayerFunctions.updateDamageManually(player.getUniqueId(), game);
+					
 				}
 			}
 		}, 0, 5);
