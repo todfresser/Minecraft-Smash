@@ -56,10 +56,10 @@ public class Protector extends SmashItem{
 			@Override
 			public void run() {
 				Location l = player.getLocation().add(0, 0.5, 0);
-				ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 0.3f, 100, l, 40);
+				ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 0.5f, 70, l, 40);
 				
 			}
-		}, 0, 5);
+		}, 0, 1);
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			@Override
 			public void run() {	
