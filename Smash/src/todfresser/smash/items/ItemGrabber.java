@@ -13,7 +13,7 @@ public class ItemGrabber extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§fItemGrabber";
+		return "ï¿½fItemGrabber";
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ItemGrabber extends SmashItem{
 			@Override
 			public void run() {
 				if (game.containsPlayer(target) && game.getPlayerData(target).hasItem()){
-					int itemID = game.getPlayerData(target).getItemData();
+					int itemID = game.getPlayerData(target).getItemID();
 					playerdata.removeItems(player);
 					playerdata.changeItem(itemID);
 					player.getInventory().setItem(0, ItemManager.getStandardItem(itemID));

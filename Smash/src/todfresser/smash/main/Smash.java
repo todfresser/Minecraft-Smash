@@ -97,8 +97,8 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new Protector());
 		ItemManager.registerItem(new PoisonousPotato());
 		ItemManager.registerItem(new HealingField());
-		//ItemManager.registerItem(new MiniGun());
-		//ItemManager.registerItem(new TNTBomb());
+		ItemManager.registerItem(new MiniGun());
+		ItemManager.registerItem(new TNTBomb());
 		
 		EventManager.registerEvent(new InvertedSpawnChance());
 		EventManager.registerEvent(new Lightning());
@@ -141,7 +141,6 @@ public class Smash extends JavaPlugin{
 				d.setOptionValue(FlagName.SAVEON, false);
 				d.unloadWorld();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

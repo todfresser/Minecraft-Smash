@@ -32,6 +32,11 @@ public class MiniGun extends SmashItem{
 	}
 
 	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
+
+	@Override
 	public int getmaxItemUses() {
 		return 10;
 	}

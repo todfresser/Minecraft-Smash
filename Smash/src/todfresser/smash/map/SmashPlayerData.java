@@ -50,9 +50,10 @@ public class SmashPlayerData {
     private int oldItemID;
 	private int itemID;
 	private int ItemUsesLeft;
+	private int itemData;
 	public boolean canUseItem;
 	
-	public int getItemData(){
+	public int getItemID(){
 		return itemID;
 	}
 	
@@ -67,6 +68,7 @@ public class SmashPlayerData {
 		if (itemID != this.oldItemID) this.canUseItem = true;
 		this.ItemUsesLeft = data.getmaxItemUses();
 		this.itemID = itemID;
+		data.onItemAdded(this);
 	}
 	public void removeItems(Player p){
 		p.getInventory().clear();
@@ -81,6 +83,12 @@ public class SmashPlayerData {
 		this.itemID = 0;
 		p.updateInventory();
 	}
+	public void setItemData(int data){
+	    this.itemData = data;
+    }
+    public int getItemData(){
+	    return itemData;
+    }
 	public boolean OnInteract(Player whoclicked, Game game){
 		if (hasItem()){
 			SmashItemData data = ItemManager.getItemData(itemID);

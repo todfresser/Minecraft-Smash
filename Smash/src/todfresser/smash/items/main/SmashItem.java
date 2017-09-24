@@ -45,6 +45,11 @@ public abstract class SmashItem implements SmashItemData {
 	}
 
 	@Override
+	public void onItemAdded(SmashPlayerData playerData){
+
+    }
+
+	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
 		return false;
 

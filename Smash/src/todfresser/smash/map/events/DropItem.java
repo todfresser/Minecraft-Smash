@@ -14,7 +14,7 @@ public class DropItem implements Listener{
 		for (Game g : Game.getrunningGames()){
 			if (g.containsPlayer(e.getPlayer())){
 				if (g.getPlayerData(e.getPlayer()).hasItem()){
-					if (e.getItemDrop().getItemStack().getItemMeta().getDisplayName().equals(ItemManager.getItemData(g.getPlayerData(e.getPlayer()).getItemData()).getDisplayName())){
+					if (e.getItemDrop().getItemStack().getItemMeta().getDisplayName().equals(ItemManager.getItemData(g.getPlayerData(e.getPlayer()).getItemID()).getDisplayName())){
 						g.getPlayerData(e.getPlayer()).removeItems(e.getPlayer());
 					}
 				}
