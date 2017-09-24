@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
 import todfresser.smash.map.MapEditor;
@@ -108,32 +109,38 @@ public class SmashCommands implements CommandExecutor{
 			if (args[0].equalsIgnoreCase("admin") && p.hasPermission("SMASH.admin")){
 				for (Game g : Game.getrunningGames()){
 					if (g.containsPlayer(p)){
-						if(args.length == 2) {
+						if(args.length > 1) {
 							if (args[1].equalsIgnoreCase("addPercents")) {
 								if(args.length == 3) {
 									try {
 										g.getPlayerData(p).addDamage(Integer.parseInt(args[2]));
+                                        PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+                                        return true;
 									} catch(NumberFormatException ex) {
-										
-										
+
+
 									}
 									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
 								} else {
 									g.getPlayerData(p).addDamage(100);
+                                    PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 								}
 								return true;
 							}
 							if (args[1].equalsIgnoreCase("removePercents")) {
 								if(args.length == 3) {
 									try {
-										g.getPlayerData(p).addDamage(Integer.parseInt(args[2]));
+										g.getPlayerData(p).removeDamage(Integer.parseInt(args[2]));
+                                        PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+                                        return true;
 									} catch(NumberFormatException ex) {
-										
-										
+
+
 									}
 									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
 								} else {
 									g.getPlayerData(p).removeDamage(100);
+                                    PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
 								}
 								return true;
 							}
@@ -141,9 +148,11 @@ public class SmashCommands implements CommandExecutor{
 								if(args.length == 3) {
 									try {
 										g.getPlayerData(p).setDamage(Integer.parseInt(args[2]));
+                                        PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
+										return true;
 									} catch(NumberFormatException ex) {
-										
-										
+
+
 									}
 									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
 								} else {

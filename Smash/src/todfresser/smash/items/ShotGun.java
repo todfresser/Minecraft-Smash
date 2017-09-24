@@ -75,7 +75,7 @@ public class ShotGun extends SmashItem{
                     if (t > 1){
                         ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
                     }else ParticleEffect.FLAME.display(0.2f, 0.1f, 0.2f, 0.0f, 3, loc, 40);
-                    for (Entity e : loc.getWorld().getNearbyEntities(loc, 0.5, 0.5, 0.5)){
+                    for (Entity e : loc.getWorld().getNearbyEntities(loc, 0.7, 0.7, 0.7)){
                         if (e.getType().equals(EntityType.PLAYER)){
                             if (!((Player)e).getUniqueId().equals(player.getUniqueId())){
                                 if (game.getIngamePlayers().contains(((Player)e).getUniqueId())){
