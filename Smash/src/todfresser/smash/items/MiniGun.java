@@ -54,7 +54,7 @@ public class MiniGun extends SmashItem{
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		playerdata.canUseItem = true;
-        player.setVelocity(VectorFunctions.getStandardVector(player.getLocation().getYaw() - 180, 1).multiply(0.2));
+        if (Math.random() > 0.5) player.setVelocity(VectorFunctions.getStandardVector(player.getLocation().getYaw() - 180, 1).multiply(0.2));
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			Location loc = player.getLocation().add(0, 1, 0);
 			Vector direction = loc.getDirection().normalize();

@@ -56,7 +56,7 @@ public class ShotGun extends SmashItem{
             double x = direction.getX();
             double y = direction.getY();
             double z = direction.getZ();
-            Vector[] directions = new Vector[]{new Vector(x, y, z), new Vector(x + 0.15, y, z), new Vector(x - 0.15, y ,z), new Vector(x, y, z + 0.15), new Vector(x, y ,z - 0.15), new Vector(x, y + 0.15, z), new Vector(x, y - 0.15,z)};
+            Vector[] directions = new Vector[]{new Vector(x, y, z), new Vector(x + 0.2, y, z), new Vector(x - 0.2, y ,z), new Vector(x, y, z + 0.2), new Vector(x, y ,z - 0.2), new Vector(x, y + 0.2, z), new Vector(x, y - 0.2,z)};
             Location[] locations = new Location[]{loc, loc.clone(), loc.clone(), loc.clone(), loc.clone(), loc.clone(), loc.clone()};
             int t = 0;
             @Override
@@ -75,7 +75,7 @@ public class ShotGun extends SmashItem{
                     if (t > 1){
                         ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, loc, 40);
                     }else ParticleEffect.FLAME.display(0.2f, 0.1f, 0.2f, 0.0f, 3, loc, 40);
-                    for (Entity e : loc.getWorld().getNearbyEntities(loc, 0.7, 0.7, 0.7)){
+                    for (Entity e : loc.getWorld().getNearbyEntities(loc, 1.0, 1.0, 1.0)){
                         if (e.getType().equals(EntityType.PLAYER)){
                             if (!((Player)e).getUniqueId().equals(player.getUniqueId())){
                                 if (game.getIngamePlayers().contains(((Player)e).getUniqueId())){
