@@ -56,7 +56,7 @@ public class MiniGun extends SmashItem{
 			@Override
 			public void run() {
 				if (t > 20) playerdata.cancelItemRunnable(this);
-				t = t + 0.40;
+				t = t + 0.80;
 				double x = direction.getX() * 1.6;
 				double y = direction.getY() * 1.6;
 				double z = direction.getZ() * 1.6;
