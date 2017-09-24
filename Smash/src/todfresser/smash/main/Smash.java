@@ -99,6 +99,7 @@ public class Smash extends JavaPlugin{
 		ItemManager.registerItem(new HealingField());
 		ItemManager.registerItem(new MiniGun());
 		ItemManager.registerItem(new TNTBomb());
+        ItemManager.registerItem(new ShotGun());
 		
 		EventManager.registerEvent(new InvertedSpawnChance());
 		EventManager.registerEvent(new Lightning());
