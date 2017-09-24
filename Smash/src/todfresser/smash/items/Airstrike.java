@@ -16,7 +16,7 @@ import todfresser.smash.particles.ParticleEffect;
 
 public class Airstrike extends SmashItem{
 
-	private String displayName = ChatColor.STRIKETHROUGH + "§8Airstrike";
+	private String displayName = ChatColor.STRIKETHROUGH + "ï¿½8Airstrike";
 	private int itemClicked = 0;
 	
 	@Override
@@ -87,8 +87,10 @@ public class Airstrike extends SmashItem{
 				zeit += 0.5;
 			}
 		}, 0, 10);
-		
-		
-		return true;
+		if (itemClicked > 0){
+		    playerdata.canUseItem = true;
+		    return true;
+        }
+		return false;
 	}
 }

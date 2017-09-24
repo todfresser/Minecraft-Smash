@@ -23,7 +23,7 @@ public class RocketLauncher extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§cRocket§8Launcher";
+		return "ï¿½cRocketï¿½8Launcher";
 	}
 
 	@Override
@@ -48,6 +48,7 @@ public class RocketLauncher extends SmashItem{
 	
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+        player.setVelocity(VectorFunctions.getStandardVector(player.getLocation().getYaw() - 180, 1));
 		playerdata.registerItemRunnable(new BukkitRunnable() {
 			int blocks = 0;
 			Location loc = player.getLocation().add(0, 1, 0);
