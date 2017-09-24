@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
@@ -49,10 +50,11 @@ public class ItemGrabber extends SmashItem{
 			public void run() {
 				if (game.containsPlayer(target) && game.getPlayerData(target).hasItem()){
 					int itemID = game.getPlayerData(target).getItemID();
-					playerdata.removeItems(player);
+					/*playerdata.removeItems(player);
 					playerdata.changeItem(itemID);
 					player.getInventory().setItem(0, ItemManager.getStandardItem(itemID));
-					player.updateInventory();
+					player.updateInventory();*/
+                    PlayerFunctions.changeItem(player, game, itemID);
 					game.getPlayerData(target).removeItems(target);
 				}
 				playerdata.cancelItemRunnable(this);

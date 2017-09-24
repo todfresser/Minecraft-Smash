@@ -2,6 +2,7 @@ package todfresser.smash.extrafunctions;
 
 import java.util.UUID;
 
+import multiworld.addons.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -24,6 +25,7 @@ import net.minecraft.server.v1_11_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_11_R1.PacketPlayOutEntityStatus;
 import net.minecraft.server.v1_11_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_11_R1.PlayerConnection;
+import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
@@ -91,6 +93,15 @@ public class PlayerFunctions {
 		}
 		
 	}
+
+	public static void changeItem(Player p, Game g, int itemID){
+        SmashPlayerData playerdata = g.getPlayerData(p);
+        if (!playerdata.canChangeItem()) return;
+        playerdata.removeItems(p);
+        playerdata.changeItem(itemID);
+        if (itemID != 0) p.getInventory().setItem(0, ItemManager.getStandardItem(itemID));
+        p.updateInventory();
+    }
 	
 	public static void setAllowFlight(Player p){
 		if (p.getFoodLevel() >= 5){

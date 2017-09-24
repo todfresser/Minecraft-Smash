@@ -2,6 +2,7 @@ package todfresser.smash.map;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,8 +51,8 @@ public class SmashPlayerData {
     private int oldItemID;
 	private int itemID;
 	private int ItemUsesLeft;
-	private int itemData;
 	public boolean canUseItem;
+	public HashMap<Integer, Object> data = new HashMap<>();
 	
 	public int getItemID(){
 		return itemID;
@@ -63,6 +64,12 @@ public class SmashPlayerData {
 	public int getItemUsesLeft(){
 		return ItemUsesLeft;
 	}
+	public boolean canChangeItem(){
+        if (hasItem()) {
+            SmashItemData data = ItemManager.getItemData(itemID);
+            return data.canChangeItem(this);
+        }else return true;
+    }
 	public void changeItem(int itemID){
 		SmashItemData data = ItemManager.getItemData(itemID);
 		if (itemID != this.oldItemID) this.canUseItem = true;
@@ -83,11 +90,17 @@ public class SmashPlayerData {
 		this.itemID = 0;
 		p.updateInventory();
 	}
-	public void setItemData(int data){
-	    this.itemData = data;
+    public void setData(int index, Object data){
+	    this.data.put(index, data);
     }
-    public int getItemData(){
-	    return itemData;
+    public void removeData(int index){
+        data.remove(index);
+    }
+    public Object getData(int index){
+        return data.get(index);
+    }
+    public boolean hasData(int index){
+        return data.containsKey(index);
     }
 	public boolean OnInteract(Player whoclicked, Game game){
 		if (hasItem()){

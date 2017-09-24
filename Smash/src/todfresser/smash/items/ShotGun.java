@@ -1,6 +1,5 @@
 package todfresser.smash.items;
 
-import multiworld.addons.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -22,13 +22,16 @@ public class PickupItemEvent implements Listener{
 				}
 				if (!g.getPlayerData(e.getPlayer()).hasItem()){
 					PlayerFunctions.sendActionBar(e.getPlayer(), "");
-					g.getPlayerData(e.getPlayer()).changeItem(ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName()));
+					/*g.getPlayerData(e.getPlayer()).changeItem(ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName()));
 					ItemStack item = e.getItem().getItemStack();
 					item.setAmount(1);
 					e.getPlayer().getInventory().setItem(0, item);
 					e.setCancelled(true);
 					e.getItem().remove();
 					e.getPlayer().updateInventory();
+					*/
+					PlayerFunctions.changeItem(e.getPlayer(), g, ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName()));
+					e.getItem().remove();
 					return;
 				}else{
 					PlayerFunctions.sendActionBar(e.getPlayer(), ItemManager.getItemData(ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName())).getDisplayName());

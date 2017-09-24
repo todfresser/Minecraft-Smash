@@ -17,7 +17,8 @@ public interface SmashItemData {
 	int getmaxItemUses();
 	int getSpawnChance();  //Chance from 0 (very rare) to 50 (very common)
 
-    void onItemAdded(SmashPlayerData playerData);
+    void onItemAdded(SmashPlayerData playerdata);
+    boolean canChangeItem(SmashPlayerData playerdata);
 	boolean hasOnRightClickEvent();
 	boolean hasOnPlayerHitPlayerEvent();
 	boolean hasOnPlayerShootBowEvent();
