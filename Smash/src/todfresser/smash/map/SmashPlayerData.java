@@ -51,6 +51,7 @@ public class SmashPlayerData {
     private int oldItemID;
 	private int itemID;
 	private int ItemUsesLeft;
+	private int uniqueItemID = 0;
 	public boolean canUseItem;
 	public HashMap<Integer, Object> data = new HashMap<>();
 	
@@ -70,11 +71,17 @@ public class SmashPlayerData {
             return data.canChangeItem(this);
         }else return true;
     }
-	public void changeItem(int itemID){
+
+    public int getUniqueItemID() {
+        return hasItem() ? uniqueItemID : -1;
+    }
+
+    public void changeItem(int itemID){
 		SmashItemData data = ItemManager.getItemData(itemID);
 		if (itemID != this.oldItemID) this.canUseItem = true;
 		this.ItemUsesLeft = data.getmaxItemUses();
 		this.itemID = itemID;
+		this.uniqueItemID++;
 		data.onItemAdded(this);
 	}
 	public void removeItems(Player p){

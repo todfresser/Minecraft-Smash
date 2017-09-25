@@ -64,16 +64,15 @@ public class Airstrike extends SmashItem{
 		Location particleSpawn = player.getLocation().add(0, 0.5, 0);
 		
 		playerdata.registerItemRunnable(new BukkitRunnable() {
-			
+            int itemID = playerdata.getUniqueItemID();
 			float zeit = 0;
 			
 			@Override
 			public void run() {
 				ParticleEffect.CLOUD.display(0.5f, 1.3f, 0.5f, 0.3f, 20, particleSpawn, 40);
 				if(zeit == 10 || (boolean)playerdata.getData(444) == true) {
-				    BukkitRunnable[] runnables = new BukkitRunnable[20];
 					for(int i = 0;i < 20; i++) {
-						runnables[i] = playerdata.registerItemRunnable(new BukkitRunnable() {
+						playerdata.registerItemRunnable(new BukkitRunnable() {
 							Location airstrikeLocation = player.getLocation().add( Math.random()*10-5, Math.random()*5 + 12.5,  Math.random()*10-5);
 
 							@Override
@@ -85,18 +84,17 @@ public class Airstrike extends SmashItem{
 									}
 								}
 								if(airstrikeLocation.getY() <= 0 || !airstrikeLocation.getBlock().getType().equals(Material.AIR)) {
-								    playerdata.removeData(444);
-								    player.teleport(particleSpawn);
-								    PlayerFunctions.changeItem(player, game, 0);
-								    System.out.println("canceled");
-									for (BukkitRunnable runnable : runnables){
-									    playerdata.cancelItemRunnable(runnable);
-                                    }
+                                    playerdata.cancelItemRunnable(this);
 									return;
 								}
 							}
 						}, 0, 1);	
-					}	
+					}
+                    if (playerdata.hasData(444)){
+                        playerdata.removeData(444);
+                        player.teleport(particleSpawn);
+                        if (playerdata.getUniqueItemID() == itemID) PlayerFunctions.changeItem(player, game, 0);
+                    }
 					playerdata.cancelItemRunnable(this);
 				}
 				zeit += 0.5;

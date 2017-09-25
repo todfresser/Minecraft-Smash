@@ -30,6 +30,7 @@ public class PickupItemEvent implements Listener{
 					e.getItem().remove();
 					e.getPlayer().updateInventory();
 					*/
+                    e.setCancelled(true);
 					PlayerFunctions.changeItem(e.getPlayer(), g, ItemManager.getItemDataID(e.getItem().getItemStack().getType(), e.getItem().getItemStack().getItemMeta().getDisplayName()));
 					e.getItem().remove();
 					return;
