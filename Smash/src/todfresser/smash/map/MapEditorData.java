@@ -24,6 +24,7 @@ public class MapEditorData {
 	public Location lobbyspawnpoint;
 	public ArrayList<Location> playerspawns;
 	public ArrayList<Location> itemspawns;
+	public ArrayList<Location> teleporters;
 	public Location leavesign;
 	public Location itemsign;
 	public Location itemchancesign;
@@ -35,9 +36,6 @@ public class MapEditorData {
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.GRAY + "Map: " + ChatColor.GOLD + name);
 		return inv;
 	}
-	/*public void updateScoreboard(){
-		
-	}*/
 	
 	public MapEditorData(UUID id, String name){
 		this.SpielerID = id;
@@ -48,6 +46,7 @@ public class MapEditorData {
 		this.Inv = setupInventory();
 		this.playerspawns = new ArrayList<>();
 		this.itemspawns = new ArrayList<>();
+		this.teleporters = new ArrayList<>();
 		MapEditorItems.setInventory(this, EditorInventoryType.SAVEDELETE);
 	}
 	
@@ -63,6 +62,7 @@ public class MapEditorData {
 		this.lobbyspawnpoint = m.getLobbySpawnPoint(w);
 		this.playerspawns = m.getPlayerSpawns(w);
 		this.itemspawns = m.getItemSpawns(w);
+		this.teleporters = m.getTeleporters(w);
 		this.worldtoCopy = m.getWorldtoCopy().getName();
 		if (m.getleaveSign(w) != null) this.leavesign = m.getleaveSign(w).getLocation();
 		if (m.getItemSign(w) != null) this.itemsign = m.getItemSign(w).getLocation();
@@ -82,7 +82,7 @@ public class MapEditorData {
 				}
 			}
 		}else m = new Map(name);
-		m.create(worldtoCopy, time, type, spectatorspawn, lobbyspawnpoint, leavepoint, playerspawns, itemspawns, leavesign.toVector(), itemsign.toVector(), itemchancesign.toVector(), livesign.toVector(), eventsign.toVector());
+		m.create(worldtoCopy, time, type, spectatorspawn, lobbyspawnpoint, leavepoint, playerspawns, itemspawns, teleporters, leavesign.toVector(), itemsign.toVector(), itemchancesign.toVector(), livesign.toVector(), eventsign.toVector());
 	}
 	
 }

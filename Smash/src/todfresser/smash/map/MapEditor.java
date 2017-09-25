@@ -28,8 +28,6 @@ public class MapEditor implements Listener{
 	public static List<MapEditorData> editors = new ArrayList<>();
 	public static List<UUID> cantClick = new ArrayList<>();
 	
-	//public static List<UUID> players = new ArrayList<>();
-	
 	public static void open(Player p, String MapName){
 		for (MapEditorData d : editors){
 			if (d.SpielerID.equals(p.getUniqueId())){
@@ -105,17 +103,21 @@ public class MapEditor implements Listener{
 				MapEditorItems.setInventory(d, EditorInventoryType.ITEMSPAWNS);
 				return;
 			}
+            if (i.getDisplayName().equals(ChatColor.WHITE + "Teleporter")){
+                MapEditorItems.setInventory(d, EditorInventoryType.TELEPORTERS);
+                return;
+            }
 			if (i.getDisplayName().equals(ChatColor.WHITE + "Schilder")){
 				MapEditorItems.setInventory(d, EditorInventoryType.COMMANDSIGNS);
 				return;
 			}
 			
 			
-			if (i.getDisplayName().equals(ChatColor.WHITE + "Löschen")){
+			if (i.getDisplayName().equals(ChatColor.WHITE + "Lï¿½schen")){
 				Map.getMapfromString(d.name).delete();
 				d.exists = false;
 				MapEditorItems.setInventory(d, EditorInventoryType.SAVEDELETE);
-				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das Löschen rückgängig zu machen,");
+				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das Lï¿½schen rï¿½ckgï¿½ngig zu machen,");
 				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "klicke erneut auf Erstellen!");
 				return;
 			}
@@ -133,7 +135,7 @@ public class MapEditor implements Listener{
 					editors.remove(d);
 					d.time = (int) Bukkit.getWorld(d.worldtoCopy).getTime();
 					d.create();
-				}else e.getWhoClicked().sendMessage(Smash.pr + "ERROR: Du hast die Map noch nicht vollständig erstellt.");
+				}else e.getWhoClicked().sendMessage(Smash.pr + "ERROR: Du hast die Map noch nicht vollstï¿½ndig erstellt.");
 				return;
 			}
 			
@@ -173,6 +175,25 @@ public class MapEditor implements Listener{
 				MapEditorItems.setInventory(d, EditorInventoryType.ITEMSPAWNS);
 				return;
 			}
+
+            if (i.getDisplayName().equals(MapEditorItems.ADDTELEPORTER(d.teleporters).getItemMeta().getDisplayName())){
+                Location l = new Location(e.getWhoClicked().getWorld(), e.getWhoClicked().getLocation().getBlockX() + 0.5, e.getWhoClicked().getLocation().getY() + 1, e.getWhoClicked().getLocation().getBlockZ() + 0.5);
+                l.setYaw(e.getWhoClicked().getLocation().getYaw());
+                d.teleporters.add(l);
+                MapEditorItems.setInventory(d, EditorInventoryType.TELEPORTERS);
+                return;
+            }
+            if (i.getDisplayName().equals(MapEditorItems.DELETETELEPORTERS(d.teleporters).getItemMeta().getDisplayName())){
+                d.teleporters.clear();
+                MapEditorItems.setInventory(d, EditorInventoryType.TELEPORTERS);
+                return;
+            }
+            if (i.getDisplayName().equals(MapEditorItems.SHOWTELEPORTERS(d.teleporters).getItemMeta().getDisplayName())){
+                showLocations((Player) e.getWhoClicked(), d.teleporters);
+                ((Player) e.getWhoClicked()).closeInventory();
+                MapEditorItems.setInventory(d, EditorInventoryType.TELEPORTERS);
+                return;
+            }
 			
 			if (i.getDisplayName().equals(MapEditorItems.SPECTATORSPAWN(d.spectatorspawn).getItemMeta().getDisplayName())){
 				d.spectatorspawn = e.getWhoClicked().getLocation();
@@ -217,7 +238,7 @@ public class MapEditor implements Listener{
 				if (e.getLine(0).equals("lives")){
 					s.setLine(0, "");
 					s.setLine(1, ChatColor.BLUE + "Lebensanzahl");
-					s.setLine(2, ChatColor.BLUE + "verändern");
+					s.setLine(2, ChatColor.BLUE + "verï¿½ndern");
 					s.setLine(3, "");
 					s.update();
 					e.setCancelled(true);
@@ -279,22 +300,4 @@ public class MapEditor implements Listener{
 			}
 		}.runTaskTimer(Smash.getInstance(), 0, 5);
 	}
-	/*private static void showLocations(Player p, List<Vector> collection, World w){
-		new BukkitRunnable() {
-			Location l;
-			int count = 50;
-			@Override
-			public void run() {
-				if (count <= 0){
-					this.cancel();
-					return;
-				}
-				count--;
-				for (Vector v : collection){
-					l = new Location(w, v.getX(), v.getY(), v.getZ());
-					p.spigot().playEffect(l, Effect.PORTAL, 1, 1, 0.1f, 0.1f, 0.1f, 0.001f, 15, 50);
-				}
-			}
-		}.runTaskTimer(Smash.getInstance(), 0, 5);
-	}*/
 }

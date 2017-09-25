@@ -23,7 +23,6 @@ import todfresser.smash.main.Smash;
 
 public class Map {
 	private final String name;
-	//private final String currentWorldName;
 	private FileConfiguration cfg;
 	
 	private static ArrayList<Map> maps = new ArrayList<>();
@@ -46,7 +45,7 @@ public class Map {
 					File file = new File(fileNames[i]);
 					try {
 						FileUtils.deleteDirectory(file);
-						System.out.println("[Smash] Die Welt " + fileNames[i].replace(".yml", "") + " wurde gelöscht!");
+						System.out.println("[Smash] Die Welt " + fileNames[i].replace(".yml", "") + " wurde gelï¿½scht!");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -169,13 +168,25 @@ public class Map {
 			if ((loc.equals("")) || (loc == null)) continue;
 			String[] s = loc.split(",");
 			locs.add(new Location(w, Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2])));
-			//Vector v = new Vector(Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]));
-			//l.add(v);
 		}
 		return locs;
 	}
 
-	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign, Vector eventsign){
+	public ArrayList<Location> getTeleporters(World w){
+        ArrayList<Location> locs = new ArrayList<>();
+        if (cfg.contains("Teleporters")){
+            String[] spawns = cfg.getString("Teleporters").split("#");
+            if (spawns.length < 2) return locs;
+            for (String loc : spawns){
+                if ((loc.equals("")) || (loc == null)) continue;
+                String[] s = loc.split(",");
+                locs.add(new Location(w, Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2])));
+            }
+        }
+        return locs;
+    }
+
+	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, ArrayList<Location> teleporters, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign, Vector eventsign){
 		File file = new File("plugins/Smash/Maps", name + ".yml");
 		String signS = null;
 		
@@ -221,6 +232,12 @@ public class Map {
 			sb2.append(l.getX() + "," + l.getY() + "," + l.getZ() + "#");
 		}
 		cfg.set("Itemspawns", sb2.toString());
+
+        StringBuilder sb3 = new StringBuilder();
+        for (Location l : teleporters){
+            sb3.append(l.getX() + "," + l.getY() + "," + l.getZ() + "," + l.getYaw() + "#");
+        }
+        cfg.set("Teleporters", sb3.toString());
 		
 		try {
 			cfg.save(file);
@@ -283,7 +300,7 @@ public class Map {
 		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild um die Anzahl der Leben zu verändern existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild um die Anzahl der Leben zu verï¿½ndern existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
 			return null;
 		}
 	}
@@ -331,7 +348,7 @@ public class Map {
 			
 			return w;
 		}catch(Exception e){
-			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollständig erstellt werden.");
+			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollstï¿½ndig erstellt werden.");
 		}
 		return null;
 	}
@@ -344,9 +361,9 @@ public class Map {
             DynamicClassFunctions.forceUnloadWorld(w);
             DynamicClassFunctions.clearWorldReference(wn);
             FileUtils.deleteDirectory(file);
-        	System.out.println("[Smash] Die Welt " + wn + " wurde gelöscht.");
+        	System.out.println("[Smash] Die Welt " + wn + " wurde gelï¿½scht.");
 		}catch(Exception e){
-			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollständig gelöscht werden.");
+			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollstï¿½ndig gelï¿½scht werden.");
 		}
 		
 	}

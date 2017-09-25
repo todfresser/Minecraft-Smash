@@ -51,6 +51,7 @@ public class SmashCommands implements CommandExecutor{
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_6);
 					p.sendMessage(Smash.pr + SM.Command_Help_Admin_7);
+					return true;
 				}
 			}
 			if (args[0].equalsIgnoreCase("start")){
@@ -107,96 +108,96 @@ public class SmashCommands implements CommandExecutor{
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("admin") && p.hasPermission("SMASH.admin")){
-				for (Game g : Game.getrunningGames()){
-					if (g.containsPlayer(p)){
-						if(args.length > 1) {
-							if (args[1].equalsIgnoreCase("addPercents")) {
-								if(args.length == 3) {
-									try {
-										g.getPlayerData(p).addDamage(Integer.parseInt(args[2]));
+                if(args.length > 1) {
+                    if (args[1].equalsIgnoreCase("edit")){
+                        if (p.hasPermission("SMASH.admin") == false){
+                            p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
+                            return true;
+                        }
+                        if (args.length == 3){
+                            MapEditor.open(p, args[2]);
+                        }else{
+                            p.sendMessage(Smash.pr + "Usage: /smash edit <mapname>");
+                        }
+                        return true;
+                    }
+                    if (args[1].equalsIgnoreCase("maps")){
+                        p.sendMessage(Smash.pr + SM.Command_Maps_1);
+                        if (Map.getloadedMaps().isEmpty() || Map.getallMapnames() == null){
+                            p.sendMessage(Smash.pr + SM.Command_Error_NoMaps);
+                            return true;
+                        }
+                        for (Map m : Map.getloadedMaps()){
+                            p.sendMessage(Smash.pr + SM.Command_Maps_list.toString().replaceAll("%MAPNAME%", m.getName()));
+                        }
+                        return true;
+                    }
+                    if (args[1].equalsIgnoreCase("games")){
+                        p.sendMessage(Smash.pr + SM.Command_Games_1);
+                        if (Game.getrunningGames().size() == 0){
+                            p.sendMessage(Smash.pr + SM.Command_Error_NoGames);
+                            return true;
+                        }
+                        for (Game g1 : Game.getrunningGames()){
+                            p.sendMessage(Smash.pr + SM.Command_Games_list.toString().replaceAll("%MAPNAME%", g1.getMap().getName()).replaceAll("%GAMESTATE%", g1.getGameState().getName()));
+                        }
+                        return true;
+                    }
+                    for (Game g : Game.getrunningGames()){
+                        if (g.containsPlayer(p)){
+                            if (args[1].equalsIgnoreCase("addPercents")) {
+                                if(args.length == 3) {
+                                    try {
+                                        g.getPlayerData(p).addDamage(Integer.parseInt(args[2]));
                                         PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
                                         return true;
-									} catch(NumberFormatException ex) {
+                                    } catch(NumberFormatException ex) {
 
 
-									}
-									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
-								} else {
-									g.getPlayerData(p).addDamage(100);
+                                    }
+                                    p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
+                                } else {
+                                    g.getPlayerData(p).addDamage(100);
                                     PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
-								}
-								return true;
-							}
-							if (args[1].equalsIgnoreCase("removePercents")) {
-								if(args.length == 3) {
-									try {
-										g.getPlayerData(p).removeDamage(Integer.parseInt(args[2]));
+                                }
+                                return true;
+                            }
+                            if (args[1].equalsIgnoreCase("removePercents")) {
+                                if(args.length == 3) {
+                                    try {
+                                        g.getPlayerData(p).removeDamage(Integer.parseInt(args[2]));
                                         PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
                                         return true;
-									} catch(NumberFormatException ex) {
+                                    } catch(NumberFormatException ex) {
 
 
-									}
-									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
-								} else {
-									g.getPlayerData(p).removeDamage(100);
+                                    }
+                                    p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
+                                } else {
+                                    g.getPlayerData(p).removeDamage(100);
                                     PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
-								}
-								return true;
-							}
-							if (args[1].equalsIgnoreCase("setPercents")) {
-								if(args.length == 3) {
-									try {
-										g.getPlayerData(p).setDamage(Integer.parseInt(args[2]));
+                                }
+                                return true;
+                            }
+                            if (args[1].equalsIgnoreCase("setPercents")) {
+                                if(args.length == 3) {
+                                    try {
+                                        g.getPlayerData(p).setDamage(Integer.parseInt(args[2]));
                                         PlayerFunctions.updateDamageManually(p.getUniqueId(), g);
-										return true;
-									} catch(NumberFormatException ex) {
+                                        return true;
+                                    } catch(NumberFormatException ex) {
 
 
-									}
-									p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
-								} else {
-									p.sendMessage(Smash.pr + SM.Command_Error_noParameters);
-								}
-								return true;
-							}
-							if (args[1].equalsIgnoreCase("edit")){
-								if (p.hasPermission("SMASH.admin") == false){
-									p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
-									return true;
-								}
-								if (args.length == 2){
-									MapEditor.open(p, args[1]);
-								}else{
-									p.sendMessage(Smash.pr + "Usage: /smash edit <mapname>");
-								}
-								return true;
-							}
-							if (args[1].equalsIgnoreCase("maps")){
-								p.sendMessage(Smash.pr + SM.Command_Maps_1);
-								if (Map.getloadedMaps().isEmpty() || Map.getallMapnames() == null){
-									p.sendMessage(Smash.pr + SM.Command_Error_NoMaps);
-									return true;
-								}
-								for (Map m : Map.getloadedMaps()){
-									p.sendMessage(Smash.pr + SM.Command_Maps_list.toString().replaceAll("%MAPNAME%", m.getName()));
-								}
-								return true;
-							}
-							if (args[1].equalsIgnoreCase("games")){
-								p.sendMessage(Smash.pr + SM.Command_Games_1);
-								if (Game.getrunningGames().size() == 0){
-									p.sendMessage(Smash.pr + SM.Command_Error_NoGames);
-									return true;
-								}
-								for (Game g1 : Game.getrunningGames()){
-									p.sendMessage(Smash.pr + SM.Command_Games_list.toString().replaceAll("%MAPNAME%", g1.getMap().getName()).replaceAll("%GAMESTATE%", g1.getGameState().getName()));
-								}
-								return true;
-							}
-						}
-					}
-				}
+                                    }
+                                    p.sendMessage(Smash.pr + SM.Command_Error_wrongParameters);
+                                } else {
+                                    p.sendMessage(Smash.pr + SM.Command_Error_noParameters);
+                                }
+                                return true;
+                            }
+                        }
+                    }
+                }
 			}
 			p.sendMessage(Smash.pr + SM.Command_Error_Unavailable);
 			return true;

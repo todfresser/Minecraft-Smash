@@ -74,16 +74,17 @@ public class Airstrike extends SmashItem{
 					for(int i = 0;i < 20; i++) {
 						playerdata.registerItemRunnable(new BukkitRunnable() {
 							Location airstrikeLocation = player.getLocation().add( Math.random()*10-5, Math.random()*5 + 12.5,  Math.random()*10-5);
-
+							boolean hit = false;
 							@Override
 							public void run() {
 								ParticleEffect.FIREWORKS_SPARK.display(0.0f, 0.0f, 0.0f, 0.0f, 1, airstrikeLocation.add(0, -0.5, 0), 40);
 								for (Entity e : airstrikeLocation.getWorld().getNearbyEntities(airstrikeLocation, 1.5, 1.5, 1.5)){
 									if (e.getType().equals(EntityType.PLAYER)){
-                                        PlayerFunctions.playOutDamage(game, (Player)e, 3, false);
+                                        PlayerFunctions.playOutDamage(game, (Player)e, 4, false);
+                                        hit = true;
 									}
 								}
-								if(airstrikeLocation.getY() <= 0 || !airstrikeLocation.getBlock().getType().equals(Material.AIR)) {
+								if(airstrikeLocation.getY() <= 0 || !airstrikeLocation.getBlock().getType().equals(Material.AIR) || hit) {
                                     playerdata.cancelItemRunnable(this);
 									return;
 								}

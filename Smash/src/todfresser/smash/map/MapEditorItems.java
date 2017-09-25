@@ -17,6 +17,7 @@ public class MapEditorItems {
 		GLOBALSPAWNS,
 		PLAYERSPAWNS,
 		ITEMSPAWNS,
+        TELEPORTERS,
 		COMMANDSIGNS,
 		SAVEDELETE;
 	}
@@ -27,8 +28,8 @@ public class MapEditorItems {
 		i.setItem(4, GLOBALSPAWNS(d));
 		i.setItem(5, PLAYERSPAWNS(d.playerspawns));
 		i.setItem(6, ITEMSPAWNS(d.itemspawns));
-		i.setItem(7, SIGNS(d.leavesign, d.livesign, d.itemsign, d.itemchancesign, d.eventsign));
-		i.setItem(8, EmptySpace_GRAY());
+        i.setItem(7, TELEPORTER(d.teleporters));
+		i.setItem(8, SIGNS(d.leavesign, d.livesign, d.itemsign, d.itemchancesign, d.eventsign));
 		clear(i);
 		updateIcon(i, d.type);
 		if (type.equals(EditorInventoryType.SAVEDELETE)){
@@ -58,6 +59,11 @@ public class MapEditorItems {
 			i.setItem(23, ADDITEMSPAWN(d.itemspawns));
 			return;
 		}
+		if (type.equals(EditorInventoryType.TELEPORTERS)){
+            i.setItem(21, DELETETELEPORTERS(d.teleporters));
+            i.setItem(22, SHOWTELEPORTERS(d.teleporters));
+            i.setItem(23, ADDTELEPORTER(d.teleporters));
+        }
 		if (type.equals(EditorInventoryType.COMMANDSIGNS)){
 			i.setItem(21, LEAVESIGN(d.leavesign));
 			i.setItem(22, ITEMSIGN(d.itemsign));
@@ -152,12 +158,12 @@ public class MapEditorItems {
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
 			l.add(ChatColor.GRAY + Integer.toString(loc.getBlockX()) + ", " + Integer.toString(loc.getBlockY()) + ", " + Integer.toString(loc.getBlockZ()));
-			meta.setDisplayName(ChatColor.GREEN + "Schild zum Ändern der Leben");
+			meta.setDisplayName(ChatColor.GREEN + "Schild zum ï¿½ndern der Leben");
 			meta.setLore(l);
 		}else{
 			l.add(ChatColor.GRAY + "Schreibe " + ChatColor.GREEN + "lives");
 			l.add(ChatColor.GRAY + "auf ein Schild");
-			meta.setDisplayName(ChatColor.RED + "Schild zum Ändern der Leben");
+			meta.setDisplayName(ChatColor.RED + "Schild zum ï¿½ndern der Leben");
 			meta.setLore(l);
 		}
 		i.setItemMeta(meta);
@@ -247,7 +253,7 @@ public class MapEditorItems {
 		meta.setDisplayName(ChatColor.WHITE + "Zeige alle Itemspawnpunkte");
 		List<String> l = new ArrayList<>();
 		for (Location loc : itemspawns){
-			l.add(ChatColor.GRAY + ">> " + loc.getX() + "," + loc.getBlockY() + "," + loc.getZ());
+			l.add(ChatColor.GRAY + ">> " +  + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ());
 		}
 		meta.setLore(l);
 		i.setItemMeta(meta);
@@ -267,6 +273,33 @@ public class MapEditorItems {
 		i.setItemMeta(meta);
 		return i;
 	}
+
+    public static ItemStack SHOWTELEPORTERS(ArrayList<Location> teleporters){
+        ItemStack i = new ItemStack(Material.ENDER_PORTAL_FRAME, 1);
+        ItemMeta meta = i.getItemMeta();
+        meta.setDisplayName(ChatColor.WHITE + "Zeige alle Teleporter");
+        List<String> l = new ArrayList<>();
+        for (Location loc : teleporters){
+            l.add(ChatColor.GRAY + ">> " + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ());
+        }
+        meta.setLore(l);
+        i.setItemMeta(meta);
+        return i;
+    }
+    public static ItemStack ADDTELEPORTER(ArrayList<Location> teleporters){
+        ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)2);
+        ItemMeta meta = i.getItemMeta();
+        meta.setDisplayName(ChatColor.WHITE + "Setze den " + (teleporters.size() + 1) + " Teleporter");
+        i.setItemMeta(meta);
+        return i;
+    }
+    public static ItemStack DELETETELEPORTERS(ArrayList<Location> teleporters){
+        ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)14);
+        ItemMeta meta = i.getItemMeta();
+        meta.setDisplayName(ChatColor.WHITE + "Entferne alle " + teleporters.size() + " Teleporter");
+        i.setItemMeta(meta);
+        return i;
+    }
 	
 	
 	public static ItemStack GLOBALSPAWNS(MapEditorData d){
@@ -309,6 +342,17 @@ public class MapEditorItems {
 		i.setItemMeta(meta);
 		return i;
 	}
+    public static ItemStack TELEPORTER(ArrayList<Location> teleporter){
+        ItemStack i = new ItemStack(Material.ENDER_PORTAL_FRAME, 1);
+        ItemMeta meta = i.getItemMeta();
+        meta.setDisplayName(ChatColor.WHITE + "Teleporter");
+        List<String> l = new ArrayList<>();
+        if (teleporter.size() < 2) l.add(ChatColor.RED + Integer.toString(teleporter.size()) + " Teleporter");
+        if (teleporter.size() > 1) l.add(ChatColor.GREEN + Integer.toString(teleporter.size()) + " Teleporter");
+        meta.setLore(l);
+        i.setItemMeta(meta);
+        return i;
+    }
 	public static ItemStack SIGNS(Location leavesign, Location livesign, Location itemsign, Location itemchancesign, Location eventsign){
 		ItemStack i = new ItemStack(Material.SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
@@ -356,7 +400,7 @@ public class MapEditorItems {
 		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GREEN.getDyeData());
 		ItemMeta meta = i.getItemMeta();
 		if (exists == false) meta.setDisplayName(ChatColor.WHITE + "Erstellen");
-		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "Überschreiben");
+		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "ï¿½berschreiben");
 		i.setItemMeta(meta);
 		return i;
 	}
@@ -374,7 +418,7 @@ public class MapEditorItems {
 		if (exists){
 			ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.RED.getDyeData());
 			ItemMeta meta = i.getItemMeta();
-			meta.setDisplayName(ChatColor.WHITE + "Löschen");
+			meta.setDisplayName(ChatColor.WHITE + "Lï¿½schen");
 			i.setItemMeta(meta);
 			return i;
 		}

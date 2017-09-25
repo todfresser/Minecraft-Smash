@@ -34,7 +34,7 @@ public class ItemGrabber extends SmashItem{
 
 	@Override
 	public int getSpawnChance() {
-		return 10;
+		return 18;
 	}
 	
 	@Override

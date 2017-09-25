@@ -69,6 +69,8 @@ public class Game implements Runnable{
 	
 	
 	List<BukkitRunnable> tasks = new ArrayList<>();
+
+	TeleporterRunnable teleporterRunnable = null;
 	
     public void registerEventRunnable(BukkitRunnable itemrunnable, long delay, long period){
     	itemrunnable.runTaskTimer(Smash.getInstance(), delay, period);
@@ -345,7 +347,7 @@ public class Game implements Runnable{
 		if (lives != null){
 			lives.setLine(0, ChatColor.GOLD + "");
 			lives.setLine(1, ChatColor.DARK_BLUE + "Lebensanzahl");
-			lives.setLine(2, ChatColor.DARK_BLUE + "verändern");
+			lives.setLine(2, ChatColor.DARK_BLUE + "verï¿½ndern");
 			lives.setLine(3, ChatColor.GOLD + "");
 			lives.update();
 		}
@@ -504,7 +506,7 @@ public class Game implements Runnable{
 				p.sendMessage(Smash.pr + "Du bist bereits in einem Spiel.");
 			}
 		}else{
-			p.sendMessage(Smash.pr + "Dieses Spiel läuft bereits.");
+			p.sendMessage(Smash.pr + "Dieses Spiel lï¿½uft bereits.");
 		}
 		//updateSign(); !!!!!!!
 	}
@@ -572,6 +574,7 @@ public class Game implements Runnable{
 	}
     
     public void delete(boolean deletefromList){
+	    if (teleporterRunnable != null && teleporterRunnable.isScheduled()) teleporterRunnable.cancel();
     	Bukkit.getScheduler().cancelTask(taskID);
     	cancelAllEventRunnables();
     	/*if (deletefromList) {
@@ -712,7 +715,7 @@ public class Game implements Runnable{
 					for (UUID id : getIngamePlayers()){
 						p = Bukkit.getPlayer(id);
 						PlayerFunctions.sendTitle(p, 1, 1, 1, "", "");
-						PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GOLD + "Viel Glück");
+						PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GOLD + "Viel Glï¿½ck");
 						p.getInventory().clear();
 						p.getInventory().setArmorContents(null);
 						p.setGameMode(GameMode.SURVIVAL);
@@ -731,6 +734,7 @@ public class Game implements Runnable{
 						p.setAllowFlight(true);
 						p.getInventory().setHeldItemSlot(0);
 					}
+                    teleporterRunnable = new TeleporterRunnable(this);
 					this.setGameState(GameState.Running);
 					return;
 				}
