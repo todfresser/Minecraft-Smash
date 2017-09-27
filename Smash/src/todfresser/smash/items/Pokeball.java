@@ -17,7 +17,7 @@ public class Pokeball extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§cP§fo§ck§fe§cb§fa§cl§fl";
+		return "Â§cPÂ§foÂ§ckÂ§feÂ§cbÂ§faÂ§clÂ§fl";
 	}
 
 	@Override

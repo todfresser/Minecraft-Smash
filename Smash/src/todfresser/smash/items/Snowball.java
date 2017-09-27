@@ -11,7 +11,7 @@ public class Snowball extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§bSnowball";
+		return "Â§bSnowball";
 	}
 
 	@Override

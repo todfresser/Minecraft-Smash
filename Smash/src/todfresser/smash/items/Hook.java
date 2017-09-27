@@ -12,7 +12,7 @@ public class Hook extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§fHook";
+		return "Â§fHook";
 	}
 
 	@Override

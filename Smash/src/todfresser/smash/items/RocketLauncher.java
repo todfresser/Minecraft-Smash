@@ -23,7 +23,7 @@ public class RocketLauncher extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "�cRocket�8Launcher";
+		return "§cRocket§8Launcher";
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class GoldenApple extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "ง5GoldenApple";
+		return "ยง5GoldenApple";
 	}
 
 	@Override
@@ -35,9 +35,11 @@ public class GoldenApple extends SmashItem{
 	}
 
 	@Override
-	public boolean onRightClickEvent(SmashPlayerData playerdata, Player whoclicked, Game game) {
-		playerdata.removeDamage(100);
-		PlayerFunctions.updateDamageManually(whoclicked.getUniqueId(), game);
+	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
+		playerdata.removeDamage(50);
+		PlayerFunctions.updateDamageManually(player.getUniqueId(), game);
+		player.setFoodLevel(20);
+		PlayerFunctions.setAllowFlight(player);
 		playerdata.canUseItem = true;
 		return true;
 	}

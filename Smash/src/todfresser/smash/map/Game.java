@@ -21,6 +21,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
@@ -521,12 +522,9 @@ public class Game implements Runnable{
 			if (p.getGameMode().equals(GameMode.SURVIVAL) || p.getGameMode().equals(GameMode.ADVENTURE)){
 				p.setAllowFlight(false);
 			}else p.setAllowFlight(true);
-			PlayerInventory inv = players.get(p.getUniqueId()).getpreviousInventory();
-			for (int i = 0; i < inv.getSize(); i++){
-				if (inv.getItem(i) != null && !inv.getItem(i).getType().equals(Material.AIR)){
-					p.getInventory().setItem(i, inv.getItem(i));
-				}
-			}
+			ItemStack[] contents = players.get(p.getUniqueId()).getpreviousInventory();
+			p.getInventory().setContents(contents);
+
 			//p.getInventory().setContents(inv.getContents());
 			//p.getInventory().setArmorContents(inv.getArmorContents());
 			players.get(p.getUniqueId()).cancelAllItemRunnables();

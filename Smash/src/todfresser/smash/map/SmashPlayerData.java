@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -21,7 +22,7 @@ public class SmashPlayerData {
 	//
 	
 	//previusData:
-	private final PlayerInventory previousInv;
+	private final ItemStack[] previousInv;
 	private final GameMode previousGameMode;
 	
 	//ItemTasks
@@ -199,7 +200,7 @@ public class SmashPlayerData {
 	
 	public SmashPlayerData(PlayerInventory PreviousInv, GameMode PreviusGameMode, int startlives){
 		type = PlayerType.Ingame;
-		previousInv = PreviousInv;
+		previousInv = PreviousInv.getContents();
 		previousGameMode = PreviusGameMode;
 		lives = startlives;
 		damage = 0;
@@ -232,7 +233,7 @@ public class SmashPlayerData {
 		kills++;
 	}
 	
-	public PlayerInventory getpreviousInventory(){
+	public ItemStack[] getpreviousInventory(){
 		return previousInv;
 	}
 	

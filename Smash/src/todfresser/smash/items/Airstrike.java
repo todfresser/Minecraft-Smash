@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class Airstrike extends SmashItem{
 
-	private String displayName = ChatColor.STRIKETHROUGH + "�8Airstrike";
+	private String displayName = ChatColor.STRIKETHROUGH + "§8Airstrike";
 	
 	@Override
 	public String getDisplayName() {

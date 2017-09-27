@@ -25,7 +25,7 @@ public class BlackHole extends SmashItem{
 	@Override
 	public String getDisplayName() {
 		
-		return "ง8BlackHole";
+		return "ยง8BlackHole";
 	}
 
 	@Override

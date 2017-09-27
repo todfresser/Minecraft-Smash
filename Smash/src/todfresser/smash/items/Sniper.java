@@ -13,7 +13,7 @@ public class Sniper extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "�5Sniper";
+		return "§5Sniper";
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class JetPack extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§fJ§7e§ft§7P§fa§7c§fk";
+		return "Â§fJÂ§7eÂ§ftÂ§7PÂ§faÂ§7cÂ§fk";
 	}
 
 	@Override

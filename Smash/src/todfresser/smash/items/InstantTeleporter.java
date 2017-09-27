@@ -14,7 +14,7 @@ public class InstantTeleporter extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "ง2Instant Teleporter";
+		return "ยง2Instant Teleporter";
 	}
 
 	@Override

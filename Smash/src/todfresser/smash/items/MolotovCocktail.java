@@ -19,7 +19,7 @@ public class MolotovCocktail extends SmashItem{
 	@Override
 	public String getDisplayName() {
 
-		return "งcMง6oงelงcoง6tงeoงcvง6Cงeoงccง6kงetงcaง6iงel";
+		return "ยงcMยง6oยงelยงcoยง6tยงeoยงcvยง6Cยงeoยงccยง6kยงetยงcaยง6iยงel";
 	}
 	
 	@Override

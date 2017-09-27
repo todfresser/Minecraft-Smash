@@ -23,7 +23,7 @@ public class Grenade extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§7G§fr§7e§fn§7a§fd§7e";
+		return "Â§7GÂ§frÂ§7eÂ§fnÂ§7aÂ§fdÂ§7e";
 	}
 
 	@Override

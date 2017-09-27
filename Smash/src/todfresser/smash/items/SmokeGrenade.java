@@ -18,7 +18,7 @@ public class SmokeGrenade extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "§8Smoke§7G§fr§7e§fn§7a§fd§7e";
+		return "Â§8SmokeÂ§7GÂ§frÂ§7eÂ§fnÂ§7aÂ§fdÂ§7e";
 	}
 
 	@Override

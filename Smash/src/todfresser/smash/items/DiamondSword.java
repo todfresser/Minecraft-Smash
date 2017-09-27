@@ -14,7 +14,7 @@ public class DiamondSword extends SmashItem{
 	@Override
 	public String getDisplayName() {
 
-		return "§bDiamondSword";
+		return "Â§bDiamondSword";
 	}
 	
 	@Override
