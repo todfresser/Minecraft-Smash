@@ -3,10 +3,7 @@ package todfresser.smash.map;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.inventory.Inventory;
 import todfresser.smash.map.MapEditorItems.EditorInventoryType;
 
@@ -30,7 +27,7 @@ public class MapEditorData {
 	public Location itemchancesign;
 	public Location livesign;
 	public Location eventsign;
-	public int type;
+	public Material type;
 	
 	private Inventory setupInventory(){
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.GRAY + "Map: " + ChatColor.GOLD + name);
@@ -41,7 +38,7 @@ public class MapEditorData {
 		this.SpielerID = id;
 		this.name = name;
 		this.exists = false;
-		this.type = 395;
+		this.type = Material.MAP;
 		this.worldtoCopy = Bukkit.getPlayer(id).getWorld().getName();
 		this.Inv = setupInventory();
 		this.playerspawns = new ArrayList<>();
@@ -54,7 +51,7 @@ public class MapEditorData {
 		this.SpielerID = id;
 		this.name = m.getName();
 		this.exists = true;
-		this.type = m.getTypeID();
+		this.type = m.getType();
 		this.Inv = setupInventory();
 		World w = Bukkit.getWorld(m.getWorldtoCopy().getName());
 		this.spectatorspawn = m.getSpectatorSpawnPoint(w);

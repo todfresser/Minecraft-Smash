@@ -2,13 +2,15 @@ package todfresser.smash.extrafunctions;
 
 import java.util.UUID;
 
-import multiworld.addons.PlayerData;
+//import multiworld.addons.PlayerData;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,13 +20,11 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.util.Vector;
 
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_11_R1.EntityPlayer;
-import net.minecraft.server.v1_11_R1.IChatBaseComponent;
-import net.minecraft.server.v1_11_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_11_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_11_R1.PacketPlayOutEntityStatus;
-import net.minecraft.server.v1_11_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_11_R1.PlayerConnection;
+import net.minecraft.server.v1_14_R1.EntityPlayer;
+import net.minecraft.server.v1_14_R1.IChatBaseComponent;
+import net.minecraft.server.v1_14_R1.PacketPlayOutEntityStatus;
+import net.minecraft.server.v1_14_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_14_R1.PlayerConnection;
 import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
@@ -185,7 +185,7 @@ public class PlayerFunctions {
 	  }
 	
 	public static void playDamageAnimation(Entity target, Game g){
-		net.minecraft.server.v1_11_R1.Entity entity = ((CraftEntity) target).getHandle();
+		net.minecraft.server.v1_14_R1.Entity entity = ((CraftEntity) target).getHandle();
 		PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(entity, (byte) 2);
 		for (UUID id : g.getAllPlayers()){
 			EntityPlayer p = ((CraftPlayer) Bukkit.getPlayer(id)).getHandle();
@@ -198,12 +198,15 @@ public class PlayerFunctions {
 		message = ChatColor.translateAlternateColorCodes('&', message);
 		message = message.replaceAll("%Player%", p.getDisplayName());
 		
-		PlayerConnection con = ((CraftPlayer)p).getHandle().playerConnection;
+		//PlayerConnection con = ((CraftPlayer)p).getHandle().playerConnection;
 		
-		IChatBaseComponent chat = ChatSerializer.a("{\"text\": \"" + message + "\"}");
-		PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
+		//IChatBaseComponent chat = ChatSerializer.a("{\"text\": \"" + message + "\"}");
+
+		//PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
+
+		p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
 		
-		con.sendPacket(packet);
+		//con.sendPacket(packet);
 	}
 	
 	/*public static void sendJsonMessage(Player p, String firstmessage, String function1, ChatColor function1C, String command1, String hover1, String function2, ChatColor function2C, String command2, String hover2, String function3, ChatColor function3C, String command3, String hover3){

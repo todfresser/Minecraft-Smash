@@ -22,7 +22,7 @@ public class InvertedSpawnChance extends SmashEvent{
 
 	@Override
 	public Material getType() {
-		return Material.MOB_SPAWNER;
+		return Material.LEGACY_MOB_SPAWNER;
 	}
 
 	@Override

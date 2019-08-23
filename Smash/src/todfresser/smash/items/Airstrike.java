@@ -29,7 +29,7 @@ public class Airstrike extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.FIREWORK;
+		return Material.FIREWORK_STAR;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Airstrike extends SmashItem{
     @Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 	    if (playerdata.hasData(444)){
-	        if ((boolean)playerdata.getData(444) == false){
+	        if (!((boolean) playerdata.getData(444))){
 	            playerdata.setData(444, true);
 	            playerdata.canUseItem = true;
 	            return true;
@@ -70,7 +70,7 @@ public class Airstrike extends SmashItem{
 			@Override
 			public void run() {
 				ParticleEffect.CLOUD.display(0.5f, 1.3f, 0.5f, 0.3f, 20, particleSpawn, 40);
-				if(zeit == 10 || (boolean)playerdata.getData(444) == true) {
+				if(zeit == 10 || (boolean) playerdata.getData(444)) {
 					for(int i = 0;i < 20; i++) {
 						playerdata.registerItemRunnable(new BukkitRunnable() {
 							Location airstrikeLocation = player.getLocation().add( Math.random()*10-5, Math.random()*5 + 12.5,  Math.random()*10-5);
@@ -86,7 +86,6 @@ public class Airstrike extends SmashItem{
 								}
 								if(airstrikeLocation.getY() <= 0 || !airstrikeLocation.getBlock().getType().equals(Material.AIR) || hit) {
                                     playerdata.cancelItemRunnable(this);
-									return;
 								}
 							}
 						}, 0, 1);	

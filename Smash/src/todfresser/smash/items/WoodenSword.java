@@ -24,7 +24,7 @@ public class WoodenSword extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.WOOD_SWORD;
+		return Material.LEGACY_WOOD_SWORD;
 	}
 
 	@Override

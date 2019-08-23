@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +13,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
@@ -65,8 +65,8 @@ public class Map {
 		}
 	}
 	
-	public int getTypeID(){
-		return cfg.getInt("material");
+	public Material getType(){
+		return Material.getMaterial(cfg.getString("material"));
 	}
 	
 	public void delete(){
@@ -186,7 +186,7 @@ public class Map {
         return locs;
     }
 
-	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, ArrayList<Location> teleporters, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign, Vector eventsign){
+	public void create(String worldtoCopy, int time, Material item, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, ArrayList<Location> teleporters, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign, Vector eventsign){
 		File file = new File("plugins/Smash/Maps", name + ".yml");
 		String signS = null;
 		
@@ -209,7 +209,7 @@ public class Map {
 		cfg.set("World_to_Copy", worldtoCopy);
 		cfg.set("Time", time);
 		cfg.set("maxplayers", spawnpoints.size());
-		cfg.set("material", itemID);
+		cfg.set("material", item.name());
 		
 		cfg.set("spectatorspawn", spectatorspawn.getX() + "," + spectatorspawn.getY() + "," + spectatorspawn.getZ() + "," + spectatorspawn.getYaw());
 		cfg.set("lobbyspawnpoint", lobbyspawnpoint.getX() + "," + lobbyspawnpoint.getY() + "," + lobbyspawnpoint.getZ() + "," + lobbyspawnpoint.getYaw());
@@ -267,7 +267,7 @@ public class Map {
 	public Sign getleaveSign(World w){
 		String[] s = cfg.getString("Signs.leave").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (l.getBlock().getType().equals(Material.LEGACY_SIGN_POST) || l.getBlock().getType().equals(Material.LEGACY_WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
 			System.out.println("[Smash] Das Schild zum Verlassen existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
@@ -277,7 +277,7 @@ public class Map {
 	public Sign getItemSign(World w){
 		String[] s = cfg.getString("Signs.items").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (l.getBlock().getType().equals(Material.LEGACY_SIGN_POST) || l.getBlock().getType().equals(Material.LEGACY_WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
 			System.out.println("[Smash] Das Schild zum Deaktivieren der Items existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
@@ -287,7 +287,7 @@ public class Map {
 	public Sign getItemChanceSign(World w){
 		String[] s = cfg.getString("Signs.itemchance").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (l.getBlock().getType().equals(Material.LEGACY_SIGN_POST) || l.getBlock().getType().equals(Material.LEGACY_WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
 			System.out.println("[Smash] Das Schild zum Einstellen der Item-Seltenheit existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
@@ -297,7 +297,7 @@ public class Map {
 	public Sign getLiveSign(World w){
 		String[] s = cfg.getString("Signs.live").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (l.getBlock().getType().equals(Material.LEGACY_SIGN_POST) || l.getBlock().getType().equals(Material.LEGACY_WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
 			System.out.println("[Smash] Das Schild um die Anzahl der Leben zu ver�ndern existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
@@ -307,7 +307,7 @@ public class Map {
 	public Sign getEventSign(World w){
 		String[] s = cfg.getString("Signs.events").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (l.getBlock().getType().equals(Material.LEGACY_SIGN_POST) || l.getBlock().getType().equals(Material.LEGACY_WALL_SIGN)){
 			return (Sign) l.getBlock().getState();
 		}else{
 			System.out.println("[Smash] Das Schild zum Deaktivieren der Events existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");

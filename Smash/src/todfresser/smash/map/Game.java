@@ -406,13 +406,13 @@ public class Game implements Runnable{
 		}
 		Block b = w.getBlockAt(l.getBlockX(), l.getBlockY() - 1, l.getBlockZ());
 		if (b.getType().equals(Material.AIR)){
-			b.setType(Material.STAINED_GLASS);
+			b.setType(Material.LEGACY_STAINED_GLASS);
 			new BukkitRunnable() {
 				
 				@Override
 				public void run() {
 					if (gs.equals(GameState.Ending)) return;
-					if (b == null || b.getType() != Material.STAINED_GLASS) return;
+					if (b == null || b.getType() != Material.LEGACY_STAINED_GLASS) return;
 					b.setType(Material.AIR);
 				}
 			}.runTaskLater(Smash.getInstance(), 60);

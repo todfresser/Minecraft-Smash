@@ -16,7 +16,7 @@ public class SignJ {
 	public UUID Creator;
 	
 	public boolean exists(){
-		if (s.getWorld().getBlockAt(s.getLocation()).getType().equals(Material.SIGN_POST) || s.getWorld().getBlockAt(s.getLocation()).getType().equals(Material.WALL_SIGN)){
+		if (s.getWorld().getBlockAt(s.getLocation()).getType().equals(Material.LEGACY_SIGN_POST) || s.getWorld().getBlockAt(s.getLocation()).getType().equals(Material.LEGACY_WALL_SIGN)){
 			return true;
 		}
 		removeSign();

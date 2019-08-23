@@ -212,7 +212,7 @@ public class MapEditor implements Listener{
 			}
 			if (i.getDisplayName().equals(MapEditorItems.CHANGEICON(d.type).getItemMeta().getDisplayName())){
 				if ((e.getWhoClicked().getInventory().getItemInMainHand() != null) && (!e.getWhoClicked().getInventory().getItemInMainHand().getType().equals(Material.AIR))){
-					d.type = e.getWhoClicked().getInventory().getItemInMainHand().getTypeId();
+					d.type = e.getWhoClicked().getInventory().getItemInMainHand().getType();
 					MapEditorItems.updateIcon(d.Inv, d.type);
 				}
 			}

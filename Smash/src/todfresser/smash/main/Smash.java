@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import multiworld.MultiWorldPlugin;
-import multiworld.api.MultiWorldWorldData;
-import multiworld.api.flag.FlagName;
+//import multiworld.MultiWorldPlugin;
+//import multiworld.api.MultiWorldWorldData;
+//import multiworld.api.flag.FlagName;
 import todfresser.smash.events.*;
 import todfresser.smash.events.main.EventManager;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
@@ -137,7 +137,7 @@ public class Smash extends JavaPlugin{
 		Game.getrunningGames().clear();
 	}
 	
-	public static void unloadMultiWorldWorld(World w){
+	/*public static void unloadMultiWorldWorld(World w){
 		if (Bukkit.getPluginManager().getPlugin("MultiWorld").isEnabled()){
 			MultiWorldWorldData d = ((MultiWorldPlugin) Bukkit.getPluginManager().getPlugin("MultiWorld")).getApi().getWorld(w.getName());
 			try {
@@ -147,5 +147,5 @@ public class Smash extends JavaPlugin{
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 }

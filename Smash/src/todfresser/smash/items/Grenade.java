@@ -28,7 +28,7 @@ public class Grenade extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.FIREWORK_CHARGE;
+		return Material.LEGACY_FIREWORK_CHARGE;
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class Grenade extends SmashItem{
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
 		float Yaw = player.getLocation().getYaw();
-		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.FIREWORK_CHARGE));	
+		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.LEGACY_FIREWORK_CHARGE));
 		
 		grenade.setVelocity(player.getLocation().getDirection().multiply(1.5D));
 		

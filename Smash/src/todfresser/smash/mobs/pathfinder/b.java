@@ -1,9 +1,10 @@
 package todfresser.smash.mobs.pathfinder;
 
+import net.minecraft.server.v1_14_R1.PathfinderTargetCondition;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-import net.minecraft.server.v1_11_R1.EntityVex;
-import net.minecraft.server.v1_11_R1.PathfinderGoalTarget;
+import net.minecraft.server.v1_14_R1.EntityVex;
+import net.minecraft.server.v1_14_R1.PathfinderGoalTarget;
 
 public class b extends PathfinderGoalTarget {
 	private EntityVex vex;
@@ -14,8 +15,7 @@ public class b extends PathfinderGoalTarget {
 	}
 
 	public boolean a() {
-		return ((vex != null) && (vex.getGoalTarget() != null)
-				&& (a(vex.getGoalTarget(), false)));
+		return ((vex != null) && (vex.getGoalTarget() != null));
 	}
 
 	public void c() {

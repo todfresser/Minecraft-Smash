@@ -22,7 +22,7 @@ public class Cloud extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.STAINED_GLASS;
+		return Material.LEGACY_STAINED_GLASS;
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class Cloud extends SmashItem{
 			for (int z = -1; z <= 1; z++){
 				Block b = l.getWorld().getBlockAt(l.getBlockX() + x, y, l.getBlockZ() + z);
 				if (b.getType().equals(Material.AIR)){
-					b.setType(Material.STAINED_GLASS);
+					b.setType(Material.LEGACY_STAINED_GLASS);
 					if (x == 0 && z == 0){
 						Location loc = b.getLocation().clone().add(0.5, 1, 0.5);
 						loc.setYaw(player.getLocation().getYaw());
@@ -66,7 +66,7 @@ public class Cloud extends SmashItem{
 			@Override
 			public void run() {
 				for (Block b : blocks){
-					if (b.getType().equals(Material.STAINED_GLASS)){
+					if (b.getType().equals(Material.LEGACY_STAINED_GLASS)){
 						b.setType(Material.AIR);
 					}
 				}

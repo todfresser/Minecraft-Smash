@@ -27,8 +27,8 @@ public class DynamicClassFunctions {
 	     return false;
 	 }
 	
-	public static String nmsPackage = "net.minecraft.server.v1_11_R1";
-	public static String obcPackage = "org.bukkit.craftbukkit.v1_11_R1";
+	public static String nmsPackage = "net.minecraft.server.v1_14_R1";
+	public static String obcPackage = "org.bukkit.craftbukkit.v1_14_R1";
 	
 	public static boolean setPackages() {
 		Server craftServer = Bukkit.getServer();
@@ -182,7 +182,7 @@ public class DynamicClassFunctions {
 	{
 		world.setAutoSave(false);
 		for ( Player player : world.getPlayers()) player.kickPlayer("Die Welt wird resettet");
-		Smash.unloadMultiWorldWorld(world);
+		//Smash.unloadMultiWorldWorld(world);
 
 		// formerly used server.unloadWorld at this point. But it was sometimes failing, even when I force-cleared the player list
 		

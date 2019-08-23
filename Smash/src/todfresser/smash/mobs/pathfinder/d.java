@@ -1,19 +1,21 @@
 package todfresser.smash.mobs.pathfinder;
 
-import net.minecraft.server.v1_11_R1.BlockPosition;
-import net.minecraft.server.v1_11_R1.EntityVex;
-import net.minecraft.server.v1_11_R1.PathfinderGoal;
+import net.minecraft.server.v1_14_R1.BlockPosition;
+import net.minecraft.server.v1_14_R1.EntityVex;
+import net.minecraft.server.v1_14_R1.PathfinderGoal;
+
+import java.util.EnumSet;
 
 public class d extends PathfinderGoal {
 	private EntityVex vex;
 	
 	public d(EntityVex vex) {
 		this.vex = vex;
-		a(1);
+		a(EnumSet.of(Type.MOVE));
 	}
 
 	public boolean a() {
-		return ((!(vex.getControllerMove().a())) && (vex.getRandom().nextInt(7) == 0));
+		return ((!(vex.getControllerMove().b())) && (vex.getRandom().nextInt(7) == 0));
 	}
 
 	public boolean b() {
@@ -21,14 +23,14 @@ public class d extends PathfinderGoal {
 	}
 
 	public void e() {
-		BlockPosition blockposition = vex.di();
+		BlockPosition blockposition = vex.dV();
 
 		if (blockposition == null) {
 			blockposition = new BlockPosition(vex);
 		}
 
 		for (int i = 0; i < 3; ++i) {
-			BlockPosition blockposition1 = blockposition.a(vex.getRandom().nextInt(15) - 7,
+			BlockPosition blockposition1 = blockposition.b(vex.getRandom().nextInt(15) - 7,
 					vex.getRandom().nextInt(11) - 5, vex.getRandom().nextInt(15) - 7);
 
 			if (vex.world.isEmpty(blockposition1)) {

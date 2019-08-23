@@ -1,13 +1,13 @@
 package todfresser.smash.mobs;
 
-import net.minecraft.server.v1_11_R1.EntityCreature;
-import net.minecraft.server.v1_11_R1.EntityPlayer;
-import net.minecraft.server.v1_11_R1.EntityVex;
-import net.minecraft.server.v1_11_R1.PathfinderGoalFloat;
-import net.minecraft.server.v1_11_R1.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_11_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_11_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_11_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_14_R1.EntityCreature;
+import net.minecraft.server.v1_14_R1.EntityPlayer;
+import net.minecraft.server.v1_14_R1.EntityVex;
+import net.minecraft.server.v1_14_R1.PathfinderGoalFloat;
+import net.minecraft.server.v1_14_R1.PathfinderGoalHurtByTarget;
+import net.minecraft.server.v1_14_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_14_R1.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_14_R1.PathfinderGoalSelector;
 import todfresser.smash.mobs.main.SmashAI;
 import todfresser.smash.mobs.pathfinder.aa;
 import todfresser.smash.mobs.pathfinder.b;
@@ -23,7 +23,7 @@ public class SmashVexAI implements SmashAI{
 		goal.a(8, new d((EntityVex) e));
 		goal.a(9, new PathfinderGoalLookAtPlayer(e, EntityPlayer.class, 3.0F, 1.0F));
 		goal.a(10, new PathfinderGoalLookAtPlayer(e, EntityPlayer.class, 8.0F));
-		targets.a(1, new PathfinderGoalHurtByTarget(e, true, new Class[] { EntityVex.class }));
+		targets.a(1, new PathfinderGoalHurtByTarget(e, EntityVex.class));
 		targets.a(2, new b((EntityVex) e));
 		targets.a(3, new PathfinderGoalNearestAttackableTarget<EntityPlayer>(e, EntityPlayer.class, true));
 		

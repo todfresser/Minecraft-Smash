@@ -16,7 +16,7 @@ public class Snowball extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.SNOW_BALL;
+		return Material.LEGACY_SNOW_BALL;
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class InteractEvent implements Listener{
 				if (g.getGameState().equals(GameState.Running)){
 					if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 						if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-							if (e.getClickedBlock().getType().equals(Material.SPRUCE_DOOR) ||e.getClickedBlock().getType().equals(Material.ACACIA_DOOR) || e.getClickedBlock().getType().equals(Material.BIRCH_DOOR) || e.getClickedBlock().getType().equals(Material.DARK_OAK_DOOR) || e.getClickedBlock().getType().equals(Material.JUNGLE_DOOR) || e.getClickedBlock().getType().equals(Material.WOOD_DOOR) || e.getClickedBlock().getType().equals(Material.ACACIA_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.BIRCH_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.DARK_OAK_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.FENCE_GATE) || e.getClickedBlock().getType().equals(Material.JUNGLE_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.SPRUCE_FENCE_GATE)){
+							if (e.getClickedBlock().getType().equals(Material.SPRUCE_DOOR) ||e.getClickedBlock().getType().equals(Material.ACACIA_DOOR) || e.getClickedBlock().getType().equals(Material.BIRCH_DOOR) || e.getClickedBlock().getType().equals(Material.DARK_OAK_DOOR) || e.getClickedBlock().getType().equals(Material.JUNGLE_DOOR) || e.getClickedBlock().getType().equals(Material.LEGACY_WOOD_DOOR) || e.getClickedBlock().getType().equals(Material.ACACIA_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.BIRCH_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.DARK_OAK_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.LEGACY_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.JUNGLE_FENCE_GATE) || e.getClickedBlock().getType().equals(Material.SPRUCE_FENCE_GATE)){
 								e.setCancelled(false);
 								return;
 							}
@@ -31,7 +31,7 @@ public class InteractEvent implements Listener{
 								if (g.getPlayerData(e.getPlayer()).canUseItem){
 									if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 										Material t = e.getClickedBlock().getType();
-										if (t.equals(Material.WORKBENCH) || t.equals(Material.ANVIL) || t.equals(Material.CHEST) || t.equals(Material.TRAPPED_CHEST) || t.equals(Material.ENDER_CHEST) || t.equals(Material.FURNACE)) e.setCancelled(true);
+										if (t.equals(Material.LEGACY_WORKBENCH) || t.equals(Material.ANVIL) || t.equals(Material.CHEST) || t.equals(Material.TRAPPED_CHEST) || t.equals(Material.ENDER_CHEST) || t.equals(Material.FURNACE)) e.setCancelled(true);
 										return;
 									}
 									e.setCancelled(false);
@@ -42,7 +42,7 @@ public class InteractEvent implements Listener{
 								if (g.getPlayerData(e.getPlayer()).canUseItem == true){
 									if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 										Material t = e.getClickedBlock().getType();
-										if (t.equals(Material.WORKBENCH) || t.equals(Material.ANVIL) || t.equals(Material.CHEST) || t.equals(Material.TRAPPED_CHEST) || t.equals(Material.ENDER_CHEST) || t.equals(Material.FURNACE)) e.setCancelled(true);
+										if (t.equals(Material.LEGACY_WORKBENCH) || t.equals(Material.ANVIL) || t.equals(Material.CHEST) || t.equals(Material.TRAPPED_CHEST) || t.equals(Material.ENDER_CHEST) || t.equals(Material.FURNACE)) e.setCancelled(true);
 										return;
 									}
 									e.getPlayer().getInventory().setItem(10, new ItemStack(Material.ARROW));
