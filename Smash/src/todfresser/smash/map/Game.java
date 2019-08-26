@@ -22,21 +22,20 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import todfresser.smash.events.main.EventManager;
-import todfresser.smash.events.main.EventState;
+import todfresser.smash.basic.events.main.EventManager;
+import todfresser.smash.basic.events.main.EventState;
 import todfresser.smash.extrafunctions.PlayerFunctions;
-import todfresser.smash.items.main.ItemManager;
+import todfresser.smash.basic.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.main.Statistics;
 import todfresser.smash.map.events.FlyToggleEvent;
-import todfresser.smash.mobs.main.SmashEntity;
+import todfresser.smash.basic.mobs.main.SmashEntity;
 import todfresser.smash.signs.SignManager;
 
 public class Game implements Runnable{

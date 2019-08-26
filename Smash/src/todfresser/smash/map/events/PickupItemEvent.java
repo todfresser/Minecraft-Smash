@@ -3,10 +3,9 @@ package todfresser.smash.map.events;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.inventory.ItemStack;
 
 import todfresser.smash.extrafunctions.PlayerFunctions;
-import todfresser.smash.items.main.ItemManager;
+import todfresser.smash.basic.items.main.ItemManager;
 import todfresser.smash.map.Game;
 
 public class PickupItemEvent implements Listener{

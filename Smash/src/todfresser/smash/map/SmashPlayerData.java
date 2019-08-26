@@ -13,8 +13,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import todfresser.smash.items.main.ItemManager;
-import todfresser.smash.items.main.SmashItemData;
+import todfresser.smash.basic.items.main.ItemManager;
+import todfresser.smash.basic.items.main.SmashItemData;
 import todfresser.smash.main.Smash;
 
 public class SmashPlayerData {

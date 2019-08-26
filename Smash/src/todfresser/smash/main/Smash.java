@@ -1,17 +1,15 @@
 package todfresser.smash.main;
 
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 //import multiworld.MultiWorldPlugin;
 //import multiworld.api.MultiWorldWorldData;
 //import multiworld.api.flag.FlagName;
-import todfresser.smash.events.*;
-import todfresser.smash.events.main.EventManager;
+import todfresser.smash.basic.events.*;
+import todfresser.smash.basic.events.main.EventManager;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
-import todfresser.smash.items.*;
-import todfresser.smash.items.main.ItemManager;
+import todfresser.smash.basic.items.*;
+import todfresser.smash.basic.items.main.ItemManager;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
 import todfresser.smash.map.MapEditor;

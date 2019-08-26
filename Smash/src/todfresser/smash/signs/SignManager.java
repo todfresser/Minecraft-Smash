@@ -29,8 +29,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import todfresser.smash.events.main.EventManager;
-import todfresser.smash.items.main.ItemManager;
+import todfresser.smash.basic.events.main.EventManager;
+import todfresser.smash.basic.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;

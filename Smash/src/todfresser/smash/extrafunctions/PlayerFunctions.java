@@ -25,7 +25,7 @@ import net.minecraft.server.v1_14_R1.IChatBaseComponent;
 import net.minecraft.server.v1_14_R1.PacketPlayOutEntityStatus;
 import net.minecraft.server.v1_14_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_14_R1.PlayerConnection;
-import todfresser.smash.items.main.ItemManager;
+import todfresser.smash.basic.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;

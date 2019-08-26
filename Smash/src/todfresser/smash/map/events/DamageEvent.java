@@ -19,7 +19,7 @@ import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
-import todfresser.smash.mobs.main.SmashEntity;
+import todfresser.smash.basic.mobs.main.SmashEntity;
 
 public class DamageEvent implements Listener{
 	

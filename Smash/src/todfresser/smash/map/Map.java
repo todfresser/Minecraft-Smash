@@ -79,7 +79,7 @@ public class Map {
 		File file = new File("plugins/Smash/Maps", name + ".yml");
 		file.delete();
 	}
-	
+
 	public static Map getMapfromString(String name){
 		for (Map m : maps){
 			if (m.getName().equals(name)){
@@ -91,11 +91,11 @@ public class Map {
 	public boolean exists(){
 		return (cfg != null);
 	}
-	
+
 	public static ArrayList<Map> getloadedMaps(){
 		return maps;
 	}
-	
+
 	public static ArrayList<String> getallMapnames(){
 		ArrayList<String> l = new ArrayList<>();
 		if (new File("plugins/Smash/Maps").exists()){
@@ -108,9 +108,9 @@ public class Map {
 			}
 		}
 		return l;
-		
+
 	}
-	
+
 	public static List<String> getloadedMapNames(){
 		List<String> s = new ArrayList<>();
 		for (Map m : maps){
