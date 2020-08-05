@@ -14,7 +14,7 @@ public class ItemGrabber extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "Â§fItemGrabber";
+		return "§fItemGrabber";
 	}
 
 	@Override

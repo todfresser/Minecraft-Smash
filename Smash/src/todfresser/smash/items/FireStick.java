@@ -16,13 +16,13 @@ import todfresser.smash.map.SmashPlayerData;
 public class FireStick extends SmashItem {
 	@Override
 	public String getDisplayName() {
-		return "Â§cFÂ§6iÂ§erÂ§ceÂ§6SÂ§etÂ§ciÂ§6cÂ§ek";
+		return "§cF§6i§er§ce§6S§et§ci§6c§ek";
 	}
 
 	@Override
 	public List<String> getLore() {
 		List<String> l = new ArrayList<>();
-		l.add(ChatColor.RED + "Zï¿½ndet den Gegner an.");
+		l.add(ChatColor.RED + "Zündet den Gegner an.");
 		return l;
 	}
 
@@ -43,7 +43,7 @@ public class FireStick extends SmashItem {
 
 	@Override
 	public boolean onPlayerHitPlayerEvent(SmashPlayerData playerdata, Player player, Player target, Game game) {
-		PlayerFunctions.sendTitle(target, 1, 25, 10, "ï¿½cFï¿½6iï¿½erï¿½ceï¿½6dï¿½e!", "");
+		PlayerFunctions.sendTitle(target, 1, 25, 10, "§cF§6i§er§ce§6d§e!", "");
 		target.setFireTicks(120);
 		PlayerFunctions.playOutDamage(game, target, player, VectorFunctions.getStandardVector(player.getLocation().getYaw(), 0.5), 6, true);
 		/*playerdata.registerItemRunnable(new BukkitRunnable() {

@@ -21,7 +21,7 @@ public class MagicStaff extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "ยง5Mยง3aยง5gยง3iยง5cยง3Sยง5tยง3aยง5fยง3f";
+		return "ง5Mง3aง5gง3iง5cง3Sง5tง3aง5fง3f";
 	}
 
 	@Override

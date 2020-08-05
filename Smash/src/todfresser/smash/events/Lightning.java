@@ -16,7 +16,7 @@ public class Lightning extends SmashEvent{
 
 	@Override
 	public String getDisplayName() {
-		return ChatColor.YELLOW + "TÃ¶dliche Blitze!";
+		return ChatColor.YELLOW + "Tödliche Blitze!";
 	}
 
 	@Override

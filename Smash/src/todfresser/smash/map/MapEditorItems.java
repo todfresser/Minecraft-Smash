@@ -158,12 +158,12 @@ public class MapEditorItems {
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
 			l.add(ChatColor.GRAY + Integer.toString(loc.getBlockX()) + ", " + Integer.toString(loc.getBlockY()) + ", " + Integer.toString(loc.getBlockZ()));
-			meta.setDisplayName(ChatColor.GREEN + "Schild zum �ndern der Leben");
+			meta.setDisplayName(ChatColor.GREEN + "Schild zum Ändern der Leben");
 			meta.setLore(l);
 		}else{
 			l.add(ChatColor.GRAY + "Schreibe " + ChatColor.GREEN + "lives");
 			l.add(ChatColor.GRAY + "auf ein Schild");
-			meta.setDisplayName(ChatColor.RED + "Schild zum �ndern der Leben");
+			meta.setDisplayName(ChatColor.RED + "Schild zum Ändern der Leben");
 			meta.setLore(l);
 		}
 		i.setItemMeta(meta);
@@ -400,7 +400,7 @@ public class MapEditorItems {
 		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GREEN.getDyeData());
 		ItemMeta meta = i.getItemMeta();
 		if (exists == false) meta.setDisplayName(ChatColor.WHITE + "Erstellen");
-		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "�berschreiben");
+		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "Überschreiben");
 		i.setItemMeta(meta);
 		return i;
 	}
@@ -418,7 +418,7 @@ public class MapEditorItems {
 		if (exists){
 			ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.RED.getDyeData());
 			ItemMeta meta = i.getItemMeta();
-			meta.setDisplayName(ChatColor.WHITE + "L�schen");
+			meta.setDisplayName(ChatColor.WHITE + "Löschen");
 			i.setItemMeta(meta);
 			return i;
 		}

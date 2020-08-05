@@ -20,7 +20,7 @@ public class Freezer extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "ยง9Fยงbrยง9eยงbeยง9zยงbeยง9r";
+		return "ง9Fงbrง9eงbeง9zงbeง9r";
 	}
 
 	@Override

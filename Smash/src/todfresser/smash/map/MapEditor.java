@@ -113,11 +113,11 @@ public class MapEditor implements Listener{
 			}
 			
 			
-			if (i.getDisplayName().equals(ChatColor.WHITE + "L�schen")){
+			if (i.getDisplayName().equals(ChatColor.WHITE + "Löschen")){
 				Map.getMapfromString(d.name).delete();
 				d.exists = false;
 				MapEditorItems.setInventory(d, EditorInventoryType.SAVEDELETE);
-				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das L�schen r�ckg�ngig zu machen,");
+				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das Löschen rückgängig zu machen,");
 				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "klicke erneut auf Erstellen!");
 				return;
 			}
@@ -135,7 +135,8 @@ public class MapEditor implements Listener{
 					editors.remove(d);
 					d.time = (int) Bukkit.getWorld(d.worldtoCopy).getTime();
 					d.create();
-				}else e.getWhoClicked().sendMessage(Smash.pr + "ERROR: Du hast die Map noch nicht vollst�ndig erstellt.");
+					e.getWhoClicked().sendMessage(Smash.pr + "Die Map " + d.name + " wurde erfolgreich erstellt.");
+				}else e.getWhoClicked().sendMessage(Smash.pr + "ERROR: Du hast die Map noch nicht vollständig erstellt.");
 				return;
 			}
 			
@@ -238,7 +239,7 @@ public class MapEditor implements Listener{
 				if (e.getLine(0).equals("lives")){
 					s.setLine(0, "");
 					s.setLine(1, ChatColor.BLUE + "Lebensanzahl");
-					s.setLine(2, ChatColor.BLUE + "ver�ndern");
+					s.setLine(2, ChatColor.BLUE + "verändern");
 					s.setLine(3, "");
 					s.update();
 					e.setCancelled(true);

@@ -11,7 +11,7 @@ public class Steak extends SmashItem{
 
 	@Override
 	public String getDisplayName() {
-		return "ยง6Steak";
+		return "ง6Steak";
 	}
 
 	@Override
