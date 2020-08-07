@@ -24,7 +24,7 @@ public class GoldenSword extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.GOLD_SWORD;
+		return Material.GOLDEN_SWORD;
 	}
 
 	@Override

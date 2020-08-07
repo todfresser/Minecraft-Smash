@@ -1,6 +1,7 @@
 name: Smash
 author: Todfresser
 version: 1.0
+api-version: 1.16
 main: todfresser.smash.main.Smash
 commands:
   smash:

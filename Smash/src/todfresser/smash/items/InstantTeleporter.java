@@ -19,7 +19,7 @@ public class InstantTeleporter extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.EYE_OF_ENDER;
+		return Material.ENDER_EYE;
 	}
 
 	@Override

@@ -348,7 +348,7 @@ public class Game implements Runnable{
 		if (lives != null){
 			lives.setLine(0, ChatColor.GOLD + "");
 			lives.setLine(1, ChatColor.DARK_BLUE + "Lebensanzahl");
-			lives.setLine(2, ChatColor.DARK_BLUE + "verï¿½ndern");
+			lives.setLine(2, ChatColor.DARK_BLUE + "verändern");
 			lives.setLine(3, ChatColor.GOLD + "");
 			lives.update();
 		}
@@ -406,13 +406,13 @@ public class Game implements Runnable{
 		}
 		Block b = w.getBlockAt(l.getBlockX(), l.getBlockY() - 1, l.getBlockZ());
 		if (b.getType().equals(Material.AIR)){
-			b.setType(Material.STAINED_GLASS);
+			b.setType(Material.LEGACY_STAINED_GLASS);
 			new BukkitRunnable() {
 				
 				@Override
 				public void run() {
 					if (gs.equals(GameState.Ending)) return;
-					if (b == null || b.getType() != Material.STAINED_GLASS) return;
+					if (b == null || b.getType() != Material.LEGACY_STAINED_GLASS) return;
 					b.setType(Material.AIR);
 				}
 			}.runTaskLater(Smash.getInstance(), 60);
@@ -507,7 +507,7 @@ public class Game implements Runnable{
 				p.sendMessage(Smash.pr + "Du bist bereits in einem Spiel.");
 			}
 		}else{
-			p.sendMessage(Smash.pr + "Dieses Spiel lï¿½uft bereits.");
+			p.sendMessage(Smash.pr + "Dieses Spiel läuft bereits.");
 		}
 		//updateSign(); !!!!!!!
 	}
@@ -713,7 +713,7 @@ public class Game implements Runnable{
 					for (UUID id : getIngamePlayers()){
 						p = Bukkit.getPlayer(id);
 						PlayerFunctions.sendTitle(p, 1, 1, 1, "", "");
-						PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GOLD + "Viel Glï¿½ck");
+						PlayerFunctions.sendActionBar(Bukkit.getPlayer(id), ChatColor.GOLD + "Viel Glück");
 						p.getInventory().clear();
 						p.getInventory().setArmorContents(null);
 						p.setGameMode(GameMode.SURVIVAL);

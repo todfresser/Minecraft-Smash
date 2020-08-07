@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 
+import todfresser.smash.extrafunctions.MaterialUtils;
 import todfresser.smash.map.Game;
 
 public class SignJ {
@@ -16,7 +17,7 @@ public class SignJ {
 	public UUID Creator;
 	
 	public boolean exists(){
-		if (s.getWorld().getBlockAt(s.getLocation()).getType().equals(Material.SIGN_POST) || s.getWorld().getBlockAt(s.getLocation()).getType().equals(Material.WALL_SIGN)){
+		if (MaterialUtils.equalsSign(s.getWorld().getBlockAt(s.getLocation()).getType())){
 			return true;
 		}
 		removeSign();
@@ -67,7 +68,7 @@ public class SignJ {
 			s.setLine(1, l2);
 			s.setLine(2, l3);
 			s.setLine(3, l4);
-			s.update();
+			s.update(true, true);
 		}
 	}
 	

@@ -29,7 +29,7 @@ public class Airstrike extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.FIREWORK;
+		return Material.FIREWORK_ROCKET;
 	}
 
 	@Override

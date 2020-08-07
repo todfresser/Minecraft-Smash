@@ -10,7 +10,7 @@ public class MaximizedKnockback extends SmashEvent{
 
 	@Override
 	public String getDisplayName() {
-		return ChatColor.DARK_RED + "Maximierter RÃ¼ckstoÃŸ";
+		return ChatColor.DARK_RED + "Maximierter Rückstoß";
 	}
 
 	@Override

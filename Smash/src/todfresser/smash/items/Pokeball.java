@@ -22,7 +22,7 @@ public class Pokeball extends SmashItem{
 
 	@Override
 	public Material getType() {
-		return Material.MONSTER_EGG;
+		return Material.VEX_SPAWN_EGG;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class Pokeball extends SmashItem{
 	
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
-		Item pokeball = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.MONSTER_EGG));	
+		Item pokeball = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.VEX_SPAWN_EGG));
 		
 		pokeball.setVelocity(player.getLocation().getDirection().multiply(1.5D));
 		

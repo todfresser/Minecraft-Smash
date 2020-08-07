@@ -10,7 +10,7 @@ public class MinimizedKnockback extends SmashEvent{
 
 	@Override
 	public String getDisplayName() {
-		return ChatColor.DARK_GREEN + "Minimierter RÃ¼ckstoÃŸ";
+		return ChatColor.DARK_GREEN + "Minimierter Rückstoß";
 	}
 
 	@Override

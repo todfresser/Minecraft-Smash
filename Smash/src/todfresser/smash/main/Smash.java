@@ -4,9 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import multiworld.MultiWorldPlugin;
-import multiworld.api.MultiWorldWorldData;
-import multiworld.api.flag.FlagName;
 import todfresser.smash.events.*;
 import todfresser.smash.events.main.EventManager;
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
@@ -16,6 +13,7 @@ import todfresser.smash.map.Game;
 import todfresser.smash.map.Map;
 import todfresser.smash.map.MapEditor;
 import todfresser.smash.map.events.*;
+import todfresser.smash.particles.ParticleEffect;
 import todfresser.smash.signs.SignManager;
 
 public class Smash extends JavaPlugin{
@@ -43,6 +41,8 @@ public class Smash extends JavaPlugin{
 		DynamicClassFunctions.setClasses();
 		DynamicClassFunctions.setMethods();
 		DynamicClassFunctions.setFields();
+
+		ParticleEffect.ParticlePacket.initialize();
 		
 		getServer().getPluginManager().registerEvents(new SignManager(), this);
 		getServer().getPluginManager().registerEvents(new MapEditor(), this);
@@ -117,9 +117,7 @@ public class Smash extends JavaPlugin{
 		Map.deleteAllWorlds();
 		this.getCommand("smash").setExecutor(new SmashCommands());
 		this.getCommand("sound").setExecutor(new SoundCommands());
-		//this.getCommand("particle").setTabCompleter(new ParticleEffectCommands());
 		this.getCommand("particle").setExecutor(new ParticleEffectCommands());
-		//this.getCommand("particle").setTabCompleter(new ParticleEffectCommands());
 		
 		Map.deleteAllWorlds();
 		for (String name : Map.getallMapnames()){
@@ -138,7 +136,7 @@ public class Smash extends JavaPlugin{
 	}
 	
 	public static void unloadMultiWorldWorld(World w){
-		if (Bukkit.getPluginManager().getPlugin("MultiWorld").isEnabled()){
+		/*if (Bukkit.getPluginManager().getPlugin("MultiWorld").isEnabled()){
 			MultiWorldWorldData d = ((MultiWorldPlugin) Bukkit.getPluginManager().getPlugin("MultiWorld")).getApi().getWorld(w.getName());
 			try {
 				d.setOptionValue(FlagName.SAVEON, false);
@@ -146,6 +144,6 @@ public class Smash extends JavaPlugin{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 }

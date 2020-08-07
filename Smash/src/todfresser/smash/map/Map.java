@@ -5,20 +5,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
 import todfresser.smash.extrafunctions.DynamicClassFunctions;
+import todfresser.smash.extrafunctions.MaterialUtils;
 import todfresser.smash.main.Smash;
 
 public class Map {
@@ -31,10 +28,7 @@ public class Map {
 		String wn;
 		for (World w : Bukkit.getWorlds()){
 			if (w.getName().startsWith("Smash_Map_")){
-				wn = w.getName();
-				DynamicClassFunctions.bindRegionFiles();
 				DynamicClassFunctions.forceUnloadWorld(w);
-				DynamicClassFunctions.clearWorldReference(wn);
 			}
 		}
 		File folder = Smash.getInstance().getServer().getWorldContainer();
@@ -45,7 +39,7 @@ public class Map {
 					File file = new File(fileNames[i]);
 					try {
 						FileUtils.deleteDirectory(file);
-						System.out.println("[Smash] Die Welt " + fileNames[i].replace(".yml", "") + " wurde gelï¿½scht!");
+						System.out.println("[Smash] Die Welt " + fileNames[i].replace(".yml", "") + " wurde gelöscht!");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -65,8 +59,18 @@ public class Map {
 		}
 	}
 	
-	public int getTypeID(){
-		return cfg.getInt("material");
+	public Material getIcon(){
+		Material material = Material.getMaterial(cfg.getString("material"));
+		if (material == null) {
+			return Material.MAP;
+		} else {
+			return material;
+		}
+		/*try {
+			return Material.getMaterial(cfg.getString("material"));
+		} catch (NullPointerException e) {
+			return Material.MAP;
+		}*/
 	}
 	
 	public void delete(){
@@ -186,7 +190,7 @@ public class Map {
         return locs;
     }
 
-	public void create(String worldtoCopy, int time, int itemID, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, ArrayList<Location> teleporters, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign, Vector eventsign){
+	public void create(String worldtoCopy, int time, Material icon, Location spectatorspawn, Location lobbyspawnpoint, Location leavepoint, ArrayList<Location> spawnpoints, ArrayList<Location> itemspawns, ArrayList<Location> teleporters, Vector leavesign, Vector itemsign, Vector itemchancesign, Vector livesign, Vector eventsign){
 		File file = new File("plugins/Smash/Maps", name + ".yml");
 		String signS = null;
 		
@@ -209,7 +213,7 @@ public class Map {
 		cfg.set("World_to_Copy", worldtoCopy);
 		cfg.set("Time", time);
 		cfg.set("maxplayers", spawnpoints.size());
-		cfg.set("material", itemID);
+		cfg.set("material", icon.name());
 		
 		cfg.set("spectatorspawn", spectatorspawn.getX() + "," + spectatorspawn.getY() + "," + spectatorspawn.getZ() + "," + spectatorspawn.getYaw());
 		cfg.set("lobbyspawnpoint", lobbyspawnpoint.getX() + "," + lobbyspawnpoint.getY() + "," + lobbyspawnpoint.getZ() + "," + lobbyspawnpoint.getYaw());
@@ -259,58 +263,73 @@ public class Map {
 		//Init
 	}
 	
-	public File getWorldtoCopy(){
-		if (Bukkit.getWorld(cfg.getString("World_to_Copy")) == null) new WorldCreator(cfg.getString("World_to_Copy")).createWorld();
-		return Bukkit.getWorld(cfg.getString("World_to_Copy")).getWorldFolder();
+	public File getWorldFile(){
+		String worldName = cfg.getString("World_to_Copy");
+		File[] files = Bukkit.getServer().getWorldContainer().listFiles((dir, name) -> name.equals(worldName));
+		if (files.length == 1) {
+			return files[0];
+		} else {
+			throw new RuntimeException("SMASH: World " + worldName + " doesn't exist");
+		}
+	}
+
+	public World loadWorld() {
+		String worldName = cfg.getString("World_to_Copy");
+		World w = Bukkit.getWorld(worldName);
+		if (w == null) {
+			return new WorldCreator(worldName).createWorld();
+		} else {
+			return w;
+		}
 	}
 	
 	public Sign getleaveSign(World w){
 		String[] s = cfg.getString("Signs.leave").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (MaterialUtils.equalsSign(l.getBlock().getType())){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild zum Verlassen existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild zum Verlassen existiert in der Welt " + getWorldFile().getName() + " nicht mehr!");
 			return null;
 		}
 	}
 	public Sign getItemSign(World w){
 		String[] s = cfg.getString("Signs.items").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (MaterialUtils.equalsSign(l.getBlock().getType())){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild zum Deaktivieren der Items existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild zum Deaktivieren der Items existiert in der Welt " + getWorldFile().getName() + " nicht mehr!");
 			return null;
 		}
 	}
 	public Sign getItemChanceSign(World w){
 		String[] s = cfg.getString("Signs.itemchance").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (MaterialUtils.equalsSign(l.getBlock().getType())){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild zum Einstellen der Item-Seltenheit existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild zum Einstellen der Item-Seltenheit existiert in der Welt " + getWorldFile().getName() + " nicht mehr!");
 			return null;
 		}
 	}
 	public Sign getLiveSign(World w){
 		String[] s = cfg.getString("Signs.live").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (MaterialUtils.equalsSign(l.getBlock().getType())){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild um die Anzahl der Leben zu verï¿½ndern existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild um die Anzahl der Leben zu verändern existiert in der Welt " + getWorldFile().getName() + " nicht mehr!");
 			return null;
 		}
 	}
 	public Sign getEventSign(World w){
 		String[] s = cfg.getString("Signs.events").split(",");
 		Location l = new Location(w, Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-		if (l.getBlock().getType().equals(Material.SIGN_POST) || l.getBlock().getType().equals(Material.WALL_SIGN)){
+		if (MaterialUtils.equalsSign(l.getBlock().getType())){
 			return (Sign) l.getBlock().getState();
 		}else{
-			System.out.println("[Smash] Das Schild zum Deaktivieren der Events existiert in der Welt " + getWorldtoCopy().getName() + " nicht mehr!");
+			System.out.println("[Smash] Das Schild zum Deaktivieren der Events existiert in der Welt " + getWorldFile().getName() + " nicht mehr!");
 			return null;
 		}
 	}
@@ -325,7 +344,7 @@ public class Map {
 		String wn = "Smash_Map_" + name + "_W_" + i;
 		try{
 			File worldfile = new File(wn);
-			FileUtils.copyDirectory(getWorldtoCopy(), worldfile);
+			FileUtils.copyDirectory(getWorldFile(), worldfile);
 			File DATA = new File(wn, "uid.dat");
 			DATA.delete();
 			WorldCreator wc = new WorldCreator(wn);
@@ -336,11 +355,11 @@ public class Map {
 				if ((e.getType().equals(EntityType.PAINTING)) || (e.getType().equals(EntityType.PLAYER)) || (e.getType().equals(EntityType.ITEM_FRAME)) || (e.getType().equals(EntityType.MINECART_CHEST)) || (e.getType().equals(EntityType.MINECART_FURNACE)) || (e.getType().equals(EntityType.MINECART_HOPPER))) continue;
 				e.remove();
 			}
-			w.setGameRuleValue("doDaylightCycle", "false");
-			w.setGameRuleValue("doMobSpawning", "false");
 			//w.setGameRuleValue("mobGriefing", "false");
-			w.setGameRuleValue("randomTickSpeed", "0");
-			w.setGameRuleValue("showDeathMessages", "false");
+			w.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+			w.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+			w.setGameRule(GameRule.RANDOM_TICK_SPEED, 0);
+			w.setGameRule(GameRule.SHOW_DEATH_MESSAGES, false);
 			w.setTime(cfg.getInt("Time"));
 			w.setWeatherDuration(0);
 			w.setStorm(false);
@@ -348,7 +367,7 @@ public class Map {
 			
 			return w;
 		}catch(Exception e){
-			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollstï¿½ndig erstellt werden.");
+			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollständig erstellt werden.");
 		}
 		return null;
 	}
@@ -357,13 +376,11 @@ public class Map {
 		String wn = w.getName();
 		try{
 			File file = new File(wn);
-			DynamicClassFunctions.bindRegionFiles();
             DynamicClassFunctions.forceUnloadWorld(w);
-            DynamicClassFunctions.clearWorldReference(wn);
             FileUtils.deleteDirectory(file);
-        	System.out.println("[Smash] Die Welt " + wn + " wurde gelï¿½scht.");
+        	System.out.println("[Smash] Die Welt " + wn + " wurde gelöscht.");
 		}catch(Exception e){
-			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollstï¿½ndig gelï¿½scht werden.");
+			System.out.println("[Smash] Die Welt " + wn + " konnte nicht vollständig gelöscht werden.");
 		}
 		
 	}

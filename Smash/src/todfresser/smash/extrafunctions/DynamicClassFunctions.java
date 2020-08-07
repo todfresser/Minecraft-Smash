@@ -5,10 +5,10 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import net.minecraft.server.v1_16_R1.ResourceKey;
+import net.minecraft.server.v1_16_R1.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -27,8 +27,8 @@ public class DynamicClassFunctions {
 	     return false;
 	 }
 	
-	public static String nmsPackage = "net.minecraft.server.v1_11_R1";
-	public static String obcPackage = "org.bukkit.craftbukkit.v1_11_R1";
+	public static String nmsPackage = "net.minecraft.server.v1_16_R1";
+	public static String obcPackage = "org.bukkit.craftbukkit.v1_16_R1";
 	
 	public static boolean setPackages() {
 		Server craftServer = Bukkit.getServer();
@@ -90,36 +90,37 @@ public class DynamicClassFunctions {
 	public static final HashMap<String, Field> fields = new HashMap<String, Field>();
 	public static boolean setFields() {
 		try {
-			fields.put("RegionFileCache.regionsByFilename", classes.get("RegionFileCache").getDeclaredField("a")); 		// obfuscated - regionsByFilename in RegionFileCache
-			fields.put("RegionFile.dataFile", classes.get("RegionFile").getDeclaredField("c"));							// obfuscated - dataFile in RegionFile
+			fields.put("RegionFileCache.regionsByFilename", classes.get("RegionFileCache").getDeclaredField("cache")); 		// obfuscated - regionsByFilename in RegionFileCache
+			fields.put("RegionFile.dataFile", classes.get("RegionFile").getDeclaredField("dataFile"));							// obfuscated - dataFile in RegionFile
 			
 			//fields.put("EntityFallingBlock.hurtEntities", classes.get("EntityFallingBlock").getDeclaredField("hurtEntities"));
 			//fields.put("EntityFallingBlock.fallHurtAmount", classes.get("EntityFallingBlock").getDeclaredField("fallHurtAmount"));
 			//fields.put("EntityFallingBlock.fallHurtMax", classes.get("EntityFallingBlock").getDeclaredField("fallHurtMax"));
 			
-			fields.put("MinecraftServer.worlds", classes.get("MinecraftServer").getDeclaredField("worlds"));
+			fields.put("MinecraftServer.worlds", classes.get("MinecraftServer").getDeclaredField("worldServer"));
 			
 			fields.put("CraftServer.worlds", classes.get("CraftServer").getDeclaredField("worlds"));
 			//fields.put("RegionFile.dataFile", classes.get("RegionFile").getDeclaredField("c"));
 			return true;
 		} catch (Exception e) {
 			System.out.println("Could not find a field class");
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
 	//methods
 	@SuppressWarnings("rawtypes")
-	private static HashMap regionfiles;
+	private static Map regionfiles;
 	private static Field rafField;
 	
 	@SuppressWarnings("rawtypes")
 	public static void bindRegionFiles()
 	{
-		try
+		/*try
 		{
 			fields.get("RegionFileCache.regionsByFilename").setAccessible(true);
-			regionfiles = (HashMap) fields.get("RegionFileCache.regionsByFilename").get(null);
+			regionfiles = (Map) fields.get("RegionFileCache.regionsByFilename").get(null);
 			rafField = fields.get("RegionFile.dataFile");
 			rafField.setAccessible(true);
 			System.out.println("Successfully bound to region file cache.");
@@ -128,7 +129,7 @@ public class DynamicClassFunctions {
 		{
 			System.out.println("Error binding to region file cache.");
 			t.printStackTrace();
-		}
+		}*/
 	}
 
 	public static void unbindRegionFiles()
@@ -143,7 +144,7 @@ public class DynamicClassFunctions {
 		if (regionfiles == null) return false;
 		if (rafField == null) return false;
 
-		ArrayList<Object> removedKeys = new ArrayList<Object>();
+		/*ArrayList<Object> removedKeys = new ArrayList<Object>();
 		try
 		{
 			for (Object o : regionfiles.entrySet())
@@ -172,7 +173,7 @@ public class DynamicClassFunctions {
 			ex.printStackTrace();
 		}
 		for (Object key : removedKeys)
-			regionfiles.remove(key);
+			regionfiles.remove(key);*/
 
 		return true;
 	}
@@ -198,14 +199,15 @@ public class DynamicClassFunctions {
 
 		Object ms = getMinecraftServer();
 
-		List<Object> worldList;
+		Collection<Object> worldList;
 		try {
-			worldList = (List<Object>) fields.get("MinecraftServer.worlds").get(ms);
-			
-			int wid = worldList.indexOf(methods.get("CraftWorld.getHandle()").invoke(world));
-			if(wid>-1) {
-				worldList.remove(wid);
-			}
+			worldList = ((Map<ResourceKey<World>, Object>) fields.get("MinecraftServer.worlds").get(ms)).values();
+
+			worldList.remove(methods.get("CraftWorld.getHandle()").invoke(world));
+			//int wid = worldList.indexOf(methods.get("CraftWorld.getHandle()").invoke(world));
+			//if(wid>-1) {
+			//	worldList.remove(wid);
+			//}
 		} catch (IllegalArgumentException e) {
 		} catch (IllegalAccessException e) {
 		} catch (InvocationTargetException e) {

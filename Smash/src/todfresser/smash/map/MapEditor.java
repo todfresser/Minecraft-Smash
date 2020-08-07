@@ -113,11 +113,11 @@ public class MapEditor implements Listener{
 			}
 			
 			
-			if (i.getDisplayName().equals(ChatColor.WHITE + "LÃ¶schen")){
+			if (i.getDisplayName().equals(ChatColor.WHITE + "Löschen")){
 				Map.getMapfromString(d.name).delete();
 				d.exists = false;
 				MapEditorItems.setInventory(d, EditorInventoryType.SAVEDELETE);
-				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das LÃ¶schen rÃ¼ckgÃ¤ngig zu machen,");
+				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "Um das Löschen rückgängig zu machen,");
 				((Player) e.getWhoClicked()).sendMessage(Smash.pr + "klicke erneut auf Erstellen!");
 				return;
 			}
@@ -136,7 +136,7 @@ public class MapEditor implements Listener{
 					d.time = (int) Bukkit.getWorld(d.worldtoCopy).getTime();
 					d.create();
 					e.getWhoClicked().sendMessage(Smash.pr + "Die Map " + d.name + " wurde erfolgreich erstellt.");
-				}else e.getWhoClicked().sendMessage(Smash.pr + "ERROR: Du hast die Map noch nicht vollstÃ¤ndig erstellt.");
+				}else e.getWhoClicked().sendMessage(Smash.pr + "ERROR: Du hast die Map noch nicht vollständig erstellt.");
 				return;
 			}
 			
@@ -213,7 +213,7 @@ public class MapEditor implements Listener{
 			}
 			if (i.getDisplayName().equals(MapEditorItems.CHANGEICON(d.type).getItemMeta().getDisplayName())){
 				if ((e.getWhoClicked().getInventory().getItemInMainHand() != null) && (!e.getWhoClicked().getInventory().getItemInMainHand().getType().equals(Material.AIR))){
-					d.type = e.getWhoClicked().getInventory().getItemInMainHand().getTypeId();
+					d.type = e.getWhoClicked().getInventory().getItemInMainHand().getType();
 					MapEditorItems.updateIcon(d.Inv, d.type);
 				}
 			}
@@ -239,7 +239,7 @@ public class MapEditor implements Listener{
 				if (e.getLine(0).equals("lives")){
 					s.setLine(0, "");
 					s.setLine(1, ChatColor.BLUE + "Lebensanzahl");
-					s.setLine(2, ChatColor.BLUE + "verÃ¤ndern");
+					s.setLine(2, ChatColor.BLUE + "verändern");
 					s.setLine(3, "");
 					s.update();
 					e.setCancelled(true);

@@ -79,13 +79,20 @@ public class MapEditorItems {
 			inv.setItem(i, EmptySpace_GRAY());
 		}
 	}
-	public static void updateIcon(Inventory inv, int type){
+	public static void updateIcon(Inventory inv, Material type){
 		inv.setItem(9, CHANGEICON(type));
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static ItemStack CHANGEICON(int ItemID){
-		ItemStack i = new ItemStack(ItemID, 1);
+	public static ItemStack CHANGEICON(Material item){
+		Material icon = Material.MAP;
+		for (Material material : Material.values()) {
+			if (material == item) {
+				icon = material;
+				break;
+			}
+		}
+		ItemStack i = new ItemStack(icon, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		meta.setDisplayName(ChatColor.WHITE + "Icon");
@@ -97,7 +104,7 @@ public class MapEditorItems {
 	}
 	
 	public static ItemStack SPECTATORSPAWN(Location loc){
-		ItemStack i = new ItemStack(Material.WATCH, 1);
+		ItemStack i = new ItemStack(Material.CLOCK, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -110,7 +117,7 @@ public class MapEditorItems {
 	}
 	
 	public static ItemStack LEAVEPOINT(Location loc){
-		ItemStack i = new ItemStack(Material.WATCH, 1);
+		ItemStack i = new ItemStack(Material.CLOCK, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -123,7 +130,7 @@ public class MapEditorItems {
 	}
 	
 	public static ItemStack LOBBY(Location loc){
-		ItemStack i = new ItemStack(Material.WATCH, 1);
+		ItemStack i = new ItemStack(Material.CLOCK, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -136,7 +143,7 @@ public class MapEditorItems {
 	}
 	
 	public static ItemStack LEAVESIGN(Location loc){
-		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemStack i = new ItemStack(Material.OAK_SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -153,24 +160,24 @@ public class MapEditorItems {
 		return i;
 	}
 	public static ItemStack LIVESIGN(Location loc){
-		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemStack i = new ItemStack(Material.OAK_SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
 			l.add(ChatColor.GRAY + Integer.toString(loc.getBlockX()) + ", " + Integer.toString(loc.getBlockY()) + ", " + Integer.toString(loc.getBlockZ()));
-			meta.setDisplayName(ChatColor.GREEN + "Schild zum Ã„ndern der Leben");
+			meta.setDisplayName(ChatColor.GREEN + "Schild zum Ändern der Leben");
 			meta.setLore(l);
 		}else{
 			l.add(ChatColor.GRAY + "Schreibe " + ChatColor.GREEN + "lives");
 			l.add(ChatColor.GRAY + "auf ein Schild");
-			meta.setDisplayName(ChatColor.RED + "Schild zum Ã„ndern der Leben");
+			meta.setDisplayName(ChatColor.RED + "Schild zum Ändern der Leben");
 			meta.setLore(l);
 		}
 		i.setItemMeta(meta);
 		return i;
 	}
 	public static ItemStack ITEMSIGN(Location loc){
-		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemStack i = new ItemStack(Material.OAK_SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -187,7 +194,7 @@ public class MapEditorItems {
 		return i;
 	}
 	public static ItemStack ITEMCHANCESIGN(Location loc){
-		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemStack i = new ItemStack(Material.OAK_SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -204,7 +211,7 @@ public class MapEditorItems {
 		return i;
 	}
 	public static ItemStack EVENTSIGN(Location loc){
-		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemStack i = new ItemStack(Material.OAK_SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		List<String> l = new ArrayList<>();
 		if (loc != null ){
@@ -234,21 +241,21 @@ public class MapEditorItems {
 		return i;
 	}
 	public static ItemStack ADDPLAYERSPAWN(ArrayList<Location> collection){
-		ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)2);
+		ItemStack i = new ItemStack(Material.INK_SAC, 1, (byte)2);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Setze den " + (collection.size() + 1) + " Spielerspawn");
 		i.setItemMeta(meta);
 		return i;
 	}
 	public static ItemStack DELETEPLAYERSPAWNS(ArrayList<Location> collection){
-		ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)14);
+		ItemStack i = new ItemStack(Material.INK_SAC, 1, (byte)14);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Entferne alle " + collection.size() + " Spielerpawns");
 		i.setItemMeta(meta);
 		return i;
 	}
 	public static ItemStack SHOWITEMSPAWNS(ArrayList<Location> itemspawns){
-		ItemStack i = new ItemStack(Material.MOB_SPAWNER, 1);
+		ItemStack i = new ItemStack(Material.INK_SAC, 1);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Zeige alle Itemspawnpunkte");
 		List<String> l = new ArrayList<>();
@@ -260,14 +267,14 @@ public class MapEditorItems {
 		return i;
 	}
 	public static ItemStack ADDITEMSPAWN(ArrayList<Location> itemspawns){
-		ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)2);
+		ItemStack i = new ItemStack(Material.INK_SAC, 1, (byte)2);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Setze den " + (itemspawns.size() + 1) + " Itemspawn");
 		i.setItemMeta(meta);
 		return i;
 	}
 	public static ItemStack DELETEITEMSPAWNS(ArrayList<Location> itemspawns){
-		ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)14);
+		ItemStack i = new ItemStack(Material.INK_SAC, 1, (byte)14);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Entferne alle " + itemspawns.size() + " Itemspawns");
 		i.setItemMeta(meta);
@@ -275,7 +282,7 @@ public class MapEditorItems {
 	}
 
     public static ItemStack SHOWTELEPORTERS(ArrayList<Location> teleporters){
-        ItemStack i = new ItemStack(Material.ENDER_PORTAL_FRAME, 1);
+        ItemStack i = new ItemStack(Material.END_PORTAL_FRAME, 1);
         ItemMeta meta = i.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE + "Zeige alle Teleporter");
         List<String> l = new ArrayList<>();
@@ -287,14 +294,14 @@ public class MapEditorItems {
         return i;
     }
     public static ItemStack ADDTELEPORTER(ArrayList<Location> teleporters){
-        ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)2);
+        ItemStack i = new ItemStack(Material.INK_SAC, 1, (byte)2);
         ItemMeta meta = i.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE + "Setze den " + (teleporters.size() + 1) + " Teleporter");
         i.setItemMeta(meta);
         return i;
     }
     public static ItemStack DELETETELEPORTERS(ArrayList<Location> teleporters){
-        ItemStack i = new ItemStack(Material.INK_SACK, 1, (byte)14);
+        ItemStack i = new ItemStack(Material.INK_SAC, 1, (byte)14);
         ItemMeta meta = i.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE + "Entferne alle " + teleporters.size() + " Teleporter");
         i.setItemMeta(meta);
@@ -332,7 +339,7 @@ public class MapEditorItems {
 		return i;
 	}
 	public static ItemStack ITEMSPAWNS(ArrayList<Location> itemspawns){
-		ItemStack i = new ItemStack(Material.MOB_SPAWNER, 1);
+		ItemStack i = new ItemStack(Material.SPAWNER, 1);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Itemspawnpunkte");
 		List<String> l = new ArrayList<>();
@@ -343,7 +350,7 @@ public class MapEditorItems {
 		return i;
 	}
     public static ItemStack TELEPORTER(ArrayList<Location> teleporter){
-        ItemStack i = new ItemStack(Material.ENDER_PORTAL_FRAME, 1);
+        ItemStack i = new ItemStack(Material.END_PORTAL_FRAME, 1);
         ItemMeta meta = i.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE + "Teleporter");
         List<String> l = new ArrayList<>();
@@ -354,7 +361,7 @@ public class MapEditorItems {
         return i;
     }
 	public static ItemStack SIGNS(Location leavesign, Location livesign, Location itemsign, Location itemchancesign, Location eventsign){
-		ItemStack i = new ItemStack(Material.SIGN, 1);
+		ItemStack i = new ItemStack(Material.OAK_SIGN, 1);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Schilder");
 		List<String> l = new ArrayList<>();
@@ -380,7 +387,7 @@ public class MapEditorItems {
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack EmptySpace(){
-		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack item = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(" ");
 		item.setItemMeta(meta);
@@ -388,7 +395,7 @@ public class MapEditorItems {
 	}
 	@SuppressWarnings("deprecation")
 	public static ItemStack EmptySpace_GRAY(){
-		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GRAY.getDyeData());
+		ItemStack item = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1, DyeColor.GRAY.getDyeData());
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(" ");
 		item.setItemMeta(meta);
@@ -397,17 +404,17 @@ public class MapEditorItems {
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack CREATE(boolean exists){
-		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GREEN.getDyeData());
+		ItemStack i = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1, DyeColor.GREEN.getDyeData());
 		ItemMeta meta = i.getItemMeta();
 		if (exists == false) meta.setDisplayName(ChatColor.WHITE + "Erstellen");
-		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "Ãœberschreiben");
+		if (exists == true) meta.setDisplayName(ChatColor.WHITE + "Überschreiben");
 		i.setItemMeta(meta);
 		return i;
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack CANCEL(){
-		ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.ORANGE.getDyeData());
+		ItemStack i = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1, DyeColor.ORANGE.getDyeData());
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.WHITE + "Abbrechen");
 		i.setItemMeta(meta);
@@ -416,9 +423,9 @@ public class MapEditorItems {
 	@SuppressWarnings("deprecation")
 	public static ItemStack DELETE(boolean exists){
 		if (exists){
-			ItemStack i = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.RED.getDyeData());
+			ItemStack i = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1, DyeColor.RED.getDyeData());
 			ItemMeta meta = i.getItemMeta();
-			meta.setDisplayName(ChatColor.WHITE + "LÃ¶schen");
+			meta.setDisplayName(ChatColor.WHITE + "Löschen");
 			i.setItemMeta(meta);
 			return i;
 		}

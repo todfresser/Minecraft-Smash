@@ -30,6 +30,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import todfresser.smash.events.main.EventManager;
+import todfresser.smash.extrafunctions.MaterialUtils;
 import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.map.Game;
@@ -91,8 +92,8 @@ public class SignManager implements Listener{
 	private static ItemStack LIVEITEM(int lives, boolean current){
 		ItemStack i;
 		if (current){
-			i = new ItemStack(Material.INK_SACK, lives, (byte)10);
-		}else i = new ItemStack(Material.INK_SACK, lives, (byte)1);
+			i = new ItemStack(Material.INK_SAC, lives, (byte)10);
+		}else i = new ItemStack(Material.INK_SAC, lives, (byte)1);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.GOLD + Integer.toString(lives) + ChatColor.DARK_RED + " Leben");
 		i.setItemMeta(meta);
@@ -141,7 +142,7 @@ public class SignManager implements Listener{
 				while((line = br.readLine()) != null){
 					String[] s = line.split(",");
 					l = new Location(Bukkit.getWorld(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]), Integer.parseInt(s[3]));
-					if (l.getWorld().getBlockAt(l).getType().equals(Material.SIGN_POST) || l.getWorld().getBlockAt(l).getType().equals(Material.WALL_SIGN)){
+					if (MaterialUtils.equalsSign(l.getWorld().getBlockAt(l).getType())){
 						new SignJ(l).write(ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]",
 								ChatColor.BLUE + "Neues", 
 								ChatColor.BLUE + "Spiel",
@@ -169,7 +170,7 @@ public class SignManager implements Listener{
 			try{
 				BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 				for (SignJ sign : signs){
-					if (sign.getLocation().getBlock().getType().equals(Material.SIGN_POST) || sign.getLocation().getBlock().getType().equals(Material.WALL_SIGN)){
+					if (MaterialUtils.equalsSign(sign.getLocation().getBlock().getType())){
 						bw.write(sign.getLocation().getWorld().getName() + "," + Integer.toString(sign.getLocation().getBlockX()) + "," + Integer.toString(sign.getLocation().getBlockY()) + "," + Integer.toString(sign.getLocation().getBlockZ()));
 						bw.write(newLine);
 					}
@@ -203,7 +204,7 @@ public class SignManager implements Listener{
 						ChatColor.BLUE + "Neues", 
 						ChatColor.BLUE + "Spiel",
 						ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Smash" + ChatColor.GOLD + "]");
-				e.setCancelled(true);
+				e.setCancelled(false);
 				return;
 			}
 		}
@@ -212,7 +213,7 @@ public class SignManager implements Listener{
 	@EventHandler
 	public void onSignclick(PlayerInteractEvent e){
 		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-			if ((e.getClickedBlock().getType().equals(Material.WALL_SIGN)) || (e.getClickedBlock().getType().equals(Material.SIGN_POST))){
+			if (MaterialUtils.equalsSign(e.getClickedBlock().getType())){
 				for (SignJ s : signs){
 					if (s.getLocation().getBlockX() == e.getClickedBlock().getLocation().getBlockX() && s.getLocation().getBlockY() == e.getClickedBlock().getLocation().getBlockY() && s.getLocation().getBlockZ() == e.getClickedBlock().getLocation().getBlockZ()){
 						if (s.getGame() != null){
@@ -274,7 +275,7 @@ public class SignManager implements Listener{
 				if (s.Creator != null && s.Creator.equals(e.getWhoClicked().getUniqueId())){
 					Player p = (Player) e.getWhoClicked();
 					e.setCancelled(true);
-					if (e.getClickedInventory().getTitle().equals(Smash.pr + ChatColor.GOLD + "Maps")){
+					if (e.getView().getTitle().equals(Smash.pr + ChatColor.GOLD + "Maps")){
 						if (e.getCurrentItem() != null){
 							if (e.getCurrentItem().getType().equals(Material.AIR)) return;
 							for (Map m : Map.getloadedMaps()){
@@ -299,7 +300,7 @@ public class SignManager implements Listener{
 						e.setCancelled(true);
 						return;
 					}
-					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Lebensanzahl")){
+					if (e.getView().getTitle().equals(ChatColor.GOLD + "Lebensanzahl")){
 						e.setCancelled(true);
 						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
 							for (int i = 3; i <= 20; i++){
@@ -311,7 +312,7 @@ public class SignManager implements Listener{
 							}
 						}
 					}
-					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Events")){
+					if (e.getView().getTitle().equals(ChatColor.GOLD + "Events")){
 						e.setCancelled(true);
 						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
 							for (int id : EventManager.getAllEventDataIDs()){
@@ -350,7 +351,7 @@ public class SignManager implements Listener{
 						}
 						return;
 					}
-					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Items")){
+					if (e.getView().getTitle().equals(ChatColor.GOLD + "Items")){
 						e.setCancelled(true);
 						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
 							for (int id : g.getAllItemIDs()){
@@ -389,7 +390,7 @@ public class SignManager implements Listener{
 						}
 						return;
 					}
-					if (e.getClickedInventory().getTitle().equals(ChatColor.GOLD + "Item-Seltenheit")){
+					if (e.getView().getTitle().equals(ChatColor.GOLD + "Item-Seltenheit")){
 						e.setCancelled(true);
 						if (e.getCurrentItem() != null && !e.getCurrentItem().getType().equals(Material.AIR)){
 							for (int id : g.getAllItemIDs()){
@@ -498,7 +499,7 @@ public class SignManager implements Listener{
 	
 	@SuppressWarnings("deprecation")
 	public ItemStack MaptoItemStack(Map m){
-		ItemStack item = new ItemStack(m.getTypeID(), 1);
+		ItemStack item = new ItemStack(m.getIcon(), 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.BLUE + ">>" + ChatColor.GOLD + m.getName() + ChatColor.BLUE + "<<");
 		List<String> lore = new ArrayList<>();
