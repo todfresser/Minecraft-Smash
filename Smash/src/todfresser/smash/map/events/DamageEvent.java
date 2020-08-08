@@ -9,9 +9,11 @@ import org.bukkit.entity.SmallFireball;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -19,7 +21,7 @@ import todfresser.smash.extrafunctions.PlayerFunctions;
 import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.GameState;
-import todfresser.smash.mobs.main.SmashEntity;
+import todfresser.smash.mobs.SmashEntity;
 
 public class DamageEvent implements Listener{
 	
@@ -41,7 +43,7 @@ public class DamageEvent implements Listener{
 			}
 		}else{
 			for (Game g : Game.getrunningGames()){
-				if (g.getWorld().getName().equals(e.getEntity().getLocation().getWorld().getName())){
+				if (g.getWorld().getName().equals(e.getEntity().getWorld().getName())){
 					e.setCancelled(true);
 					if (g.getGameState().equals(GameState.Lobby) || g.getGameState().equals(GameState.Starting) || g.getGameState().equals(GameState.Ending)){
 						e.getEntity().remove();
@@ -49,8 +51,8 @@ public class DamageEvent implements Listener{
 					}
 					for (SmashEntity entity : g.getEntitys()){
 						if (e.getEntity().getUniqueId().equals(entity.getUniqueId())){
-							entity.setVelocity(VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.2 * entity.getKnockbackMultiplier()));
-							entity.damage(g, 1);
+							entity.setVelocity(VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.2 * entity.getAttributes().getKnockback()));
+							entity.damage(1);
 							PlayerFunctions.playDamageAnimation(e.getEntity(), g);
 							return;
 						}
@@ -72,12 +74,27 @@ public class DamageEvent implements Listener{
 						arrow.remove();
 						return;
 					}
-					Player damager = (Player) arrow.getShooter();
-					if (p.getName().equals(damager.getName())){
-						arrow.remove();
-						return;
+					ProjectileSource source = arrow.getShooter();
+					if (source instanceof Player) {
+						Player damager = (Player) arrow.getShooter();
+						if (!p.getName().equals(damager.getName())){
+							PlayerFunctions.playOutDamage(g, p, damager, arrow.getVelocity().setY(0.3).multiply(1.3f), 5, false);
+						}
+					} else if (source instanceof LivingEntity) {
+						for (SmashEntity entity : g.getEntitys()) {
+							if (entity.getUniqueId().equals(((LivingEntity) source).getUniqueId())) {
+								Player damager = entity.getCreator();
+								Vector velocity = arrow.getVelocity().setY(0.3).multiply(entity.getAttributes().getVelocityDamage());
+								int damage = entity.getAttributes().getAttackDamage();
+								if (damager != null) {
+									PlayerFunctions.playOutDamage(g, p, damager, velocity, damage, true);
+								} else {
+									PlayerFunctions.playOutDamage(g, p, velocity, damage, true);
+								}
+								break;
+							}
+						}
 					}
-					PlayerFunctions.playOutDamage(g, p, damager, arrow.getVelocity().setY(0.3).multiply(1.3f), 5, false);
 					arrow.remove();
 					return;
 				}
@@ -127,7 +144,15 @@ public class DamageEvent implements Listener{
 					}else if (ball.getShooter() != null && ball.getShooter() instanceof LivingEntity){
 						for (SmashEntity entity : g.getEntitys()){
 							if (((LivingEntity)ball.getShooter()).getUniqueId().equals(entity.getUniqueId())){
-								PlayerFunctions.playOutDamage(g, p, ball.getVelocity().normalize().setY(0.3).multiply(entity.getVelocityDamageMultiplier()), entity.getAttackDamage(), true);
+								Player damager = entity.getCreator();
+								Vector velocity = ball.getVelocity().normalize().setY(0.3).multiply(entity.getAttributes().getVelocityDamage());
+								int damage = entity.getAttributes().getAttackDamage();
+								if (damager != null) {
+									PlayerFunctions.playOutDamage(g, p, damager, velocity, damage, true);
+								} else {
+									PlayerFunctions.playOutDamage(g, p, velocity, damage, true);
+								}
+								break;
 							}
 						}
 						
@@ -178,8 +203,8 @@ public class DamageEvent implements Listener{
 					}
 					for (SmashEntity entity : g.getEntitys()){
 						if (creature.getUniqueId().equals(entity.getUniqueId())){
-							entity.setVelocity(VectorFunctions.getStandardVector(p.getLocation().getYaw(), 0.45).multiply(entity.getKnockbackMultiplier()));
-							entity.damage(g, 1);
+							entity.setVelocity(VectorFunctions.getStandardVector(p.getLocation().getYaw(), 0.45).multiply(entity.getAttributes().getKnockback()));
+							entity.damage(1);
 							PlayerFunctions.playDamageAnimation(creature, g);
 							return;
 						}
@@ -199,17 +224,31 @@ public class DamageEvent implements Listener{
 					}
 					for (SmashEntity entity : g.getEntitys()){
 						if (damager.getUniqueId().equals(entity.getUniqueId())){
-							PlayerFunctions.playOutDamage(g, p, damager.getLocation().getDirection().normalize().setY(0.3).multiply(entity.getVelocityDamageMultiplier()), entity.getAttackDamage(), true);
+							PlayerFunctions.playOutDamage(g, p, damager.getLocation().getDirection().normalize().setY(0.3).multiply(entity.getAttributes().getVelocityDamage()), entity.getAttributes().getAttackDamage(), true);
 							return;
 						}
 					}
+					return;
 				}
 			}
 		}
-		/*for (Game g : Game.getrunningGames()){
-			if (g.getWorld().getName().endsWith(e.getEntity().getLocation().getWorld().getName())){
-				e.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onBurnInSunlight(EntityCombustEvent e) {
+		if (e.getEntity() instanceof LivingEntity) {
+			Entity entity = e.getEntity();
+			for (Game g : Game.getrunningGames()) {
+				if (g.getWorld().getName().equals(entity.getWorld().getName())) {
+					for (SmashEntity smashEntity : g.getEntitys()) {
+						if (entity.getUniqueId().equals(smashEntity.getUniqueId())) {
+							e.setCancelled(true);
+							return;
+						}
+					}
+					return;
+				}
 			}
-		}*/
+		}
 	}
 }

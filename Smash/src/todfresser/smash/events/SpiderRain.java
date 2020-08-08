@@ -3,14 +3,19 @@ package todfresser.smash.events;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.CaveSpider;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import todfresser.smash.events.main.SmashEvent;
 import todfresser.smash.map.Game;
-import todfresser.smash.mobs.main.SmashEntity;
-import todfresser.smash.mobs.main.SmashEntityType;
+import todfresser.smash.mobs.SmashEntity;
+import todfresser.smash.mobs.SmashEntityAttributes;
 
 public class SpiderRain extends SmashEvent{
+
+	private static final SmashEntityAttributes SPIDER_ATTRIBUTES = new SmashEntityAttributes(
+			CaveSpider.class, 1, 3, 0.3, 0.5, 0.6, 35
+	);
 
 	@Override
 	public String getDisplayName() {
@@ -63,7 +68,7 @@ public class SpiderRain extends SmashEvent{
 				Location l = new Location(g.getWorld(), minX2 + Math.random() *(maxX2 - minX2), 240, minZ2 + Math.random() *(maxZ2 - minZ2));
 				while (l.getY() > 1){
 					if (!l.getBlock().getType().equals(Material.AIR)){
-						new SmashEntity(g, l.add(0, 1, 0), SmashEntityType.SPIDER, 1);
+						SmashEntity.spawn(g, l.add(0, 1, 0), SPIDER_ATTRIBUTES);
 						break;
 					}
 					l.subtract(0, 1, 0);

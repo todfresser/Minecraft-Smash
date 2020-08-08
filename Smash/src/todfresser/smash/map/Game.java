@@ -22,7 +22,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -36,7 +35,7 @@ import todfresser.smash.items.main.ItemManager;
 import todfresser.smash.main.Smash;
 import todfresser.smash.main.Statistics;
 import todfresser.smash.map.events.FlyToggleEvent;
-import todfresser.smash.mobs.main.SmashEntity;
+import todfresser.smash.mobs.SmashEntity;
 import todfresser.smash.signs.SignManager;
 
 public class Game implements Runnable{
@@ -113,7 +112,7 @@ public class Game implements Runnable{
     public void removeAllEntitys(){
     	for (SmashEntity e : entitys){
     		if (!e.isDead() && !e.isEmpty()){
-    			e.remove(this, false);
+    			e.kill(false);
     		}
     	}
     	entitys.clear();
@@ -406,13 +405,13 @@ public class Game implements Runnable{
 		}
 		Block b = w.getBlockAt(l.getBlockX(), l.getBlockY() - 1, l.getBlockZ());
 		if (b.getType().equals(Material.AIR)){
-			b.setType(Material.LEGACY_STAINED_GLASS);
+			b.setType(Material.WHITE_STAINED_GLASS);
 			new BukkitRunnable() {
 				
 				@Override
 				public void run() {
 					if (gs.equals(GameState.Ending)) return;
-					if (b == null || b.getType() != Material.LEGACY_STAINED_GLASS) return;
+					if (b == null || b.getType() != Material.WHITE_STAINED_GLASS) return;
 					b.setType(Material.AIR);
 				}
 			}.runTaskLater(Smash.getInstance(), 60);

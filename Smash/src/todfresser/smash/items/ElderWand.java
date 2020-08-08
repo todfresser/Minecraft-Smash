@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Vex;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import todfresser.smash.extrafunctions.PlayerFunctions;
@@ -13,11 +14,16 @@ import todfresser.smash.extrafunctions.VectorFunctions;
 import todfresser.smash.items.main.SmashItem;
 import todfresser.smash.map.Game;
 import todfresser.smash.map.SmashPlayerData;
-import todfresser.smash.mobs.main.SmashEntity;
-import todfresser.smash.mobs.main.SmashEntityType;
+import todfresser.smash.mobs.SmashEntity;
+import todfresser.smash.mobs.SmashEntityAttributes;
 import todfresser.smash.particles.ParticleEffect;
 
 public class ElderWand extends SmashItem{
+
+    private final static SmashEntityAttributes VEX_ATTRIBUTES = new SmashEntityAttributes(
+            Vex.class, 1, 2, 0.15, 0.3, 0.45, 50
+    );
+
     private final String displayName = ChatColor.DARK_PURPLE + "Elder Wand";
     private final int damage = 3;
 
@@ -81,8 +87,8 @@ public class ElderWand extends SmashItem{
                                         if (target.isOnline()){
                                             ParticleEffect.DRAGON_BREATH.display(t / 8f + 0.3f, 2f, t / 8f + 0.3f, 0.2f, t / 2 + 10, target.getLocation(), 40);
                                             if (t == 5 || t == 7 || t == 9){
-                                                SmashEntity e = new SmashEntity(game, target.getLocation().add(Math.random() * 3 - 1.5, 1 + Math.random(), Math.random() * 3 - 1.5), SmashEntityType.VEX, 1);
-                                                e.setTarget(target);
+                                                SmashEntity entity = SmashEntity.spawn(game, player, target.getLocation().add(Math.random() * 3 - 1.5, 1 + Math.random(), Math.random() * 3 - 1.5), VEX_ATTRIBUTES);
+                                                entity.setTarget(target);
                                             }
                                             t++;
                                             if (t < 10) return;

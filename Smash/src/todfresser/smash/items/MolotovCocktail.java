@@ -25,7 +25,7 @@ public class MolotovCocktail extends SmashItem{
 	@Override
 	public int getSpawnChance() {
 
-		return 15;
+		return 20;
 	}
 
 	@Override

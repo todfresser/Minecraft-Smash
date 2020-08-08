@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -51,6 +52,7 @@ public class SmashCommands implements CommandExecutor, TabCompleter {
 			} else if (admin && args[0].equals("admin")) {
 				if (args.length == 2) {
 					tryTabComplete(suggestions, args[1], "edit");
+					tryTabComplete(suggestions, args[1], "goto");
 					tryTabComplete(suggestions, args[1], "maps");
 					tryTabComplete(suggestions, args[1], "games");
 					for (Game g : Game.getrunningGames()) {
@@ -61,10 +63,15 @@ public class SmashCommands implements CommandExecutor, TabCompleter {
 						}
 					}
 				} else if (args.length == 3) {
-					if (args[1].equals("edit")) {
+					if (args[1].equals("edit") || args[1].equals("goto")) {
 						for (String name : Map.getallMapnames()) {
 							tryTabComplete(suggestions, args[2], name);
 						}
+					}
+				} else if (args.length == 4) {
+					if (args[1].equals("goto")) {
+						suggestions.add("lobby");
+						suggestions.add("leave");
 					}
 				}
 			}
@@ -94,6 +101,7 @@ public class SmashCommands implements CommandExecutor, TabCompleter {
 				p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
 				p.sendMessage(Smash.pr + SM.Command_Help_Admin_6);
 				p.sendMessage(Smash.pr + SM.Command_Help_Admin_7);
+				p.sendMessage(Smash.pr + SM.Command_Help_Admin_8);
 			}
 			return true;
 		}
@@ -106,6 +114,7 @@ public class SmashCommands implements CommandExecutor, TabCompleter {
 				p.sendMessage(Smash.pr + SM.Command_Help_Admin_5);
 				p.sendMessage(Smash.pr + SM.Command_Help_Admin_6);
 				p.sendMessage(Smash.pr + SM.Command_Help_Admin_7);
+				p.sendMessage(Smash.pr + SM.Command_Help_Admin_8);
 				return true;
 			}
 		}
@@ -165,14 +174,37 @@ public class SmashCommands implements CommandExecutor, TabCompleter {
 		if (args[0].equalsIgnoreCase("admin") && p.hasPermission("SMASH.admin")){
 			if(args.length > 1) {
 				if (args[1].equalsIgnoreCase("edit")){
-					if (p.hasPermission("SMASH.admin") == false){
-						p.sendMessage(Smash.pr + SM.Command_Error_NotEnoughRights);
-						return true;
-					}
 					if (args.length == 3){
 						MapEditor.open(p, args[2]);
 					}else{
-						p.sendMessage(Smash.pr + "Usage: /smash edit <mapname>");
+						p.sendMessage(Smash.pr + "Usage: /smash admin edit <mapname>");
+					}
+					return true;
+				}
+				if (args[1].equalsIgnoreCase("goto")){
+					if (args.length >= 3){
+						for (Map m : Map.getloadedMaps()) {
+							if (m.getName().equals(args[2])) {
+								World world = m.loadWorld();
+								if (args.length == 4) {
+									if (args[3].equalsIgnoreCase("lobby")) {
+										p.teleport(m.getLobbySpawnPoint(world));
+										p.setFlying(true);
+										return true;
+									} else if (args[3].equalsIgnoreCase("leave")) {
+										p.teleport(m.getLeavePoint());
+										p.setFlying(true);
+										return true;
+									}
+								}
+								p.teleport(m.getSpectatorSpawnPoint(world));
+								p.setFlying(true);
+								return true;
+							}
+						}
+						p.sendMessage(Smash.pr + "The Map " + args[2] + " doesn't exist.");
+					}else{
+						p.sendMessage(Smash.pr + "Usage: /smash admin goto <mapname> <loppy|leave>");
 					}
 					return true;
 				}
