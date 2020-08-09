@@ -9,7 +9,6 @@ import todfresser.smash.map.Game;
 public interface SmashEventData {
 	abstract String getDisplayName();
 	abstract Material getType();
-	abstract byte getSubID();
 	abstract boolean isEnchanted();
 	abstract List<String> getLore();
 	abstract int getChance();

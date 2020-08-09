@@ -32,7 +32,7 @@ public class ItemManager {
 		return itemdata.keySet();
 	}
 	public static ItemStack getStandardItem(int itemdataID){
-		ItemStack i = new ItemStack(itemdata.get(itemdataID).getType(), 1, itemdata.get(itemdataID).getSubID());
+		ItemStack i = new ItemStack(itemdata.get(itemdataID).getType(), 1);
 		ItemMeta m = i.getItemMeta();
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(itemdata.get(itemdataID).getDisplayName());
@@ -44,7 +44,7 @@ public class ItemManager {
 	public static List<ItemStack> getStandardDeactivationItems(Collection<Integer> allowedItems, Collection<Integer> allItems){
 		List<ItemStack> items = new ArrayList<>();
 		for (int id : allItems){
-			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1, itemdata.get(id).getSubID());
+			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1);
 			ItemMeta m = i.getItemMeta();
 			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 			m.setDisplayName(itemdata.get(id).getDisplayName());
@@ -61,7 +61,7 @@ public class ItemManager {
 		return items;
 	}
 	public static ItemStack getStandardDeactivationItem(SmashItemData d, boolean allowed){
-		ItemStack i = new ItemStack(d.getType(), 1, d.getSubID());
+		ItemStack i = new ItemStack(d.getType());
 		ItemMeta m = i.getItemMeta();
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(d.getDisplayName());
@@ -79,7 +79,7 @@ public class ItemManager {
 	public static List<ItemStack> getStandardChanceItems(Game g){
 		List<ItemStack> items = new ArrayList<>();
 		for (int id : g.getAllItemIDs()){
-			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1, itemdata.get(id).getSubID());
+			ItemStack i = new ItemStack(itemdata.get(id).getType(), 1);
 			ItemMeta m = i.getItemMeta();
 			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 			m.setDisplayName(itemdata.get(id).getDisplayName());
@@ -93,7 +93,7 @@ public class ItemManager {
 		return items;
 	}
 	public static ItemStack getStandardChanceItem(SmashItemData d, int chance){
-		ItemStack i = new ItemStack(d.getType(), 1, d.getSubID());
+		ItemStack i = new ItemStack(d.getType(), 1);
 		ItemMeta m = i.getItemMeta();
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(d.getDisplayName());

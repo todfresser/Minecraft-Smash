@@ -31,7 +31,7 @@ public class EventManager {
 	public static List<ItemStack> getStandardDeactivationItems(Collection<Integer> allowedEvents){
 		List<ItemStack> items = new ArrayList<>();
 		for (int id : getAllEventDataIDs()){
-			ItemStack i = new ItemStack(eventdata.get(id).getType(), 1, eventdata.get(id).getSubID());
+			ItemStack i = new ItemStack(eventdata.get(id).getType(), 1);
 			ItemMeta m = i.getItemMeta();
 			m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 			m.setDisplayName(eventdata.get(id).getDisplayName());
@@ -47,7 +47,7 @@ public class EventManager {
 		return items;
 	}
 	public static ItemStack getStandardDeactivationItem(SmashEventData d, boolean allowed){
-		ItemStack i = new ItemStack(d.getType(), 1, d.getSubID());
+		ItemStack i = new ItemStack(d.getType(), 1);
 		ItemMeta m = i.getItemMeta();
 		m.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
 		m.setDisplayName(d.getDisplayName());

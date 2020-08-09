@@ -11,7 +11,7 @@ public interface SmashItemData {
 	
 	String getDisplayName(); //Name of the Item
 	Material getType();    //normal ID (237)
-	byte getSubID();		//more specified ID (237:2)
+	//byte getSubID();		//more specified ID (237:2)
 	boolean isEnchanted();
 	List<String> getLore();  //Text behind the Item�s name
 	int getmaxItemUses();

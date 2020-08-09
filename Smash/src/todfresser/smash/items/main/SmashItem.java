@@ -9,10 +9,10 @@ import todfresser.smash.map.SmashPlayerData;
 
 public abstract class SmashItem implements SmashItemData {
 	
-	@Override
+	/*@Override
 	public byte getSubID() {
 		return 0;
-	}
+	}*/
 
 	@Override
 	public List<String> getLore() {

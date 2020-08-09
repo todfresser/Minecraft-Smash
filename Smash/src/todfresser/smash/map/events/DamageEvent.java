@@ -51,7 +51,7 @@ public class DamageEvent implements Listener{
 					}
 					for (SmashEntity entity : g.getEntitys()){
 						if (e.getEntity().getUniqueId().equals(entity.getUniqueId())){
-							entity.setVelocity(VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.2 * entity.getAttributes().getKnockback()));
+							entity.setVelocity(VectorFunctions.getStandardVector(Math.random()*180-90, 0.5).multiply(0.4 * entity.getAttributes().getKnockback()));
 							entity.damage(1);
 							PlayerFunctions.playDamageAnimation(e.getEntity(), g);
 							return;

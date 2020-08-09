@@ -43,7 +43,7 @@ public class SmokeGrenade extends SmashItem{
 	
 	@Override
 	public boolean onRightClickEvent(SmashPlayerData playerdata, Player player, Game game) {
-		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.WITHER_SKELETON_SKULL, 1, (byte)1));
+		Item grenade = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.WITHER_SKELETON_SKULL, 1));
 		
 		grenade.setVelocity(player.getLocation().getDirection().multiply(1.5D));
 		
@@ -75,11 +75,5 @@ public class SmokeGrenade extends SmashItem{
 		playerdata.canUseItem = true;
 		return true;
 		
-	}
-	
-	@Override
-	public byte getSubID() {
-		// TODO Auto-generated method stub
-		return 1;
 	}
 }

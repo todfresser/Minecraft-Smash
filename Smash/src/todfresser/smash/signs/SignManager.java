@@ -92,8 +92,8 @@ public class SignManager implements Listener{
 	private static ItemStack LIVEITEM(int lives, boolean current){
 		ItemStack i;
 		if (current){
-			i = new ItemStack(Material.INK_SAC, lives, (byte)10);
-		}else i = new ItemStack(Material.INK_SAC, lives, (byte)1);
+			i = new ItemStack(Material.GREEN_DYE, lives);
+		}else i = new ItemStack(Material.RED_DYE, lives);
 		ItemMeta meta = i.getItemMeta();
 		meta.setDisplayName(ChatColor.GOLD + Integer.toString(lives) + ChatColor.DARK_RED + " Leben");
 		i.setItemMeta(meta);

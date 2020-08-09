@@ -7,11 +7,6 @@ import todfresser.smash.map.Game;
 public abstract class SmashEvent implements SmashEventData{
 	
 	@Override
-	public byte getSubID() {
-		return 0;
-	}
-	
-	@Override
 	public boolean isEnchanted() {
 		return false;
 	}
